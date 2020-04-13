@@ -14,7 +14,7 @@ description: "This tutorial covers workshop material"
 
 Workshop material will be added here as we go along. For each day of the workshop, the basic material will be uploaded and more details will be added based on your questions and problems we encounter. So please ask as many questions are you can to help us in making this workshop better!!
 
-You can download these notes as a pdf using the link [here](book/IntroRWorkshop.pdf).
+<!-- You can download these notes as a pdf using the link [here](book/IntroRWorkshop.pdf). -->
 
 ## Workshop Schedule
 
