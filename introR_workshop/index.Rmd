@@ -32,22 +32,22 @@ Time | Topic
 12:00  | Lunch break
 13:00  | 4. Starting with Data
 14:30  | Break
-14:45  | 6. Manipulating data in the Tidyverse
+14:45  | 5. Manipulating data in the Tidyverse
 16:00  | Finish
 
 ### Day 2 {-}
 
 Time | Topic                                         
 :-------| :----------------------------------
-09:00  | 6. Tidyverse - cont
-09:30  | 7. Data visualization with ggplot2
+09:00  | 5. Tidyverse - cont
+09:30  | 6. Data visualization with ggplot2
 10:30  | Break
-10:45  | 8. Project - task 1
-11:00  | 9. Project - task 2
+10:45  | 7. Project - task 1
+11:00  | 8. Project - task 2
 12:00  | Lunch break
-13:00  | 8. Project - task 3
+13:00  | 9. Project - task 3
 14:30  | Break
-14:45  | 8. Project - task 4
+14:45  | 10. Project - task 4
 15:30  | Review project and open discussion
 15:55  | Survey!
 16:00  | Finish
@@ -62,4 +62,4 @@ Time | Topic
 <!-- - Day One dataset : [link](MiSeqSOPData.zip) -->
 <!-- - Project dataset : [link](https://www.dropbox.com/sh/qra6ohbsyt1icaz/AAACvlNjUhfkbkGIp_1KA2uCa?dl=0) -->
 
-- Survey: [link](https://forms.gle/nQvZon6DBM6c38Np9)
+<!-- - Survey: [link](https://forms.gle/nQvZon6DBM6c38Np9) -->
