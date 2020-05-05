@@ -17,7 +17,7 @@ The tidyverse is an opinionated collection of R packages designed for data scien
 * `tidyr` for *tidy*-ing your data
 * `readr` for reading data into R
 
-When we installed the `tidyverse` package, we installed all of the above packages. This means that all of the specialized functions of these packages are available to use. 
+When we installed the `tidyverse` package, we installed all of the above packages. This means that all of the specialized functions of these packages are available to use.
 
 <br>
 
@@ -46,7 +46,7 @@ Tibbles can be read into R using the `read_csv()` function. Note that the `read_
 
 <div class = "box">
 #### EXERCISE {-}
-Use the `read_csv()` function to read in the `Ecoli_metadata.csv` file. Assign the data to an object called `metadata2` to avoid writing over the object `metadata`. 
+Use the `read_csv()` function to read in the `Ecoli_metadata.csv` file. Assign the data to an object called `metadata2` to avoid writing over the object `metadata`.
 
 How is it different that the `metadata`object?
 </div>
@@ -64,6 +64,15 @@ metadata_tib
 metadata_df <- as.data.frame(metadata_tib)
 head(metadata_df)
 ```
+
+<br>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+#### Brain Teaser {-}
+Can a tibble contain different data types in each column?
+</div>
+
+<br>
 
 As you will see in the following sections, many of the useful data frame functions are the same for tibbles.
 
@@ -108,15 +117,27 @@ For more information on tibbles see the [tibbles vignette](https://cran.r-projec
 
 ## Tidy data
 
-Tidy data is data that's easy to work with: it's easy to manage (with dplyr), visualize (with ggplot2) and model (with R's hundreds of modeling packages). Most importantly, tidy data is data where **each column is a variable** and **each row is an observation**. 
+Tidy data is data that's easy to work with: it's easy to manage (with dplyr), visualize (with ggplot2) and model (with R's hundreds of modeling packages). Most importantly, tidy data is data where **each column is a variable** and **each row is an observation**.
 
 Arranging your data in this way makes it easier to work with because you have a consistent way of referring to variables (as column names) and observations (as row indices). When use tidy data and tidy tools, you spend less time worrying about how to feed the output from one function into the input of another, and more time answering your questions about the data.
 
-To tidy messy data, you first identify the variables in your dataset, then use the tools provided by `tidyr` to move them into columns. `tidyr` provides three main functions for tidying your messy data: 
+
+
+To tidy messy data, you first identify the variables in your dataset, then use the tools provided by `tidyr` to move them into columns. `tidyr` provides three main functions for tidying your messy data:
 
 * `gather()`
 * `separate()`
 * `spread()`
+
+
+<br>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+#### Brain Teaser {-}
+what is the difference between long and wide data?
+</div>
+<br>
+
 
 ### `gather()` {-}
 
@@ -138,7 +159,24 @@ We have three variables (name, drug and heartrate), but only name is currently i
 messy %>%
   gather(drug, heartrate, a:b)
 ```
+
 Now each column is a variable and each row is an observation - tidy! Note: more about the "pipe" operator later.
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+#### Brain Teaser {-}
+
+In this example, what is the key and what is the value?
+<br>
+  gather(messy,drug, heartrate, a:b)
+
+What does a:b mean?
+
+</div>
+
+
+
+
+
 
 ### `separate()` {-}
 
@@ -175,6 +213,22 @@ tidy <- tidier %>%
 tidy
 ```
 
+You can also use integer position to split at.
+
+<br>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+#### Brain Teaser {-}
+
+ Why do we have “\\” before “.” in sep=”\\.”
+
+</div>
+
+
+
+
+
 ### `spread()` {-}
 
 ![](./figures/tidyr-spread.png)
@@ -199,6 +253,17 @@ We’re going to learn some of the most common `dplyr` functions: `select()`, `f
 ```{r}
 select(metadata, sample, clade, cit, genome_size)
 ```
+
+<br>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+#### Brain Teaser {-}
+
+Would the two calls to the select function below return the same tibble or not?
+select(metadata, sample, clade, cit, genome_size)
+select(metadata, -generation,-strain,-run)
+</div>
+<br>
 
 To choose rows, use filter():
 
@@ -231,7 +296,7 @@ metadata %>%
   select(sample, generation, clade, cit)
 ```
 
-In the above we use the pipe to send the data set first through `filter`, to keep rows where cit was equal to ‘plus’, and then through `select` to keep the sample and generation and clade columns. When the data frame is being passed to the `filter()` and `select()` functions through a pipe, we don’t need to include it as an argument to these functions anymore. 
+In the above we use the pipe to send the data set first through `filter`, to keep rows where cit was equal to ‘plus’, and then through `select` to keep the sample and generation and clade columns. When the data frame is being passed to the `filter()` and `select()` functions through a pipe, we don’t need to include it as an argument to these functions anymore.
 
 <div class = "box">
 #### EXERCISE {-}
@@ -260,8 +325,8 @@ We can think of the `filter()` and `select()` functions as verbs in the sentence
 <div class = "box">
 #### EXERCISE {-}
 
-Using pipes, subset `metadata` to include rows where the clade is ‘Cit+’ and keep only the columns `sample`, `cit`, and `genome_size`.  
-How many rows are in that tibble?  
+Using pipes, subset `metadata` to include rows where the clade is ‘Cit+’ and keep only the columns `sample`, `cit`, and `genome_size`.
+How many rows are in that tibble?
 
 <!-- ### Solution -->
 <!-- ```{r} -->
@@ -292,6 +357,18 @@ Use the `mutate()` function to mutate generation into a fraction from 0 to 1.
 <!--   mutate(generation = generation/max(generation)) -->
 <!-- ``` -->
 </div>
+
+<br>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+#### Brain Teaser {-}
+
+What if I don’t want to create a new column but change the old column. Can I do that with mutate?
+
+Yes
+No
+</div>
+<br>
 
 ## Split-apply-combine data analysis and the summarize() function
 
@@ -330,7 +407,7 @@ Looks like for one of these clones, the clade is missing. We could then discard 
 ```{r}
 metadata %>%
   group_by(cit, clade) %>%
-  summarize(mean_size = mean(genome_size, na.rm = TRUE)) %>% 
+  summarize(mean_size = mean(genome_size, na.rm = TRUE)) %>%
   filter(!is.na(clade))
 ```
 
@@ -365,4 +442,3 @@ There are several functions for ranking observations, which handle tied values d
 * [Data Wrangling tutorial](https://suzan.rbind.io/categories/tutorial/) - an excellent four part tutorial covering selecting data, filtering data, summarising and transforming your data.
 * [R for Data Science](http://r4ds.had.co.nz/)
 * [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) - 55 minute webinar from RStudio
-
