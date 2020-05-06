@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 Data Visualization with ggplot2 | Introduction to R for Biologists</title>
   <meta name="description" content="This tutorial covers workshop material" />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 Data Visualization with ggplot2 | Introduction to R for Biologists" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Alana Schick" />
 
 
-<meta name="date" content="2020-05-01" />
+<meta name="date" content="2020-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,9 +53,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +64,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -180,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>5</b> R Basics</a><ul>
 <li class="chapter" data-level="5.1" data-path="r-basics.html"><a href="r-basics.html#creating-objects-in-r"><i class="fa fa-check"></i><b>5.1</b> Creating objects in R</a></li>
-<li class="chapter" data-level="5.2" data-path="r-basics.html"><a href="r-basics.html#objects-vs.variables"><i class="fa fa-check"></i><b>5.2</b> Objects vs. variables</a></li>
+<li class="chapter" data-level="5.2" data-path="r-basics.html"><a href="r-basics.html#objects-vs.-variables"><i class="fa fa-check"></i><b>5.2</b> Objects vs. variables</a></li>
 <li class="chapter" data-level="5.3" data-path="r-basics.html"><a href="r-basics.html#comments"><i class="fa fa-check"></i><b>5.3</b> Comments</a></li>
 <li class="chapter" data-level="5.4" data-path="r-basics.html"><a href="r-basics.html#functions-and-their-arguments"><i class="fa fa-check"></i><b>5.4</b> Functions and their arguments</a></li>
 <li class="chapter" data-level="5.5" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>5.5</b> Vectors</a></li>
@@ -287,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- variants <- read.csv("data/combined_tidy_vcf.csv") -->
 <!-- ``` -->
 <p>You can further investigate the structure of the data frame using the <code>str()</code> function:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">str</span>(variants)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-visualization-with-ggplot2.html#cb1-1"></a><span class="kw">str</span>(variants)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    801 obs. of  29 variables:
 ##  $ sample_id    : Factor w/ 3 levels &quot;SRR2584863&quot;,&quot;SRR2584866&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ CHROM        : Factor w/ 1 level &quot;CP000819.1&quot;: 1 1 1 1 1 1 1 1 1 1 ...
@@ -388,20 +390,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="plotting-with-ggplot2" class="section level2">
 <h2><span class="header-section-number">8.2</span> Plotting with ggplot2</h2>
 <p>We start by loading the <code>ggplot2</code> package:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-visualization-with-ggplot2.html#cb3-1"></a><span class="kw">library</span>(ggplot2)</span></code></pre></div>
 <p><code>ggplot2</code> is a plotting package that makes it simple to create complex plots from data in a data frame. It provides a more programmatic interface for specifying what variables to plot, how they are displayed, and general visual properties. Therefore, we only need minimal changes if the underlying data change or if we decide to change from a bar plot to a scatter plot. This helps in creating publication quality plots with minimal amounts of adjustments and tweaking.</p>
 <p><code>ggplot2</code> functions like data in the ‘long’ format, i.e., a column for every dimension, and a row for every observation. Well-structured data will save you lots of time when making figures with <code>ggplot2</code>.</p>
 <p>Graphics are built step by step by adding new elements. Adding layers in this fashion allows for extensive flexibility and customization of plots.</p>
 <p>To build a ggplot, we will use the following basic template that can be used for different types of plots:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="op">&lt;</span>MAPPINGS<span class="op">&gt;</span>)) <span class="op">+</span><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data-visualization-with-ggplot2.html#cb4-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="op">&lt;</span>MAPPINGS<span class="op">&gt;</span>)) <span class="op">+</span><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>()</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Specify which data set to use for the plot using the <code>data</code> argument:</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-visualization-with-ggplot2.html#cb5-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Define a “mapping” (using the aesthetic (<code>aes</code>) function), by selecting the variables to be plotted and specifying how to present them in the graph, e.g. as x/y positions or characteristics such as size, shape, color, etc:</li>
 </ol>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-visualization-with-ggplot2.html#cb6-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP))</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Add “geoms” – graphical representations of the data in the plot (points, lines, bars). <code>ggplot2</code> offers many different geoms; we will use some common ones today, including:</li>
 </ol>
@@ -413,36 +415,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>geom_line()</code> for trend lines, time series, etc.</li>
 </ul>
 <p>To add a geom to the plot use the <code>+</code> operator. Because we have two continuous variables, let’s use <code>geom_point()</code> first:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-visualization-with-ggplot2.html#cb7-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP)) <span class="op">+</span></span>
+<span id="cb7-2"><a href="data-visualization-with-ggplot2.html#cb7-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>The <code>+</code> in the <code>ggplot2</code> package is particularly useful because it allows you to modify existing <code>ggplot</code> objects. This means you can easily set up plot templates and conveniently explore different types of plots, so the above plot can also be generated with code like this:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># Assign plot to a variable</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">coverage_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP))</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co"># Draw the plot</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">coverage_plot <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-visualization-with-ggplot2.html#cb8-1"></a><span class="co"># Assign plot to a variable</span></span>
+<span id="cb8-2"><a href="data-visualization-with-ggplot2.html#cb8-2"></a>coverage_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP))</span>
+<span id="cb8-3"><a href="data-visualization-with-ggplot2.html#cb8-3"></a></span>
+<span id="cb8-4"><a href="data-visualization-with-ggplot2.html#cb8-4"></a><span class="co"># Draw the plot</span></span>
+<span id="cb8-5"><a href="data-visualization-with-ggplot2.html#cb8-5"></a>coverage_plot <span class="op">+</span></span>
+<span id="cb8-6"><a href="data-visualization-with-ggplot2.html#cb8-6"></a><span class="st">    </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p>Notes:</p>
 <ul>
 <li>Anything you put in the <code>ggplot()</code> function can be seen by any geom layers that you add (i.e., these are universal plot settings). This includes the x- and y-axis mapping you set up in <code>aes()</code>.</li>
 <li>You can also specify mappings for a given geom independently of the mappings defined globally in the <code>ggplot()</code> function.</li>
 <li>The <code>+</code> sign used to add new layers must be placed at the end of the line containing the previous layer. If, instead, the <code>+</code> sign is added at the beginning of the line containing the new layer, <code>ggplot2</code> will not add the new layer and will return an error message.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># This is the correct syntax for adding layers</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">coverage_plot <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># This will not add the new layer and will return an error message</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">coverage_plot</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">  <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data-visualization-with-ggplot2.html#cb9-1"></a><span class="co"># This is the correct syntax for adding layers</span></span>
+<span id="cb9-2"><a href="data-visualization-with-ggplot2.html#cb9-2"></a>coverage_plot <span class="op">+</span></span>
+<span id="cb9-3"><a href="data-visualization-with-ggplot2.html#cb9-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
+<span id="cb9-4"><a href="data-visualization-with-ggplot2.html#cb9-4"></a></span>
+<span id="cb9-5"><a href="data-visualization-with-ggplot2.html#cb9-5"></a><span class="co"># This will not add the new layer and will return an error message</span></span>
+<span id="cb9-6"><a href="data-visualization-with-ggplot2.html#cb9-6"></a>coverage_plot</span>
+<span id="cb9-7"><a href="data-visualization-with-ggplot2.html#cb9-7"></a>  <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<br>
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<h4 id="brain-teaser-6" class="unnumbered">Brain Teaser</h4>
+<p>Can you add multiple geom_ layers to the same plot?
+A Yes
+B No</p>
+</div>
+<p><br></p>
 <div id="principles-of-effective-display" class="section level3 unnumbered">
 <h3>Principles of effective display</h3>
 <p>SOURCE: (Whitlock &amp; Schluter, The Analysis of Biological Data)[<a href="http://whitlockschluter.zoology.ubc.ca/" class="uri">http://whitlockschluter.zoology.ubc.ca/</a>]</p>
-<p>We will follow these metrics to create and evaluate figures:<br />
-1. Show the data<br />
-2. Make patterns in the data easy to see<br />
-3. Represent magnitudes honestly<br />
+<p>We will follow these metrics to create and evaluate figures:
+1. Show the data
+2. Make patterns in the data easy to see
+3. Represent magnitudes honestly
 4. Draw graphical elements clearly, minimizing clutter</p>
 <div class="box">
 <h4 id="exercise-21" class="unnumbered">EXERCISE</h4>
@@ -457,30 +467,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="building-plots-iteratively" class="section level3 unnumbered">
 <h3>Building plots iteratively</h3>
 <p>Building plots with <code>ggplot2</code> is typically an iterative process. We start by defining the dataset we’ll use, lay out the axes, and choose a geom:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-visualization-with-ggplot2.html#cb10-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP)) <span class="op">+</span></span>
+<span id="cb10-2"><a href="data-visualization-with-ggplot2.html#cb10-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Then, we start modifying this plot to extract more information from it. For instance, we can add transparency (<code>alpha</code>) to avoid overplotting:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="data-visualization-with-ggplot2.html#cb11-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP)) <span class="op">+</span></span>
+<span id="cb11-2"><a href="data-visualization-with-ggplot2.html#cb11-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>We can also add colors for all the points:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data-visualization-with-ggplot2.html#cb12-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP)) <span class="op">+</span></span>
+<span id="cb12-2"><a href="data-visualization-with-ggplot2.html#cb12-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Or to color each species in the plot differently, you could use a vector as an input to the argument color. <code>ggplot2</code> will provide a different color corresponding to different values in the vector. Here is an example where we color with <code>sample_id</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP, <span class="dt">color =</span> sample_id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="data-visualization-with-ggplot2.html#cb13-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP, <span class="dt">color =</span> sample_id)) <span class="op">+</span></span>
+<span id="cb13-2"><a href="data-visualization-with-ggplot2.html#cb13-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Notice that we can change the geom layer and colors will be still determined by <code>sample_id</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP, <span class="dt">color =</span> sample_id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="data-visualization-with-ggplot2.html#cb14-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP, <span class="dt">color =</span> sample_id)) <span class="op">+</span></span>
+<span id="cb14-2"><a href="data-visualization-with-ggplot2.html#cb14-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>To make our plot more readable, we can add axis labels:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP, <span class="dt">color =</span> sample_id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Base Pair Position&quot;</span>, </a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">       <span class="dt">y =</span> <span class="st">&quot;Read Depth (DP)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data-visualization-with-ggplot2.html#cb15-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> DP, <span class="dt">color =</span> sample_id)) <span class="op">+</span></span>
+<span id="cb15-2"><a href="data-visualization-with-ggplot2.html#cb15-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb15-3"><a href="data-visualization-with-ggplot2.html#cb15-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Base Pair Position&quot;</span>,</span>
+<span id="cb15-4"><a href="data-visualization-with-ggplot2.html#cb15-4"></a>       <span class="dt">y =</span> <span class="st">&quot;Read Depth (DP)&quot;</span>)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <div class="box">
 <h4 id="exercise-22" class="unnumbered">EXERCISE</h4>
@@ -498,27 +508,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="faceting" class="section level2">
 <h2><span class="header-section-number">8.3</span> Faceting</h2>
 <p><code>ggplot2</code> has a special technique called faceting that allows the user to split one plot into multiple plots based on a factor included in the dataset. We will use it to split our mapping quality plot into three panels, one for each sample.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> MQ, <span class="dt">color =</span> sample_id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Base Pair Position&quot;</span>, </a>
-<a class="sourceLine" id="cb16-4" data-line-number="4">      <span class="dt">y =</span> <span class="st">&quot;Mapping Quality (MQ)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st"> </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>sample_id)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-visualization-with-ggplot2.html#cb16-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> MQ, <span class="dt">color =</span> sample_id)) <span class="op">+</span></span>
+<span id="cb16-2"><a href="data-visualization-with-ggplot2.html#cb16-2"></a><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb16-3"><a href="data-visualization-with-ggplot2.html#cb16-3"></a><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Base Pair Position&quot;</span>,</span>
+<span id="cb16-4"><a href="data-visualization-with-ggplot2.html#cb16-4"></a>      <span class="dt">y =</span> <span class="st">&quot;Mapping Quality (MQ)&quot;</span>) <span class="op">+</span></span>
+<span id="cb16-5"><a href="data-visualization-with-ggplot2.html#cb16-5"></a><span class="st"> </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>sample_id)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>This looks ok, but it would be easier to read if the plot facets were stacked vertically rather than horizontally. The <code>facet_grid</code> geometry allows you to explicitly specify how you want your plots to be arranged via formula notation (<code>rows ~ columns</code>); a <code>.</code> can be used as a placeholder that indicates only one row or column).</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> MQ, <span class="dt">color =</span> sample_id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Base Pair Position&quot;</span>, </a>
-<a class="sourceLine" id="cb17-4" data-line-number="4">      <span class="dt">y =</span> <span class="st">&quot;Mapping Quality (MQ)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="st"> </span><span class="kw">facet_grid</span>(sample_id <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-visualization-with-ggplot2.html#cb17-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> MQ, <span class="dt">color =</span> sample_id)) <span class="op">+</span></span>
+<span id="cb17-2"><a href="data-visualization-with-ggplot2.html#cb17-2"></a><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb17-3"><a href="data-visualization-with-ggplot2.html#cb17-3"></a><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Base Pair Position&quot;</span>,</span>
+<span id="cb17-4"><a href="data-visualization-with-ggplot2.html#cb17-4"></a>      <span class="dt">y =</span> <span class="st">&quot;Mapping Quality (MQ)&quot;</span>) <span class="op">+</span></span>
+<span id="cb17-5"><a href="data-visualization-with-ggplot2.html#cb17-5"></a><span class="st"> </span><span class="kw">facet_grid</span>(sample_id <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Usually plots with white background look more readable when printed. We can set the background to white using the function <code>theme_bw()</code>. Additionally, you can remove the grid:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> MQ, <span class="dt">color =</span> sample_id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Base Pair Position&quot;</span>, </a>
-<a class="sourceLine" id="cb18-4" data-line-number="4">       <span class="dt">y =</span> <span class="st">&quot;Mapping Quality (MQ)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_grid</span>(sample_id <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="data-visualization-with-ggplot2.html#cb18-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> POS, <span class="dt">y =</span> MQ, <span class="dt">color =</span> sample_id)) <span class="op">+</span></span>
+<span id="cb18-2"><a href="data-visualization-with-ggplot2.html#cb18-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb18-3"><a href="data-visualization-with-ggplot2.html#cb18-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Base Pair Position&quot;</span>,</span>
+<span id="cb18-4"><a href="data-visualization-with-ggplot2.html#cb18-4"></a>       <span class="dt">y =</span> <span class="st">&quot;Mapping Quality (MQ)&quot;</span>) <span class="op">+</span></span>
+<span id="cb18-5"><a href="data-visualization-with-ggplot2.html#cb18-5"></a><span class="st">  </span><span class="kw">facet_grid</span>(sample_id <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></span>
+<span id="cb18-6"><a href="data-visualization-with-ggplot2.html#cb18-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb18-7"><a href="data-visualization-with-ggplot2.html#cb18-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <div class="box">
 <h4 id="exercise-23" class="unnumbered">EXERCISE</h4>
@@ -536,9 +546,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="barplots" class="section level2">
 <h2><span class="header-section-number">8.4</span> Barplots</h2>
 <p>We can create barplots using the <code>geom_bar</code> geom. Let’s make a barplot showing the number of variants for each sample that are indels.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> INDEL, <span class="dt">fill =</span> sample_id)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>(sample_id <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="data-visualization-with-ggplot2.html#cb19-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> INDEL, <span class="dt">fill =</span> sample_id)) <span class="op">+</span></span>
+<span id="cb19-2"><a href="data-visualization-with-ggplot2.html#cb19-2"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
+<span id="cb19-3"><a href="data-visualization-with-ggplot2.html#cb19-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(sample_id <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <div class="box">
 <h4 id="exercise-24" class="unnumbered">EXERCISE</h4>
@@ -554,13 +564,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="histograms" class="section level2">
 <h2><span class="header-section-number">8.5</span> Histograms</h2>
 <p>Sometimes it can be useful to plot a single variable at a time. Usually this is for exploratory purposes - to get a feel for a variable. To do this, use the <code>geom_histogram()</code> function. For example, to look at the distribution of Qualities:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(QUAL)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="data-visualization-with-ggplot2.html#cb20-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(QUAL)) <span class="op">+</span></span>
+<span id="cb20-2"><a href="data-visualization-with-ggplot2.html#cb20-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>R is giving us a warning. We can choose to ignore this if we are able to see what we want in the plot. Otherwise, we can change the <code>binwidth</code> by using the binwidth argument:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(QUAL)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="data-visualization-with-ggplot2.html#cb22-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(QUAL)) <span class="op">+</span></span>
+<span id="cb22-2"><a href="data-visualization-with-ggplot2.html#cb22-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>)</span></code></pre></div>
 <img src="IntroRWorkshop_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 <div class="box">
 <h4 id="exercise-25" class="unnumbered">EXERCISE</h4>
@@ -603,8 +613,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>the 1st and 3rd quartiles give a sense of the spread of the data, especially when compared to the minimum, maximum, and median</li>
 </ul>
 <p>To create a boxplot, use the <code>geom_boxplot()</code> function:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> sample_id, <span class="dt">y =</span> DP)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="data-visualization-with-ggplot2.html#cb23-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> variants, <span class="kw">aes</span>(<span class="dt">x =</span> sample_id, <span class="dt">y =</span> DP)) <span class="op">+</span></span>
+<span id="cb23-2"><a href="data-visualization-with-ggplot2.html#cb23-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <div class="box">
 <h4 id="exercise-26" class="unnumbered">EXERCISE</h4>

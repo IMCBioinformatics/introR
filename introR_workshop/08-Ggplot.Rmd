@@ -31,7 +31,7 @@ str(variants)
 #### EXERCISE {-}
 Take a few minutes to familiarize yourself with this dataset. There are a lot of variables (how many?), so only worry about the ones listed below.
 
-Column | Description                                            
+Column | Description
 :----| :---------------------------------------------
 sample_id | sample ID
 CHROM | contig location where the variation occurs
@@ -79,11 +79,11 @@ ggplot(data = variants, aes(x = POS, y = DP))
 * `geom_boxplot()` for boxplots.
 * `geom_histogram()` for histograms.
 * `geom_barplot()` for barplots.
-* `geom_line()` for trend lines, time series, etc. 
+* `geom_line()` for trend lines, time series, etc.
 
 To add a geom to the plot use the `+` operator. Because we have two continuous variables, let’s use `geom_point()` first:
 ```{r}
-ggplot(data = variants, aes(x = POS, y = DP)) + 
+ggplot(data = variants, aes(x = POS, y = DP)) +
   geom_point()
 ```
 
@@ -94,7 +94,7 @@ The `+` in the `ggplot2` package is particularly useful because it allows you to
 coverage_plot <- ggplot(data = variants, aes(x = POS, y = DP))
 
 # Draw the plot
-coverage_plot + 
+coverage_plot +
     geom_point()
 ```
 
@@ -114,14 +114,25 @@ coverage_plot
   + geom_point()
 ```
 
+<br>
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+#### Brain Teaser {-}
+
+Can you add multiple geom_ layers to the same plot?
+A Yes
+B No
+</div>
+<br>
+
+
 ### Principles of effective display {-}
 SOURCE: (Whitlock & Schluter, The Analysis of Biological Data)[http://whitlockschluter.zoology.ubc.ca/]
 
-We will follow these metrics to create and evaluate figures:  
-1. Show the data  
-2. Make patterns in the data easy to see  
-3. Represent magnitudes honestly  
-4. Draw graphical elements clearly, minimizing clutter  
+We will follow these metrics to create and evaluate figures:
+1. Show the data
+2. Make patterns in the data easy to see
+3. Represent magnitudes honestly
+4. Draw graphical elements clearly, minimizing clutter
 
 <div class = "box">
 #### EXERCISE {-}
@@ -139,7 +150,7 @@ Create a scatter plot (using the `geom_point()` function for quality (`QUAL`) ve
 Building plots with `ggplot2` is typically an iterative process. We start by defining the dataset we’ll use, lay out the axes, and choose a geom:
 
 ```{r}
-ggplot(data = variants, aes(x = POS, y = DP)) + 
+ggplot(data = variants, aes(x = POS, y = DP)) +
   geom_point()
 ```
 
@@ -160,23 +171,23 @@ ggplot(data = variants, aes(x = POS, y = DP)) +
 Or to color each species in the plot differently, you could use a vector as an input to the argument color. `ggplot2` will provide a different color corresponding to different values in the vector. Here is an example where we color with `sample_id`:
 
 ```{r}
-ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) + 
+ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) +
   geom_point(alpha = 0.5)
 ```
 
 Notice that we can change the geom layer and colors will be still determined by `sample_id`:
 
 ```{r}
-ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) + 
+ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) +
   geom_jitter(alpha = 0.5)
 ```
 
 To make our plot more readable, we can add axis labels:
 
 ```{r}
-ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) + 
-  geom_jitter(alpha = 0.5) + 
-  labs(x = "Base Pair Position", 
+ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) +
+  geom_jitter(alpha = 0.5) +
+  labs(x = "Base Pair Position",
        y = "Read Depth (DP)")
 ```
 
@@ -192,36 +203,36 @@ Create a scatter plot of mapping quality (`MQ`) over position (`POS`) with the s
 <!--   labs(x = "Base Pair Position", -->
 <!--        y = "Mapping Quality (MQ)") -->
 <!-- ``` -->
- 
+
 ## Faceting
 
 `ggplot2` has a special technique called faceting that allows the user to split one plot into multiple plots based on a factor included in the dataset. We will use it to split our mapping quality plot into three panels, one for each sample.
 
 ```{r}
-ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) + 
- geom_point() + 
- labs(x = "Base Pair Position", 
-      y = "Mapping Quality (MQ)") + 
+ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) +
+ geom_point() +
+ labs(x = "Base Pair Position",
+      y = "Mapping Quality (MQ)") +
  facet_grid(. ~ sample_id)
 ```
 
 This looks ok, but it would be easier to read if the plot facets were stacked vertically rather than horizontally. The `facet_grid` geometry allows you to explicitly specify how you want your plots to be arranged via formula notation (`rows ~ columns`); a `.` can be used as a placeholder that indicates only one row or column).
 
 ```{r}
-ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) + 
- geom_point() + 
- labs(x = "Base Pair Position", 
-      y = "Mapping Quality (MQ)") + 
+ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) +
+ geom_point() +
+ labs(x = "Base Pair Position",
+      y = "Mapping Quality (MQ)") +
  facet_grid(sample_id ~ .)
 ```
 
 Usually plots with white background look more readable when printed. We can set the background to white using the function `theme_bw()`. Additionally, you can remove the grid:
 
 ```{r}
-ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) + 
-  geom_point() + 
-  labs(x = "Base Pair Position", 
-       y = "Mapping Quality (MQ)") + 
+ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) +
+  geom_point() +
+  labs(x = "Base Pair Position",
+       y = "Mapping Quality (MQ)") +
   facet_grid(sample_id ~ .) +
   theme_bw() +
   theme(panel.grid = element_blank())
@@ -246,7 +257,7 @@ Use what you just learned to create a scatter plot of PHRED scaled quality (`QUA
 We can create barplots using the `geom_bar` geom. Let’s make a barplot showing the number of variants for each sample that are indels.
 
 ```{r}
-ggplot(data = variants, aes(x = INDEL, fill = sample_id)) + 
+ggplot(data = variants, aes(x = INDEL, fill = sample_id)) +
   geom_bar() +
   facet_grid(sample_id ~ .)
 ```
@@ -282,7 +293,7 @@ ggplot(data = variants, aes(QUAL)) +
 #### EXERCISE {-}
 Create a plot that shows the distribution of Read Depth (DP) for each sample separately.
 
-<b>Bonus challenge.</b> Create this plot for only two of the three samples IDs - the two with many fewer variants. 
+<b>Bonus challenge.</b> Create this plot for only two of the three samples IDs - the two with many fewer variants.
 </div>
 
 <!-- ### Solution -->
@@ -325,13 +336,13 @@ Within these five numbers is a lot of useful data!
 To create a boxplot, use the `geom_boxplot()` function:
 
 ```{r}
-ggplot(data = variants, aes(x = sample_id, y = DP)) + 
+ggplot(data = variants, aes(x = sample_id, y = DP)) +
   geom_boxplot()
 ```
 
 <div class = "box">
 #### EXERCISE {-}
-1. Change the colour of each box in the above plot to match the sample_id colours in the plots above. 
+1. Change the colour of each box in the above plot to match the sample_id colours in the plots above.
 2. Log transform the y-axis.
 
 <b>Bonus challenge:</b> Change the name of the legend to "Sample ID".
@@ -348,5 +359,3 @@ ggplot(data = variants, aes(x = sample_id, y = DP)) +
 In addition to `theme_bw()`, which changes the plot background to white, `ggplot2` comes with several other themes which can be useful to quickly change the look of your visualization. The complete list of themes is available at https://ggplot2.tidyverse.org/reference/ggtheme.html. `theme_minimal()` and `theme_light()` are popular, and `theme_void()` can be useful as a starting point to create a new hand-crafted theme.
 
 The `ggthemes` package provides a wide variety of options (including an Excel 2003 theme). The `ggplot2` [extensions website](https://www.ggplot2-exts.org) provides a list of packages that extend the capabilities of `ggplot2`, including additional themes.
-
-
