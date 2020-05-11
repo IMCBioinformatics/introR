@@ -24,7 +24,7 @@
 <meta name="author" content="Alana Schick" />
 
 
-<meta name="date" content="2020-05-01" />
+<meta name="date" content="2020-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -299,7 +299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>There are several ways to import data into R. Here, we will use the tools every R installation comes with (ie. “base R”) to import a comma-delimited file containing some data. We will need to load the file using a function called <code>read.csv()</code>.</p>
 <div class="box">
-<h4 id="exercise-9" class="unnumbered">EXERCISE</h4>
+<h4 id="exercise-6.2.1" class="unnumbered">EXERCISE 6.2.1</h4>
 <p>Before using the <code>read.csv()</code> function, use R’s help feature to answer the following questions:</p>
 <ol style="list-style-type: decimal">
 <li>What is the default parameter for ‘header’ in the read.csv() function?</li>
@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ run        : Factor w/ 30 levels &quot;&quot;,&quot;SRR097977&quot;,..: 1 5 22 23 24 25 26 27 28 29 ...
 ##  $ genome_size: num  4.62 4.63 4.6 4.59 4.66 4.63 4.62 4.61 4.65 4.59 ...</code></pre>
 <div class="box">
-<h4 id="exercise-10" class="unnumbered">EXERCISE</h4>
+<h4 id="exercise-6.5.1" class="unnumbered">EXERCISE 6.5.1</h4>
 <p>Create a data frame using the <code>data.frame()</code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># Create the data frame</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">BMI &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>), <span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">152</span>, <span class="fl">171.5</span>, <span class="dv">165</span>), <span class="dt">weight =</span> <span class="kw">c</span>(<span class="dv">81</span>, <span class="dv">93</span>, <span class="dv">78</span>), <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">42</span>, <span class="dv">36</span>, <span class="dv">26</span>))</a>
@@ -486,7 +486,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.8</span> Subsetting data frames</h2>
 <p>Subsetting data frames is similar to subsetting vectors with one major difference: date frames are two-dimensional. Therefore, to select a specific value we will use the <code>[]</code> notation again, but we will specify more than one value.</p>
 <div class="box">
-<h4 id="exercise-11" class="unnumbered">EXERCISE</h4>
+<h4 id="exercise-6.8.1" class="unnumbered">EXERCISE 6.8.1</h4>
 <p>Try the following indices on the metadata data frame:</p>
 <ul>
 <li><code>metadata[1,1]</code></li>

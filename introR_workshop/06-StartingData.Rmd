@@ -26,7 +26,7 @@ Spreadsheet data is often saved in one of the following formats:
 There are several ways to import data into R. Here, we will use the tools every R installation comes with (ie. "base R") to import a comma-delimited file containing some data. We will need to load the file using a function called `read.csv()`.
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 6.2.1 {-}
 Before using the `read.csv()` function, use R's help feature to answer the following questions:
 
 1. What is the default parameter for ‘header’ in the read.csv() function?
@@ -87,7 +87,7 @@ str(metadata)
 ```
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 6.5.1 {-}
 
 Create a data frame using the `data.frame()` function:
 ```{r}
@@ -178,7 +178,7 @@ plot(cit)
 Subsetting data frames is similar to subsetting vectors with one major difference: date frames are two-dimensional. Therefore, to select a specific value we will use the `[]` notation again, but we will specify more than one value.
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 6.8.1 {-}
 Try the following indices on the metadata data frame:
 
 * `metadata[1,1]`

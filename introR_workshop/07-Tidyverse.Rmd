@@ -45,7 +45,7 @@ friends_data
 Tibbles can be read into R using the `read_csv()` function. Note that the `read_csv()` function is different than the `read.csv()` function. The major difference is that `read_csv()` will store the data as a tibble and `read.csv()` will store the data as a data frame.
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 7.3.1 {-}
 Use the `read_csv()` function to read in the `Ecoli_metadata.csv` file. Assign the data to an object called `metadata2` to avoid writing over the object `metadata`.
 
 How is it different that the `metadata`object?
@@ -132,12 +132,6 @@ To tidy messy data, you first identify the variables in your dataset, then use t
 
 <br>
 
-<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
-#### Brain Teaser {-}
-what is the difference between long and wide data?
-</div>
-<br>
-
 
 ### `gather()` {-}
 
@@ -149,31 +143,33 @@ The `gather()` function takes multiple columns, and gathers them into key-value 
 ```{r}
 messy <- data.frame(
   name = c("Wilbur", "Petunia", "Gregory"),
-  a = c(67, 80, 64),
-  b = c(56, 90, 50)
+  drugA = c(67, 80, 64),
+  drugB = c(56, 90, 50)
 )
 messy
 ```
 We have three variables (name, drug and heartrate), but only name is currently in a column. We use `gather()` to gather the a and b columns into key-value pairs of drug and heartrate:
 ```{r}
 messy %>%
-  gather(drug, heartrate, a:b)
+  gather(drug, heartrate, drugA:drugB)
 ```
 
 Now each column is a variable and each row is an observation - tidy! Note: more about the "pipe" operator later.
 
-<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
-#### Brain Teaser {-}
 
-In this example, what is the key and what is the value?
+
+<div class = "box">
+#### EXERCISE 7.4.1 {-}
+
+1. In this example, what is the key and what is the value?
 <br>
-  gather(messy,drug, heartrate, a:b)
+  `gather(messy,drug, heartrate, drugA:drugB)`
 
-What does a:b mean?
+2. What does drugA:drugB mean?
+
+3. What is the difference between long and wide data?
 
 </div>
-
-
 
 
 
@@ -256,13 +252,17 @@ select(metadata, sample, clade, cit, genome_size)
 
 <br>
 
-<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
-#### Brain Teaser {-}
+<div class = "box">
+#### EXERCISE 7.6.1 {-}
 
 Would the two calls to the select function below return the same tibble or not?
-select(metadata, sample, clade, cit, genome_size)
-select(metadata, -generation,-strain,-run)
+
+`select(metadata, sample, clade, cit, genome_size)`
+
+`select(metadata, -generation,-strain,-run)`
+
 </div>
+
 <br>
 
 To choose rows, use filter():
@@ -272,7 +272,7 @@ filter(metadata, cit == "plus")
 ```
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 7.6.2 {-}
 1. Keep only the rows that are <b>not</b> cit = plus.
 2. Keep only the rows for samples taken in the first 30000 generations.
 
@@ -299,7 +299,7 @@ metadata %>%
 In the above we use the pipe to send the data set first through `filter`, to keep rows where cit was equal to ‘plus’, and then through `select` to keep the sample and generation and clade columns. When the data frame is being passed to the `filter()` and `select()` functions through a pipe, we don’t need to include it as an argument to these functions anymore.
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 7.7.1 {-}
 Does the order of `filter()` and `select()` above matter? Why or why not?
 
 Answer to yourself or to a neighbour and then confirm your answer by trying it both ways.
@@ -323,7 +323,7 @@ Ecoli_citplus
 We can think of the `filter()` and `select()` functions as verbs in the sentence; they do things to the data flowing through the pipeline.
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 7.7.2 {-}
 
 Using pipes, subset `metadata` to include rows where the clade is ‘Cit+’ and keep only the columns `sample`, `cit`, and `genome_size`.
 How many rows are in that tibble?
@@ -348,8 +348,10 @@ metadata %>%
 ```
 
 <div class = "box">
-#### EXERCISE {-}
-Use the `mutate()` function to mutate generation into a fraction from 0 to 1.
+#### EXERCISE 7.8.1 {-}
+1. Use the `mutate()` function to mutate generation into a fraction from 0 to 1.
+
+2. What if you want to change a column instead of create a new column. Can you do that with `mutate`?
 
 <!-- ## SOLUTION -->
 <!-- ```{r} -->
@@ -358,16 +360,7 @@ Use the `mutate()` function to mutate generation into a fraction from 0 to 1.
 <!-- ``` -->
 </div>
 
-<br>
 
-<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
-#### Brain Teaser {-}
-
-What if I don’t want to create a new column but change the old column. Can I do that with mutate?
-
-Yes
-No
-</div>
 <br>
 
 ## Split-apply-combine data analysis and the summarize() function
@@ -383,7 +376,7 @@ metadata %>%
 Here the summary function used was `n()` to find the count for each group. We can also apply many other functions to individual columns to get other summary statistics. For example, in the R base package we can use built-in functions like `mean`, `median`, `min`, and `max`. By default, all R functions operating on vectors that contains missing data will return `NA`. It’s a way to make sure that users know they have missing data, and make a conscious decision on how to deal with it. When dealing with simple statistics like the `mean`, the easiest way to ignore `NA` (the missing data) is to use `na.rm=TRUE` (rm stands for remove).
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 7.9.1 {-}
 Use the `group_by()` and `summarize()` to view mean `genome_size` by mutant status (ie. cit).
 
 <!-- ### SOLUTION -->
@@ -422,7 +415,7 @@ metadata %>%
 For a summary of the tidyr and dplyr functions, see this [Handy dplyr cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf).
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 7.9.2 {-}
 
 Create a tibble containing each unique clade (removing the samples with unknown clades) and the rank of it's mean genome size. (note that ranking genome size will not sort the table; the row order will be unchanged. You can use the `arrange()` function to sort the table).
 

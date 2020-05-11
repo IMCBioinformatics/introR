@@ -72,7 +72,7 @@ install_github("hadley/dplyr")
 ```
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 4.2.1 {-}
 
 Practice what you have just learned and install the R package `ggplot2`.
 
@@ -94,7 +94,7 @@ Error in library(tidyverse) : there is no package called ‘tidyverse’
 it means that you didn’t successfully install it. In that case, go back to the previous subsection and trying install it again.
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 4.3.1 {-}
 
 Confirm that you successfully installed the packages `ggplot2`, `dplyr` and `knitr` by loading them.
 

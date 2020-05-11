@@ -79,7 +79,7 @@ One of the benefits of RStudio is something called an RStudio Project. An RStudi
 * Collaborate, especially if you are using version control such as git.
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 3.3.1 {-}
 To create a project:
 
 * Click the `File` menu, click on `New project`.
@@ -95,7 +95,7 @@ To create a project:
 Now that we are ready to start exploring R, we will want to keep a record of the commands we are using. To do this we can create an R script:
 
 <div class = "box">
-#### EXERCISE {-}
+#### EXERCISE 3.4.1 {-}
 To create an R script:
 
 * Click the `File` menu, click on `New File` and then `R Script`.
