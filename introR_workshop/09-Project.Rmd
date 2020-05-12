@@ -40,35 +40,35 @@ As you look through the data start thinking about what steps you'll need to get 
 
 <br>
 
-<!-- ### Task 1 Solution {-} -->
+### Task 1 Solution {-}
 
-<!-- <b>1. How many rows and columns are there?</b> -->
+<b>1. How many rows and columns are there?</b>
 
-<!-- ```{r} -->
-<!-- library(tidyverse) -->
+```{r}
+library(tidyverse)
 
-<!-- raw <- read.csv("data/Brauer2008_DataSet1.csv") -->
-<!-- #head(raw) -->
-<!-- dim(raw) -->
-<!-- ``` -->
+raw <- read.csv("data/Brauer2008_DataSet1.csv")
+#head(raw)
+dim(raw)
+```
 
-<!-- There are 5537 rows and 40 columns. -->
+There are 5537 rows and 40 columns.
 
-<!-- <b>2. What do the rows and columns represent?</b> -->
+<b>2. What do the rows and columns represent?</b>
 
-<!-- Rows are genes and columns are a mix of different variables including gene names and expression values. -->
+Rows are genes and columns are a mix of different variables including gene names and expression values.
 
-<!-- <b>3. On first glimpse do the column datatypes look correct?</b> -->
+<b>3. On first glimpse do the column datatypes look correct?</b>
 
-<!-- Yes, it seems that R has guessed correctly on what the values should be. -->
+Yes, it seems that R has guessed correctly on what the values should be.
 
-<!-- <b>4. What about column names? </b> -->
+<b>4. What about column names? </b>
 
-<!-- The columns that have the gene expression values don't look right.  Something is up with that period in there. -->
+The columns that have the gene expression values don't look right.  Something is up with that period in there.
 
-<!-- <b>5. Is this data tidy?  Why or why not?</b>   -->
+<b>5. Is this data tidy?  Why or why not?</b>
 
-<!-- It's not.  Each observation does not form a row and each variable does not form a column. -->
+It's not.  Each observation does not form a row and each variable does not form a column.
 
 <br>
 
