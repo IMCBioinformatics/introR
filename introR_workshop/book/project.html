@@ -250,7 +250,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-data-import-and-examination"><i class="fa fa-check"></i>Task 1: Data import and examination</a><ul>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-solution"><i class="fa fa-check"></i>Task 1 Solution</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-data-tidying"><i class="fa fa-check"></i>Task 2: Data Tidying</a></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-data-tidying"><i class="fa fa-check"></i>Task 2: Data Tidying</a><ul>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-solution"><i class="fa fa-check"></i>Task 2 Solution</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-3-plots"><i class="fa fa-check"></i>Task 3: Plots</a></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-4-heatmap"><i class="fa fa-check"></i>Task 4: Heatmap</a></li>
 </ul></li>
@@ -350,51 +352,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Try to code all the cleaning steps as a single pipeline. Remember the <code>separate()</code> and <code>gather()</code> functions from the tidyr package.</p>
 <p><strong>Bonus:</strong> Your cleaning steps may have left some variables with extra white space at the end. Using <code>dplyr::mutate_at()</code> and a certain function from the <code>stringr</code> package see if you can clean these up.</p>
 <p><br></p>
-<!-- ### Task 2 Solution {-} -->
-<!-- <b>1. Which column contains multiple variables?  Split it up so each column represents a single variable.</b> -->
-<!-- We need to tell `separate()` to split on the `||` character using the `sep` argument.  However, the `|` character is actually a special character for something called regular expressions, which we don't need to worry about right now.  That's why we need to use the double backslash, which "escapes" the `|` character and tells `separate()` to interpret it like a normal character. If we used `sep = "||"` this would give us the wrong result. -->
-<!-- ```{r} -->
-<!-- clean <- raw %>%  -->
-<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|")  -->
-<!-- ``` -->
-<!-- <b>2. The `GWEIGHT`, `GID`, and `YORF` columns we also won't need so you can get rid of those.</b> -->
-<!-- That's easy with `select()`. -->
-<!-- ```{r} -->
-<!-- clean <- raw %>%  -->
-<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>%  -->
-<!--   select(-GWEIGHT, -GID, -YORF) -->
-<!-- ``` -->
-<!-- <b>3. What's wrong with the column names?  How can you fix that?</b> -->
-<!-- They're variables not names and tidy data principles tell us that each variable should be a column.  And these are not just not just 1 variable - both nutrient and growth rate are present.  We can fix this with `gather()`. -->
-<!-- ```{r} -->
-<!-- clean <- raw %>%  -->
-<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>%  -->
-<!--   select(-GWEIGHT, -GID, -YORF) %>%  -->
-<!--   gather(variable, expression, G0.05:U0.3) -->
-<!-- ``` -->
-<!-- <b>4. Check again: do you have any columns that have multipe variables?  Be sure to fix any before you move on.</b> -->
-<!-- Why yes, it seems that our `variable` column is comprised of both nutrient and growth rate.  We'll have to use `separate()` again.  The trick here is how to specify the correct place to split the variable.  We want the first letter in one column (nutrient) and the the remaining part in a second column (growth_rate).  If you read the help for the `separate()` function you'll see that if you provide a number to the `sep` argument it will split at this position.  This works great for us.  There are other ways to split this variable, however, these require a bit more knowledge of regular expressions.  And always go with the simplist soluion you can find. -->
-<!-- ```{r} -->
-<!-- clean <- raw %>%  -->
-<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>%  -->
-<!--   select(-GWEIGHT, -GID, -YORF) %>%  -->
-<!--   gather(variable, expression, G0.05:U0.3) %>%  -->
-<!--   separate(variable, c("nutrient", "growth_rate"), sep = 1) -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- head(clean$BP) -->
-<!-- ``` -->
-<!-- **Bonus** -->
-<!-- ```{r} -->
-<!-- clean <- raw %>%  -->
-<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>%  -->
-<!--   select(-GWEIGHT, -GID, -YORF) %>%  -->
-<!--   gather(variable, expression, G0.05:U0.3) %>%  -->
-<!--   separate(variable, c("nutrient", "growth_rate"), sep = 1, convert = TRUE) %>%  -->
-<!--   mutate_at(vars(gene_name:gene_id), str_trim) -->
-<!-- head(clean) -->
-<!-- ``` -->
+<div id="task-2-solution" class="section level3 unnumbered">
+<h3>Task 2 Solution</h3>
+<p><b>1. Which column contains multiple variables? Split it up so each column represents a single variable.</b></p>
+<p>We need to tell <code>separate()</code> to split on the <code>||</code> character using the <code>sep</code> argument. However, the <code>|</code> character is actually a special character for something called regular expressions, which we don’t need to worry about right now. That’s why we need to use the double backslash, which “escapes” the <code>|</code> character and tells <code>separate()</code> to interpret it like a normal character. If we used <code>sep = &quot;||&quot;</code> this would give us the wrong result.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>)</a></code></pre></div>
+<p><b>2. The <code>GWEIGHT</code>, <code>GID</code>, and <code>YORF</code> columns we also won’t need so you can get rid of those.</b></p>
+<p>That’s easy with <code>select()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF)</a></code></pre></div>
+<p><b>3. What’s wrong with the column names? How can you fix that?</b></p>
+<p>They’re variables not names and tidy data principles tell us that each variable should be a column. And these are not just not just 1 variable - both nutrient and growth rate are present. We can fix this with <code>gather()</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>)</a></code></pre></div>
+<p><b>4. Check again: do you have any columns that have multipe variables? Be sure to fix any before you move on.</b></p>
+<p>Why yes, it seems that our <code>variable</code> column is comprised of both nutrient and growth rate. We’ll have to use <code>separate()</code> again. The trick here is how to specify the correct place to split the variable. We want the first letter in one column (nutrient) and the the remaining part in a second column (growth_rate). If you read the help for the <code>separate()</code> function you’ll see that if you provide a number to the <code>sep</code> argument it will split at this position. This works great for us. There are other ways to split this variable, however, these require a bit more knowledge of regular expressions. And always go with the simplist soluion you can find.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw">separate</span>(variable, <span class="kw">c</span>(<span class="st">&quot;nutrient&quot;</span>, <span class="st">&quot;growth_rate&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">head</span>(clean<span class="op">$</span>BP)</a></code></pre></div>
+<pre><code>## [1] &quot; ER to Golgi transport &quot;        &quot; biological process unknown &quot;  
+## [3] &quot; proteolysis and peptidolysis &quot; &quot; mRNA polyadenylylation* &quot;     
+## [5] &quot; vesicle fusion* &quot;              &quot; biological process unknown &quot;</code></pre>
+<p><strong>Bonus</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="st">  </span><span class="kw">separate</span>(variable, <span class="kw">c</span>(<span class="st">&quot;nutrient&quot;</span>, <span class="st">&quot;growth_rate&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(gene_name<span class="op">:</span>gene_id), str_trim)</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="kw">head</span>(clean)</a></code></pre></div>
+<pre><code>##   gene_name                           BP                            MP gene_id
+## 1      SFB2        ER to Golgi transport    molecular function unknown YNL049C
+## 2             biological process unknown    molecular function unknown YNL095C
+## 3      QRI7 proteolysis and peptidolysis metalloendopeptidase activity YDL104C
+## 4      CFT2      mRNA polyadenylylation*                   RNA binding YLR115W
+## 5      SSO2              vesicle fusion*              t-SNARE activity YMR183C
+## 6      PSP2   biological process unknown    molecular function unknown YML017W
+##     number nutrient growth_rate expression
+## 1  1082129        G        0.05      -0.24
+## 2  1086222        G        0.05       0.28
+## 3  1085955        G        0.05      -0.02
+## 4  1081958        G        0.05      -0.33
+## 5  1081214        G        0.05       0.05
+## 6  1083036        G        0.05      -0.69</code></pre>
 <p><br></p>
+</div>
 </div>
 <div id="task-3-plots" class="section level2 unnumbered">
 <h2>Task 3: Plots</h2>
