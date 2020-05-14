@@ -150,8 +150,8 @@ messy
 ```
 We have three variables (name, drug and heartrate), but only name is currently in a column. We use `gather()` to gather the a and b columns into key-value pairs of drug and heartrate:
 ```{r}
-messy %>%
-  gather(drug, heartrate, drugA:drugB)
+
+  gather(messy,drug, heartrate, drugA:drugB)
 ```
 
 Now each column is a variable and each row is an observation - tidy! Note: more about the "pipe" operator later.
@@ -198,14 +198,12 @@ messy
 To tidy this data, we first use gather() to turn columns work.T1, home.T1, work.T2 and home.T2 into a key-value pair of key and time:
 
 ```{r}
-tidier <- messy %>%
-  gather(key, time, -id, -trt)
+tidier <-  gather(messy,key, time, -id, -trt)
 tidier
 ```
 Next we use separate() to split the key into location and time, using a regular expression to describe the character that separates them:
 ```{r}
-tidy <- tidier %>%
-  separate(key, into = c("location", "timepoint"), sep = "\\.")
+tidy <- separate(tidier,key, into = c("location", "timepoint"), sep = "\\.")
 tidy
 ```
 
