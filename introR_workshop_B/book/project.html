@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9 Project | Introduction to R for Biologists</title>
   <meta name="description" content="This tutorial covers workshop material" />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="9 Project | Introduction to R for Biologists" />
   <meta property="og:type" content="book" />
@@ -21,10 +21,10 @@
   <meta name="twitter:description" content="This tutorial covers workshop material" />
   
 
-<meta name="author" content="Alana Schick" />
+<meta name="author" content="Alana Schick &amp; Hena Ramay" />
 
 
-<meta name="date" content="2020-05-12" />
+<meta name="date" content="2020-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,9 +53,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +64,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -180,16 +182,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>5</b> R Basics</a><ul>
 <li class="chapter" data-level="5.1" data-path="r-basics.html"><a href="r-basics.html#creating-objects-in-r"><i class="fa fa-check"></i><b>5.1</b> Creating objects in R</a></li>
-<li class="chapter" data-level="5.2" data-path="r-basics.html"><a href="r-basics.html#objects-vs.variables"><i class="fa fa-check"></i><b>5.2</b> Objects vs. variables</a></li>
-<li class="chapter" data-level="5.3" data-path="r-basics.html"><a href="r-basics.html#comments"><i class="fa fa-check"></i><b>5.3</b> Comments</a></li>
-<li class="chapter" data-level="5.4" data-path="r-basics.html"><a href="r-basics.html#functions-and-their-arguments"><i class="fa fa-check"></i><b>5.4</b> Functions and their arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>5.5</b> Vectors</a></li>
-<li class="chapter" data-level="5.6" data-path="r-basics.html"><a href="r-basics.html#indexing-vectors"><i class="fa fa-check"></i><b>5.6</b> Indexing vectors</a><ul>
+<li class="chapter" data-level="5.2" data-path="r-basics.html"><a href="r-basics.html#objects-vs.-variables"><i class="fa fa-check"></i><b>5.2</b> Objects vs. variables</a></li>
+<li class="chapter" data-level="5.3" data-path="r-basics.html"><a href="r-basics.html#functions-and-their-arguments"><i class="fa fa-check"></i><b>5.3</b> Functions and their arguments</a></li>
+<li class="chapter" data-level="5.4" data-path="r-basics.html"><a href="r-basics.html#data-types-in-r"><i class="fa fa-check"></i><b>5.4</b> Data types in R</a></li>
+<li class="chapter" data-level="5.5" data-path="r-basics.html"><a href="r-basics.html#data-structures-in-r"><i class="fa fa-check"></i><b>5.5</b> Data structures in R</a></li>
+<li class="chapter" data-level="5.6" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>5.6</b> Vectors</a></li>
+<li class="chapter" data-level="5.7" data-path="r-basics.html"><a href="r-basics.html#indexing-vectors"><i class="fa fa-check"></i><b>5.7</b> Indexing vectors</a><ul>
 <li class="chapter" data-level="" data-path="r-basics.html"><a href="r-basics.html#adding-values-to-vectors"><i class="fa fa-check"></i>Adding values to vectors</a></li>
 <li class="chapter" data-level="" data-path="r-basics.html"><a href="r-basics.html#replacing-values-in-existing-vectors"><i class="fa fa-check"></i>Replacing values in existing vectors</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="r-basics.html"><a href="r-basics.html#conditional-subsetting"><i class="fa fa-check"></i><b>5.7</b> Conditional subsetting</a></li>
-<li class="chapter" data-level="5.8" data-path="r-basics.html"><a href="r-basics.html#so-we-can-use-this-to-select-only-the-values-above-50"><i class="fa fa-check"></i><b>5.8</b> so we can use this to select only the values above 50</a></li>
+<li class="chapter" data-level="5.8" data-path="r-basics.html"><a href="r-basics.html#conditional-subsetting"><i class="fa fa-check"></i><b>5.8</b> Conditional subsetting</a></li>
 <li class="chapter" data-level="5.9" data-path="r-basics.html"><a href="r-basics.html#missing-data"><i class="fa fa-check"></i><b>5.9</b> Missing data</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="starting-with-data.html"><a href="starting-with-data.html"><i class="fa fa-check"></i><b>6</b> Starting with Data</a><ul>
@@ -308,18 +310,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="task-1-solution" class="section level3 unnumbered">
 <h3>Task 1 Solution</h3>
 <p><b>1. How many rows and columns are there?</b></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<pre><code>## ── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.3
-## ✓ tibble  2.1.3     ✓ dplyr   0.8.4
-## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
-## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">raw &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/Brauer2008_DataSet1.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#head(raw)</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">dim</span>(raw)</a></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="project.html#cb223-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb223-2"><a href="project.html#cb223-2"></a></span>
+<span id="cb223-3"><a href="project.html#cb223-3"></a>raw &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/Brauer2008_DataSet1.csv&quot;</span>)</span>
+<span id="cb223-4"><a href="project.html#cb223-4"></a><span class="co">#head(raw)</span></span>
+<span id="cb223-5"><a href="project.html#cb223-5"></a><span class="kw">dim</span>(raw)</span></code></pre></div>
 <pre><code>## [1] 5537   40</code></pre>
 <p>There are 5537 rows and 40 columns.</p>
 <p><b>2. What do the rows and columns represent?</b></p>
@@ -355,39 +350,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="task-2-solution" class="section level3 unnumbered">
 <h3>Task 2 Solution</h3>
 <p><b>1. Which column contains multiple variables? Split it up so each column represents a single variable.</b></p>
-<p>We need to tell <code>separate()</code> to split on the <code>||</code> character using the <code>sep</code> argument. However, the <code>|</code> character is actually a special character for something called regular expressions, which we don’t need to worry about right now. That’s why we need to use the double backslash, which “escapes” the <code>|</code> character and tells <code>separate()</code> to interpret it like a normal character. If we used <code>sep = &quot;||&quot;</code> this would give us the wrong result.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>)</a></code></pre></div>
+<p>We need to tell <code>separate()</code> to split on the <code>||</code> character using the <code>sep</code> argument. However, the <code>|</code> character is actually a special character for something called regular expressions, which we don’t need to worry about right now. That’s why we need to use the double backslash, which “escapes” the <code>|</code> character and tells <code>separate()</code> to interpret it like a normal character. If we used <code>sep = "||"</code> this would give us the wrong result.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="project.html#cb225-1"></a>clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></span>
+<span id="cb225-2"><a href="project.html#cb225-2"></a><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>)</span></code></pre></div>
 <p><b>2. The <code>GWEIGHT</code>, <code>GID</code>, and <code>YORF</code> columns we also won’t need so you can get rid of those.</b></p>
 <p>That’s easy with <code>select()</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF)</a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="project.html#cb226-1"></a>clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></span>
+<span id="cb226-2"><a href="project.html#cb226-2"></a><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb226-3"><a href="project.html#cb226-3"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF)</span></code></pre></div>
 <p><b>3. What’s wrong with the column names? How can you fix that?</b></p>
 <p>They’re variables not names and tidy data principles tell us that each variable should be a column. And these are not just not just 1 variable - both nutrient and growth rate are present. We can fix this with <code>gather()</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="project.html#cb227-1"></a>clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></span>
+<span id="cb227-2"><a href="project.html#cb227-2"></a><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb227-3"><a href="project.html#cb227-3"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></span>
+<span id="cb227-4"><a href="project.html#cb227-4"></a><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>)</span></code></pre></div>
 <p><b>4. Check again: do you have any columns that have multipe variables? Be sure to fix any before you move on.</b></p>
 <p>Why yes, it seems that our <code>variable</code> column is comprised of both nutrient and growth rate. We’ll have to use <code>separate()</code> again. The trick here is how to specify the correct place to split the variable. We want the first letter in one column (nutrient) and the the remaining part in a second column (growth_rate). If you read the help for the <code>separate()</code> function you’ll see that if you provide a number to the <code>sep</code> argument it will split at this position. This works great for us. There are other ways to split this variable, however, these require a bit more knowledge of regular expressions. And always go with the simplist soluion you can find.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw">separate</span>(variable, <span class="kw">c</span>(<span class="st">&quot;nutrient&quot;</span>, <span class="st">&quot;growth_rate&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">head</span>(clean<span class="op">$</span>BP)</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="project.html#cb228-1"></a>clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></span>
+<span id="cb228-2"><a href="project.html#cb228-2"></a><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb228-3"><a href="project.html#cb228-3"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></span>
+<span id="cb228-4"><a href="project.html#cb228-4"></a><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>) <span class="op">%&gt;%</span></span>
+<span id="cb228-5"><a href="project.html#cb228-5"></a><span class="st">  </span><span class="kw">separate</span>(variable, <span class="kw">c</span>(<span class="st">&quot;nutrient&quot;</span>, <span class="st">&quot;growth_rate&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="project.html#cb229-1"></a><span class="kw">head</span>(clean<span class="op">$</span>BP)</span></code></pre></div>
 <pre><code>## [1] &quot; ER to Golgi transport &quot;        &quot; biological process unknown &quot;  
 ## [3] &quot; proteolysis and peptidolysis &quot; &quot; mRNA polyadenylylation* &quot;     
 ## [5] &quot; vesicle fusion* &quot;              &quot; biological process unknown &quot;</code></pre>
 <p><strong>Bonus</strong></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="st">  </span><span class="kw">separate</span>(variable, <span class="kw">c</span>(<span class="st">&quot;nutrient&quot;</span>, <span class="st">&quot;growth_rate&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(gene_name<span class="op">:</span>gene_id), str_trim)</a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="kw">head</span>(clean)</a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="project.html#cb231-1"></a>clean &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></span>
+<span id="cb231-2"><a href="project.html#cb231-2"></a><span class="st">  </span><span class="kw">separate</span>(NAME, <span class="kw">c</span>(<span class="st">&quot;gene_name&quot;</span>, <span class="st">&quot;BP&quot;</span>, <span class="st">&quot;MP&quot;</span>, <span class="st">&quot;gene_id&quot;</span>, <span class="st">&quot;number&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|</span><span class="ch">\\</span><span class="st">|&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb231-3"><a href="project.html#cb231-3"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GWEIGHT, <span class="op">-</span>GID, <span class="op">-</span>YORF) <span class="op">%&gt;%</span></span>
+<span id="cb231-4"><a href="project.html#cb231-4"></a><span class="st">  </span><span class="kw">gather</span>(variable, expression, G0<span class="fl">.05</span><span class="op">:</span>U0<span class="fl">.3</span>) <span class="op">%&gt;%</span></span>
+<span id="cb231-5"><a href="project.html#cb231-5"></a><span class="st">  </span><span class="kw">separate</span>(variable, <span class="kw">c</span>(<span class="st">&quot;nutrient&quot;</span>, <span class="st">&quot;growth_rate&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb231-6"><a href="project.html#cb231-6"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(gene_name<span class="op">:</span>gene_id), str_trim)</span>
+<span id="cb231-7"><a href="project.html#cb231-7"></a><span class="kw">head</span>(clean)</span></code></pre></div>
 <pre><code>##   gene_name                           BP                            MP gene_id
 ## 1      SFB2        ER to Golgi transport    molecular function unknown YNL049C
 ## 2             biological process unknown    molecular function unknown YNL095C

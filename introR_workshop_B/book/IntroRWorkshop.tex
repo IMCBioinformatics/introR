@@ -1,39 +1,46 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[]{book}
+\documentclass[
+]{book}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\usepackage{hyperref}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={Introduction to R for Biologists},
-            pdfauthor={Alana Schick},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  pdftitle={Introduction to R for Biologists},
+  pdfauthor={Alana Schick \& Hena Ramay},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -75,8 +82,14 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -86,32 +99,21 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
 \usepackage{booktabs}
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
 \title{Introduction to R for Biologists}
-\author{Alana Schick}
-\date{2020-03-13}
+\author{Alana Schick \& Hena Ramay}
+\date{2020-05-13}
 
 \begin{document}
 \maketitle
@@ -139,15 +141,16 @@ Workshop material will be added here as we go along. For each day of the worksho
 Time & Topic\tabularnewline
 \midrule
 \endhead
-09:00 & Welcome and Presentation\tabularnewline
-09:30 & 1. Introducing R and RStudio\tabularnewline
-10:00 & 2. Installing R packages\tabularnewline
-10:20 & Break\tabularnewline
-10:35 & 3. R Basics\tabularnewline
+09:00 & Welcome, Housekeeping, and Introductions\tabularnewline
+09:30 & Presentation\tabularnewline
+09:45 & 1. Introducing R and RStudio\tabularnewline
+10:10 & 2. Installing R packages\tabularnewline
+10:30 & Break\tabularnewline
+10:45 & 3. R Basics\tabularnewline
 12:00 & Lunch break\tabularnewline
 13:00 & 4. Starting with Data\tabularnewline
 14:30 & Break\tabularnewline
-14:45 & 6. Manipulating data in the Tidyverse\tabularnewline
+14:45 & 5. Manipulating data in the Tidyverse\tabularnewline
 16:00 & Finish\tabularnewline
 \bottomrule
 \end{longtable}
@@ -161,15 +164,15 @@ Time & Topic\tabularnewline
 Time & Topic\tabularnewline
 \midrule
 \endhead
-09:00 & 6. Tidyverse - cont\tabularnewline
-09:30 & 7. Data visualization with ggplot2\tabularnewline
+09:00 & 5. Tidyverse - cont\tabularnewline
 10:30 & Break\tabularnewline
-10:45 & 8. Project - task 1\tabularnewline
-11:00 & 9. Project - task 2\tabularnewline
+10:45 & 6. Data visualization with ggplot2\tabularnewline
 12:00 & Lunch break\tabularnewline
-13:00 & 8. Project - task 3\tabularnewline
+13:00 & 7. Project - task 1\tabularnewline
+13:15 & 8. Project - task 2\tabularnewline
 14:30 & Break\tabularnewline
-14:45 & 8. Project - task 4\tabularnewline
+14:45 & 9. Project - task 3\tabularnewline
+15:15 & 10. Project - task 4\tabularnewline
 15:30 & Review project and open discussion\tabularnewline
 15:55 & Survey!\tabularnewline
 16:00 & Finish\tabularnewline
@@ -185,12 +188,6 @@ Time & Topic\tabularnewline
   Datacamp: \href{https://www.datacamp.com/home}{link}
 \end{itemize}
 
-\begin{itemize}
-\tightlist
-\item
-  Survey: \href{https://forms.gle/nQvZon6DBM6c38Np9}{link}
-\end{itemize}
-
 \hypertarget{pre-workshop}{%
 \chapter{Pre-workshop}\label{pre-workshop}}
 
@@ -199,9 +196,9 @@ Time & Topic\tabularnewline
 
 R and RStudio are separate downloads and installations. R is the underlying statistical computing environment and RStudio is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. You will need to install R before you install RStudio.
 
- If you already have R and RStudio installed, open RStudio and click on ``Help'' \textgreater{} ``Check for updates''. If a new version is available, quit RStudio and download the latest version of RStudio. To check which version of R you are using, start RStudio and check the top of the console to see which version of R you are running. Alternatively, you can type \texttt{sessionInfo()}, which will also display the version of R you are running. Go on the \href{https://cran.r-project.org/bin/windows/base/}{CRAN website} and check whether a more recent version is available. If so, please download and install it.
+If you already have R and RStudio installed, open RStudio and click on ``Help'' \textgreater{} ``Check for updates''. If a new version is available, quit RStudio and download the latest version of RStudio. To check which version of R you are using, start RStudio and check the top of the console to see which version of R you are running. Alternatively, you can type \texttt{sessionInfo()}, which will also display the version of R you are running. Go on the \href{https://cran.r-project.org/bin/windows/base/}{CRAN website} and check whether a more recent version is available. If so, please download and install it.
 
- If you don't have R and RStudio installed, please follow the instructions for your operating system below.
+If you don't have R and RStudio installed, please follow the instructions for your operating system below.
 
 \hypertarget{windows}{%
 \subsection{Windows}\label{windows}}
@@ -321,9 +318,9 @@ Reproducibility is when someone else (including your future self) can obtain the
 \begin{itemize}
 \tightlist
 \item
-  Are the tables and figures reproducible from the code and data?\\
+  Are the tables and figures reproducible from the code and data?
 \item
-  Does the code actually do what you think it does?\\
+  Does the code actually do what you think it does?
 \item
   In addition to what was done, is it clear why is was done? (e.g., how were parameter settings chosen?)
 \end{itemize}
@@ -333,7 +330,7 @@ Reproducibility is when someone else (including your future self) can obtain the
 \begin{itemize}
 \tightlist
 \item
-  Can the code be used for other data?\\
+  Can the code be used for other data?
 \item
   Can you extend the code to do other things?
 \end{itemize}
@@ -396,9 +393,9 @@ One of the benefits of RStudio is something called an RStudio Project. An RStudi
   Collaborate, especially if you are using version control such as git.
 \end{itemize}
 
-\hypertarget{exercise}{%
-\subsubsection*{EXERCISE}\label{exercise}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-3.3.1}{%
+\subsubsection*{EXERCISE 3.3.1}\label{exercise-3.3.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 3.3.1}
 
 To create a project:
 
@@ -422,9 +419,9 @@ To create a project:
 
 Now that we are ready to start exploring R, we will want to keep a record of the commands we are using. To do this we can create an R script:
 
-\hypertarget{exercise-1}{%
-\subsubsection*{EXERCISE}\label{exercise-1}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-3.4.1}{%
+\subsubsection*{EXERCISE 3.4.1}\label{exercise-3.4.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 3.4.1}
 
 To create an R script:
 
@@ -479,6 +476,8 @@ If for some reason your working directory is not what it should be, you can chan
 \end{Shaded}
 
 to reset your working directory.
+
+\includegraphics{filepath.jpg}
 
 \hypertarget{how-to-learn-more}{%
 \section{How to learn more?}\label{how-to-learn-more}}
@@ -546,7 +545,7 @@ If you can't find what you are looking for, you can use the \href{https://www.rd
 \subsection*{I am stuck\ldots{} I get an error message that I don't understand}\label{i-am-stuck-i-get-an-error-message-that-i-dont-understand}}
 \addcontentsline{toc}{subsection}{I am stuck\ldots{} I get an error message that I don't understand}
 
-Start by googling the error message. However, this doesn't always work very well because often, package developers rely on the error catching provided by R. You end up with general error messages that might not be very helpful to diagnose a problem (e.g. ``subscript out of bounds''). If the message is very generic, you might also include the name of the function or package you're using in your query.
+Start by googling the error message. However, this doesn't always work very well because often, package developers rely on the error catching provided by R. You end up with general error messages that might not be very helpful to diagnose a problem (e.g.~``subscript out of bounds''). If the message is very generic, you might also include the name of the function or package you're using in your query.
 
 However, you should check Stack Overflow. Search using the \texttt{{[}r{]}} tag. Most questions have already been answered, but the challenge is to use the right words in the search to find the answers: \href{http://stackoverflow.com/questions/tagged/r}{}
 
@@ -704,9 +703,9 @@ Some packages are not hosted on CRAN or Bioconductor, but are instead stored in 
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercise-2}{%
-\subsubsection*{EXERCISE}\label{exercise-2}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-4.2.1}{%
+\subsubsection*{EXERCISE 4.2.1}\label{exercise-4.2.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 4.2.1}
 
 Practice what you have just learned and install the R package \texttt{ggplot2}.
 
@@ -729,9 +728,9 @@ Error in library(tidyverse) : there is no package called ‘tidyverse’
 
 it means that you didn't successfully install it. In that case, go back to the previous subsection and trying install it again.
 
-\hypertarget{exercise-3}{%
-\subsubsection*{EXERCISE}\label{exercise-3}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-4.3.1}{%
+\subsubsection*{EXERCISE 4.3.1}\label{exercise-4.3.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 4.3.1}
 
 Confirm that you successfully installed the packages \texttt{ggplot2}, \texttt{dplyr} and \texttt{knitr} by loading them.
 
@@ -775,7 +774,7 @@ You can get output from R simply by typing math in the console:
 ## [1] 1.714286
 \end{verbatim}
 
-However, to do useful and interesting things, we need to assign values to objects. To create an object, we need to give it a name followed by the assignment operator \texttt{\textless{}-}, and the value we want to give it:
+However, to do useful and interesting things, we need to assign values to objects. To create an object, we need to give it a name followed by the assignment operator \texttt{\textless{}-} or \texttt{=}, and the value we want to give it:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -794,8 +793,8 @@ There are some names that cannot be used because they are the names of fundament
 It's important to be consistent in the styling of your code (where you put spaces, how you name objects, etc.). Using a consistent coding style makes your code clearer to read for your future self and your collaborators. In R, three popular style guides are \href{https://google.github.io/styleguide/Rguide.xml}{Google's}, \href{\%22http://jef.works/R-style-guide/\%22}{Jean Fan's} and the \href{https://style.tidyverse.org/}{tidyverse's}.
 This may seem overwhelming at first. My suggestion is to focus on what makes sense to you, and that you are using naming conventions that will help you to remember what is stored in each object. Try and be consistent with spacing and capitalization (or not) --- your future self will thank you.
 
-\hypertarget{objects-vs.variables}{%
-\section{Objects vs.~variables}\label{objects-vs.variables}}
+\hypertarget{objects-vs.-variables}{%
+\section{Objects vs.~variables}\label{objects-vs.-variables}}
 
 What are known as \texttt{objects} in \texttt{R} are known as \texttt{variables} in many other programming languages. In this lesson, the two words are used synonymously. For more information see \url{https://cran.r-project.org/doc/manuals/r-release/R-lang.html\#Objects}
 
@@ -869,27 +868,6 @@ and then change weight\_kg to 100.
 \end{Shaded}
 
 What do you think is the current content of the object \texttt{weight\_lb}? 126.5 or 220?
-
-\hypertarget{comments}{%
-\section{Comments}\label{comments}}
-
-The comment character in \texttt{R} is \texttt{\#}, anything to the right of a \texttt{\#} in a script will be ignored by R. It is useful to leave notes, and explanations in your scripts. RStudio makes it easy to comment or uncomment a paragraph: after selecting the lines you want to comment, press at the same time on your keyboard \texttt{Ctrl\ +\ Shift\ +\ C}. If you only want to comment out one line, you can put the cursor at any location of that line (i.e.~no need to select the whole line), then press \texttt{Ctrl\ +\ Shift\ +\ C}.
-
-\hypertarget{exercise-4}{%
-\subsubsection*{EXERCISE}\label{exercise-4}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
-
-What are the values stored in each object in the following (do this in your head)?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mass <-}\StringTok{ }\DecValTok{50}              \CommentTok{# mass?}
-\NormalTok{age  <-}\StringTok{ }\DecValTok{122}             \CommentTok{# age?}
-\NormalTok{mass <-}\StringTok{ }\NormalTok{mass }\OperatorTok{*}\StringTok{ }\FloatTok{2.0}      \CommentTok{# mass?}
-\NormalTok{age  <-}\StringTok{ }\NormalTok{age }\OperatorTok{-}\StringTok{ }\DecValTok{22}        \CommentTok{# age?}
-\NormalTok{mass_index <-}\StringTok{ }\NormalTok{mass}\OperatorTok{/}\NormalTok{age  }\CommentTok{# mass_index?}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{functions-and-their-arguments}{%
 \section{Functions and their arguments}\label{functions-and-their-arguments}}
@@ -1004,16 +982,127 @@ And if you do name the arguments, you can switch their order:
 
 It's good practice to put the non-optional arguments (like the number you're rounding) first in your function call, and to then specify the names of all optional arguments. If you don't, someone reading your code might have to look up the definition of a function with unfamiliar arguments to understand what you're doing.
 
-\hypertarget{exercise-5}{%
-\subsubsection*{EXERCISE}\label{exercise-5}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-5.3}{%
+\subsubsection*{EXERCISE 5.3}\label{exercise-5.3}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 5.3}
 
 Compute the golden ratio in a single line of code. One approximation of the golden ratio can be found by taking the sum of 1 and the square root of 5, and dividing by 2. Compute the golden ratio to 3 digits of precision using the \texttt{sqrt()} and \texttt{round()} functions. Hint: you can place one function inside of another.
+
+\hypertarget{data-types-in-r}{%
+\section{Data types in R}\label{data-types-in-r}}
+
+So far we have been storing integer values in the above examples, now lets look at other data types present in R. There are several data types such as integer, string, etc. The operating system allocates memory based on the data type of the variable and decides what can be stored in the reserved memory.
+
+There are the following data types which are used in R programming:
+
+\includegraphics{datatypes.jpg}
+
+\begin{longtable}[]{@{}lcr@{}}
+\toprule
+\begin{minipage}[b]{0.12\columnwidth}\raggedright
+Data type\strut
+\end{minipage} & \begin{minipage}[b]{0.21\columnwidth}\centering
+Example\strut
+\end{minipage} & \begin{minipage}[b]{0.58\columnwidth}\raggedleft
+Description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\textbf{Logical}\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\centering
+True, False\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedleft
+It is a special data type for data with only two possible values which can be construed as true/false.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\textbf{Numeric}\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\centering
+12,32,112,5432\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedleft
+Decimal value is called numeric in R, and it is the default computational data type.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\textbf{Integer}\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\centering
+3L, 66L, 2346L\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedleft
+Here, L tells R to store the value as an integer,\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\textbf{Complex}\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\centering
+Z=1+2i, t=7+3i\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedleft
+A complex value in R is defined as the pure imaginary value i.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\textbf{Character}\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\centering
+`a', `\,``good''', ``TRUE'', '35.4'\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedleft
+In R programming, a character is used to represent string values. We convert objects into character values with the help ofas.character() function.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\textbf{Raw}\strut
+\end{minipage} & \begin{minipage}[t]{0.21\columnwidth}\centering
+\strut
+\end{minipage} & \begin{minipage}[t]{0.58\columnwidth}\raggedleft
+A raw data type is used to holds raw bytes.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{weight_kg <-}\StringTok{ }\DecValTok{100}
+\NormalTok{name<-}\StringTok{"Samantha"}
+\NormalTok{present<-}\OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-structures-in-r}{%
+\section{Data structures in R}\label{data-structures-in-r}}
+
+R has six types of basic data structures. We can organize these data structures according to their dimensions(1d, 2d, nd). We can also classify them as homogeneous or heterogeneous (can their contents be of different datatypes or not).
+
+Homogeneous data structures are ones that can only store a single type of data (numeric, integer, character, etc.).
+
+Heterogeneous data structures are ones that can store more than one type of data at the same time.
+
+R does not have 0 dimensional or scalar type. Variables containing single values are vectors of length 1.
+
+R has the following basic data structures:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Vector (1d,homegenous)
+\item
+  List (heterogeneous)
+\item
+  Matrix (2d, homogeneous)
+\item
+  Data frame (tibble) (2d, heterogeneous)
+\item
+  Array (3d,homogeneous)
+\end{enumerate}
+
+\includegraphics{data_s.jpg}
+
+\hypertarget{exercise-5.5}{%
+\subsubsection*{EXERCISE 5.5}\label{exercise-5.5}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 5.5}
+
+In which data sturctures can we put multiple data types?
 
 \hypertarget{vectors}{%
 \section{Vectors}\label{vectors}}
 
-A vector is the most common and basic data type in R, and is pretty much the workhorse of R. A vector is a colection of values that are all of the same type (numeric, character, etc.). We can assign a series of values to a vector using the \texttt{c()} function. For example we can create a vector of animal weights and assign it to a new object \texttt{weight\_g}:
+\includegraphics{vec1.jpg}
+
+A vector is the most common and basic data type in R, and is pretty much the workhorse of R. A vector is a collection of values that are all of the same type (numeric, character, etc.). We can assign a series of values to a vector using the \texttt{c()} function. For example we can create a vector of animal weights and assign it to a new object \texttt{weight\_g}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1125,59 +1214,6 @@ In the first line, we take the original vector \texttt{weight\_g}, add the value
 
 We can do this over and over again to grow a vector, or assemble a dataset. As we program, this may be useful to add results that we are collecting or calculating.
 
-An atomic vector is the simplest R data type and is a linear vector of a single type. Above, we saw 2 of the 6 main atomic vector types that R uses: ``character'' and ``numeric''. These are the basic building blocks that all R objects are built from. The other 4 atomic vector types are:
-
-\begin{itemize}
-\tightlist
-\item
-  ``logical'' for TRUE and FALSE (the boolean data type)
-\item
-  ``integer'' for integer numbers (e.g., 2L, the L indicates to R that it's an integer)
-\item
-  ``complex'' to represent complex numbers with real and imaginary parts (e.g., 1 + 4i) and that's all we're going to say about them
-\item
-  ``raw'' for bitstreams that we won't discuss further
-\end{itemize}
-
-Vectors are one of the many data structures that R uses. Other important ones are matrices (\texttt{matrix}), factors (\texttt{factor}), data frames (\texttt{data.frame}), and lists (\texttt{list}). The set of packages in the \texttt{tidyverse} uses tibbles(\texttt{tibble}) which are sort of like souped up data frames. Data frames are analogous to rectangular spreadsheets: they are representations of datasets in R where the rows correspond observations and the columns correspond to variables that describe the observations.
-
-\hypertarget{exercise-6}{%
-\subsubsection*{EXERCISE}\label{exercise-6}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
-
-\begin{itemize}
-\item
-  We've seen that atomic vectors can be of type character, numeric, integer, and logical. But what happens if we try to mix these types in a single vector?
-\item
-  What will happen in each of these examples? (hint: use \texttt{class()} to check the data type of your objects):
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{num_char <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"a"}\NormalTok{)}
-\NormalTok{num_logical <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{char_logical <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{tricky <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"4"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{itemize}
-\item
-  Why do you think it happens?
-\item
-  How many values in \texttt{combined\_logical} are ``TRUE'' (as a character) in the following example:
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{num_logical <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{char_logical <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{combined_logical <-}\StringTok{ }\KeywordTok{c}\NormalTok{(num_logical, char_logical)}
-\end{Highlighting}
-\end{Shaded}
-
-You've probably noticed that objects of different types get converted into a single, shared type within a vector. In R, we call converting objects from one class into another class \emph{coercion.} These conversions happen according to a hierarchy, whereby some types get preferentially coerced into other types. Can you draw a diagram that represents the hierarchy of how these data types are coerced?
-
 \hypertarget{indexing-vectors}{%
 \section{Indexing vectors}\label{indexing-vectors}}
 
@@ -1233,8 +1269,7 @@ We can add new items to a vector using the \texttt{c()} function.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "mouse"  "rat"    "dog"    "cat"   
-## [5] "horse"  "crab"   "monkey"
+## [1] "mouse"  "rat"    "dog"    "cat"    "horse"  "crab"   "monkey"
 \end{verbatim}
 
 \hypertarget{replacing-values-in-existing-vectors}{%
@@ -1252,8 +1287,7 @@ We can replace a value by using the index of the item to be replaced:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "mouse" "rat"   "dog"   "cat"   "horse"
-## [6] "crab"  "bird"
+## [1] "mouse" "rat"   "dog"   "cat"   "horse" "crab"  "bird"
 \end{verbatim}
 
 \hypertarget{conditional-subsetting}{%
@@ -1381,9 +1415,9 @@ The \texttt{which()} function returns the indices of any item that evaluates as 
 ## [1] 4
 \end{verbatim}
 
-\hypertarget{exercise-7}{%
-\subsubsection*{EXERCISE}\label{exercise-7}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-5.7.1}{%
+\subsubsection*{EXERCISE 5.7.1}\label{exercise-5.7.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 5.7.1}
 
 \begin{itemize}
 \tightlist
@@ -1467,9 +1501,9 @@ If your data include missing values (and that's probably all of us!), you may wa
 ## [1] "omit"
 \end{verbatim}
 
-\hypertarget{exercise-8}{%
-\subsubsection*{EXERCISE}\label{exercise-8}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-5.8.1}{%
+\subsubsection*{EXERCISE 5.8.1}\label{exercise-5.8.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 5.8.1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1531,9 +1565,9 @@ Spreadsheet data is often saved in one of the following formats:
 
 There are several ways to import data into R. Here, we will use the tools every R installation comes with (ie. ``base R'') to import a comma-delimited file containing some data. We will need to load the file using a function called \texttt{read.csv()}.
 
-\hypertarget{exercise-9}{%
-\subsubsection*{EXERCISE}\label{exercise-9}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-6.2.1}{%
+\subsubsection*{EXERCISE 6.2.1}\label{exercise-6.2.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 6.2.1}
 
 Before using the \texttt{read.csv()} function, use R's help feature to answer the following questions:
 
@@ -1596,20 +1630,13 @@ This will output the entire dataset. If we only want to see the top 6 lines of t
 \end{Shaded}
 
 \begin{verbatim}
-##     sample generation   clade strain
-## 1   REL606          0     N/A REL606
-## 2 REL1166A       2000 unknown REL606
-## 3   ZDB409       5000 unknown REL606
-## 4   ZDB429      10000      UC REL606
-## 5   ZDB446      15000      UC REL606
-## 6   ZDB458      20000 (C1,C2) REL606
-##       cit       run genome_size
-## 1 unknown                  4.62
-## 2 unknown SRR098028        4.63
-## 3 unknown SRR098281        4.60
-## 4 unknown SRR098282        4.59
-## 5 unknown SRR098283        4.66
-## 6 unknown SRR098284        4.63
+##     sample generation   clade strain     cit       run genome_size
+## 1   REL606          0     N/A REL606 unknown                  4.62
+## 2 REL1166A       2000 unknown REL606 unknown SRR098028        4.63
+## 3   ZDB409       5000 unknown REL606 unknown SRR098281        4.60
+## 4   ZDB429      10000      UC REL606 unknown SRR098282        4.59
+## 5   ZDB446      15000      UC REL606 unknown SRR098283        4.66
+## 6   ZDB458      20000 (C1,C2) REL606 unknown SRR098284        4.63
 \end{verbatim}
 
 \hypertarget{what-are-data-frames}{%
@@ -1636,9 +1663,9 @@ The \texttt{str()} function is useful to insepct the data types of the columns.
 ##  $ genome_size: num  4.62 4.63 4.6 4.59 4.66 4.63 4.62 4.61 4.65 4.59 ...
 \end{verbatim}
 
-\hypertarget{exercise-10}{%
-\subsubsection*{EXERCISE}\label{exercise-10}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-6.5.1}{%
+\subsubsection*{EXERCISE 6.5.1}\label{exercise-6.5.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 6.5.1}
 
 Create a data frame using the \texttt{data.frame()} function:
 
@@ -1733,15 +1760,11 @@ To isolate a column or variable of a data frame, we use the \textbf{\$} operator
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] REL606   REL1166A ZDB409   ZDB429  
-##  [5] ZDB446   ZDB458   ZDB464*  ZDB467  
-##  [9] ZDB477   ZDB483   ZDB16    ZDB357  
-## [13] ZDB199*  ZDB200   ZDB564   ZDB30*  
-## [17] ZDB172   ZDB158   ZDB143   CZB199  
-## [21] CZB152   CZB154   ZDB83    ZDB87   
-## [25] ZDB96    ZDB99    ZDB107   ZDB111  
-## [29] REL10979 REL10988
-## 30 Levels: CZB152 CZB154 ... ZDB99
+##  [1] REL606   REL1166A ZDB409   ZDB429   ZDB446   ZDB458   ZDB464*  ZDB467  
+##  [9] ZDB477   ZDB483   ZDB16    ZDB357   ZDB199*  ZDB200   ZDB564   ZDB30*  
+## [17] ZDB172   ZDB158   ZDB143   CZB199   CZB152   CZB154   ZDB83    ZDB87   
+## [25] ZDB96    ZDB99    ZDB107   ZDB111   REL10979 REL10988
+## 30 Levels: CZB152 CZB154 CZB199 REL10979 REL10988 REL1166A REL606 ... ZDB99
 \end{verbatim}
 
 \begin{Shaded}
@@ -1751,10 +1774,8 @@ To isolate a column or variable of a data frame, we use the \textbf{\$} operator
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 4.62 4.63 4.60 4.59 4.66 4.63 4.62 4.61
-##  [9] 4.65 4.59 4.61 4.62 4.62 4.63 4.74 4.61
-## [17] 4.77 4.63 4.79 4.59 4.80 4.76 4.60 4.75
-## [25] 4.74 4.61 4.79 4.62 4.78 4.62
+##  [1] 4.62 4.63 4.60 4.59 4.66 4.63 4.62 4.61 4.65 4.59 4.61 4.62 4.62 4.63 4.74
+## [16] 4.61 4.77 4.63 4.79 4.59 4.80 4.76 4.60 4.75 4.74 4.61 4.79 4.62 4.78 4.62
 \end{verbatim}
 
 To determine the number of levels of any factor, use the \texttt{nlevels()} function:
@@ -1799,12 +1820,10 @@ Let's extract the \texttt{cit} column of the metadata to a new object, so we don
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] unknown unknown unknown unknown unknown
-##  [6] unknown unknown unknown unknown unknown
-## [11] unknown unknown minus   minus   plus   
-## [16] minus   plus    minus   plus    minus  
-## [21] plus    plus    minus   plus    plus   
-## [26] minus   plus    minus   plus    minus  
+##  [1] unknown unknown unknown unknown unknown unknown unknown unknown unknown
+## [10] unknown unknown unknown minus   minus   plus    minus   plus    minus  
+## [19] plus    minus   plus    plus    minus   plus    plus    minus   plus   
+## [28] minus   plus    minus  
 ## Levels: minus plus unknown
 \end{verbatim}
 
@@ -1831,7 +1850,7 @@ One of the most common uses for factors will be when you plot categorical values
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-63-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-59-1.pdf}
 
 This isn't a particularly pretty example of a plot. But it can be a useful way to get acquainted with your data.
 
@@ -1845,12 +1864,10 @@ To reorder the levels of a factor:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] unknown unknown unknown unknown unknown
-##  [6] unknown unknown unknown unknown unknown
-## [11] unknown unknown minus   minus   plus   
-## [16] minus   plus    minus   plus    minus  
-## [21] plus    plus    minus   plus    plus   
-## [26] minus   plus    minus   plus    minus  
+##  [1] unknown unknown unknown unknown unknown unknown unknown unknown unknown
+## [10] unknown unknown unknown minus   minus   plus    minus   plus    minus  
+## [19] plus    minus   plus    plus    minus   plus    plus    minus   plus   
+## [28] minus   plus    minus  
 ## Levels: unknown plus minus
 \end{verbatim}
 
@@ -1860,16 +1877,16 @@ To reorder the levels of a factor:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-64-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-60-1.pdf}
 
 \hypertarget{subsetting-data-frames}{%
 \section{Subsetting data frames}\label{subsetting-data-frames}}
 
 Subsetting data frames is similar to subsetting vectors with one major difference: date frames are two-dimensional. Therefore, to select a specific value we will use the \texttt{{[}{]}} notation again, but we will specify more than one value.
 
-\hypertarget{exercise-11}{%
-\subsubsection*{EXERCISE}\label{exercise-11}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-6.8.1}{%
+\subsubsection*{EXERCISE 6.8.1}\label{exercise-6.8.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 6.8.1}
 
 Try the following indices on the metadata data frame:
 
@@ -1903,26 +1920,16 @@ You can assign a subset of your data frame to a new object. For example, to crea
 \end{Shaded}
 
 \begin{verbatim}
-##      sample generation clade strain  cit
-## 15   ZDB564      31500  Cit+ REL606 plus
-## 17   ZDB172      32000  Cit+ REL606 plus
-## 19   ZDB143      32500  Cit+ REL606 plus
-## 21   CZB152      33000  Cit+ REL606 plus
-## 22   CZB154      33000  Cit+ REL606 plus
-## 24    ZDB87      34000    C2 REL606 plus
-## 25    ZDB96      36000  Cit+ REL606 plus
-## 27   ZDB107      38000  Cit+ REL606 plus
-## 29 REL10979      40000  Cit+ REL606 plus
-##          run genome_size
-## 15 SRR098289        4.74
-## 17 SRR098042        4.77
-## 19 SRR098040        4.79
-## 21 SRR097977        4.80
-## 22 SRR098026        4.76
-## 24 SRR098035        4.75
-## 25 SRR098036        4.74
-## 27 SRR098038        4.79
-## 29 SRR098029        4.78
+##      sample generation clade strain  cit       run genome_size
+## 15   ZDB564      31500  Cit+ REL606 plus SRR098289        4.74
+## 17   ZDB172      32000  Cit+ REL606 plus SRR098042        4.77
+## 19   ZDB143      32500  Cit+ REL606 plus SRR098040        4.79
+## 21   CZB152      33000  Cit+ REL606 plus SRR097977        4.80
+## 22   CZB154      33000  Cit+ REL606 plus SRR098026        4.76
+## 24    ZDB87      34000    C2 REL606 plus SRR098035        4.75
+## 25    ZDB96      36000  Cit+ REL606 plus SRR098036        4.74
+## 27   ZDB107      38000  Cit+ REL606 plus SRR098038        4.79
+## 29 REL10979      40000  Cit+ REL606 plus SRR098029        4.78
 \end{verbatim}
 
 \hypertarget{other-data-types}{%
@@ -2021,165 +2028,6 @@ A list is an R-object which can contain many different types of elements inside 
 ## 3 female  165.0     78  26
 \end{verbatim}
 
-\hypertarget{conditional-statements-and-loops}{%
-\chapter{Conditional Statements and Loops}\label{conditional-statements-and-loops}}
-
-\hypertarget{conditional-statements}{%
-\section{Conditional statements}\label{conditional-statements}}
-
-Decision making is an important part of programming. This can be achieved in R programming using conditional statements such as \texttt{if} and \texttt{if...else}.
-
-\hypertarget{if}{%
-\subsection*{if}\label{if}}
-\addcontentsline{toc}{subsection}{if}
-
-The syntax of an if statement is:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ (test_expression) \{}
-\NormalTok{  do_this}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\DecValTok{5}
-\ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
-  \KeywordTok{print}\NormalTok{(}\StringTok{"positive number"}\NormalTok{)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "positive number"
-\end{verbatim}
-
-\hypertarget{ifelse}{%
-\subsection*{if\ldots{}else}\label{ifelse}}
-\addcontentsline{toc}{subsection}{if\ldots{}else}
-
-The syntax of an if\ldots{}else statement is:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ (test_expression) \{}
-\NormalTok{  do_this}
-\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{    do_that}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The else part is optional and is only evaluated if test\_expression is FALSE. It is important that the \texttt{else} word be in the same line as the closing brace of the \texttt{if} statement.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\DecValTok{1}
-\ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-  \KeywordTok{print}\NormalTok{(}\StringTok{"positive number"}\NormalTok{)}
-\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
-    \KeywordTok{print}\NormalTok{(}\StringTok{"negative number"}\NormalTok{)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "positive number"
-\end{verbatim}
-
-\hypertarget{nested-ifelse-statements}{%
-\subsection*{Nested if\ldots{}else statements}\label{nested-ifelse-statements}}
-\addcontentsline{toc}{subsection}{Nested if\ldots{}else statements}
-
-You can have more than two test expressions:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ (test_expression1) \{ }
-\NormalTok{  statement1}
-\NormalTok{\} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (test_expression2) \{}
-\NormalTok{    statement2}
-\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{      statement4}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\DecValTok{0}
-\ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{<}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
-   \KeywordTok{print}\NormalTok{(}\StringTok{"negative number"}\NormalTok{)}
-\NormalTok{\} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
-   \KeywordTok{print}\NormalTok{(}\StringTok{"positive number"}\NormalTok{)}
-\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
-   \KeywordTok{print}\NormalTok{(}\StringTok{"zero"}\NormalTok{)}
-\NormalTok{\}  }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "zero"
-\end{verbatim}
-
-\hypertarget{exercise-12}{%
-\subsubsection*{EXERCISE}\label{exercise-12}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
-
-(\textasciitilde{}5 mins)
-
-Write a simple if\ldots{}else statement to check if 5 is an odd number and if it is print ``I am odd'', otherwise print ``I am even''.
-
-\hypertarget{loops}{%
-\section{Loops}\label{loops}}
-
-Conceptually, a loop is a way to repeat a sequence of instructions under certain conditions. They allow you to automate parts of your code that are in need of repetition.
-
-The easiest and most frequently used loop in R is a for loop. Here is a demonstration of using loops.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{year <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2015}\NormalTok{,}\DecValTok{2016}\NormalTok{,}\DecValTok{2017}\NormalTok{,}\DecValTok{2018}\NormalTok{)}
-
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(year)) \{}
-  \KeywordTok{print}\NormalTok{(year[i])}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 2015
-## [1] 2016
-## [1] 2017
-## [1] 2018
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(year)) \{}
-  \KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"the year is "}\NormalTok{,year[i]))}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "the year is 2015"
-## [1] "the year is 2016"
-## [1] "the year is 2017"
-## [1] "the year is 2018"
-\end{verbatim}
-
-\hypertarget{exercise-13}{%
-\subsubsection*{EXERCISE}\label{exercise-13}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
-
-(\textasciitilde{}10 mins)
-
-\textbf{Challenging.} Using the \emph{E. coli} metadata from the last section, write a \texttt{for} loop containing an \texttt{if...else} statement to change the genome size into categorical variable with two levels: large and small.
-Do this by translating the following sentence into R code: for every element in the genome\_size variable, if the genome size is greater than the mean, change it to ``large'', otherwise, change it to ``small''.
-
 \hypertarget{manipulating-data-in-the-tidyverse}{%
 \chapter{Manipulating Data in the tidyverse}\label{manipulating-data-in-the-tidyverse}}
 
@@ -2246,9 +2094,9 @@ You can create a tibble using the \texttt{tibble()} function:
 
 Tibbles can be read into R using the \texttt{read\_csv()} function. Note that the \texttt{read\_csv()} function is different than the \texttt{read.csv()} function. The major difference is that \texttt{read\_csv()} will store the data as a tibble and \texttt{read.csv()} will store the data as a data frame.
 
-\hypertarget{exercise-14}{%
-\subsubsection*{EXERCISE}\label{exercise-14}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-7.3.1}{%
+\subsubsection*{EXERCISE 7.3.1}\label{exercise-7.3.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.3.1}
 
 Use the \texttt{read\_csv()} function to read in the \texttt{Ecoli\_metadata.csv} file. Assign the data to an object called \texttt{metadata2} to avoid writing over the object \texttt{metadata}.
 
@@ -2267,20 +2115,13 @@ For some applications, you will need to use data frames and for others tibbles. 
 \end{Shaded}
 
 \begin{verbatim}
-##     sample generation   clade strain
-## 1   REL606          0     N/A REL606
-## 2 REL1166A       2000 unknown REL606
-## 3   ZDB409       5000 unknown REL606
-## 4   ZDB429      10000      UC REL606
-## 5   ZDB446      15000      UC REL606
-## 6   ZDB458      20000 (C1,C2) REL606
-##       cit       run genome_size
-## 1 unknown                  4.62
-## 2 unknown SRR098028        4.63
-## 3 unknown SRR098281        4.60
-## 4 unknown SRR098282        4.59
-## 5 unknown SRR098283        4.66
-## 6 unknown SRR098284        4.63
+##     sample generation   clade strain     cit       run genome_size
+## 1   REL606          0     N/A REL606 unknown                  4.62
+## 2 REL1166A       2000 unknown REL606 unknown SRR098028        4.63
+## 3   ZDB409       5000 unknown REL606 unknown SRR098281        4.60
+## 4   ZDB429      10000      UC REL606 unknown SRR098282        4.59
+## 5   ZDB446      15000      UC REL606 unknown SRR098283        4.66
+## 6   ZDB458      20000 (C1,C2) REL606 unknown SRR098284        4.63
 \end{verbatim}
 
 \begin{Shaded}
@@ -2292,20 +2133,19 @@ For some applications, you will need to use data frames and for others tibbles. 
 
 \begin{verbatim}
 ## # A tibble: 30 x 7
-##    sample generation clade strain cit  
-##    <fct>       <int> <fct> <fct>  <fct>
-##  1 REL606          0 N/A   REL606 unkn~
-##  2 REL11~       2000 unkn~ REL606 unkn~
-##  3 ZDB409       5000 unkn~ REL606 unkn~
-##  4 ZDB429      10000 UC    REL606 unkn~
-##  5 ZDB446      15000 UC    REL606 unkn~
-##  6 ZDB458      20000 (C1,~ REL606 unkn~
-##  7 ZDB46~      20000 (C1,~ REL606 unkn~
-##  8 ZDB467      20000 (C1,~ REL606 unkn~
-##  9 ZDB477      25000 C1    REL606 unkn~
-## 10 ZDB483      25000 C3    REL606 unkn~
-## # ... with 20 more rows, and 2 more
-## #   variables: run <fct>, genome_size <dbl>
+##    sample   generation clade   strain cit     run         genome_size
+##    <fct>         <int> <fct>   <fct>  <fct>   <fct>             <dbl>
+##  1 REL606            0 N/A     REL606 unknown ""                 4.62
+##  2 REL1166A       2000 unknown REL606 unknown "SRR098028"        4.63
+##  3 ZDB409         5000 unknown REL606 unknown "SRR098281"        4.6 
+##  4 ZDB429        10000 UC      REL606 unknown "SRR098282"        4.59
+##  5 ZDB446        15000 UC      REL606 unknown "SRR098283"        4.66
+##  6 ZDB458        20000 (C1,C2) REL606 unknown "SRR098284"        4.63
+##  7 ZDB464*       20000 (C1,C2) REL606 unknown "SRR098285"        4.62
+##  8 ZDB467        20000 (C1,C2) REL606 unknown "SRR098286"        4.61
+##  9 ZDB477        25000 C1      REL606 unknown "SRR098287"        4.65
+## 10 ZDB483        25000 C3      REL606 unknown "SRR098288"        4.59
+## # ... with 20 more rows
 \end{verbatim}
 
 \begin{Shaded}
@@ -2316,21 +2156,20 @@ For some applications, you will need to use data frames and for others tibbles. 
 \end{Shaded}
 
 \begin{verbatim}
-##     sample generation   clade strain
-## 1   REL606          0     N/A REL606
-## 2 REL1166A       2000 unknown REL606
-## 3   ZDB409       5000 unknown REL606
-## 4   ZDB429      10000      UC REL606
-## 5   ZDB446      15000      UC REL606
-## 6   ZDB458      20000 (C1,C2) REL606
-##       cit       run genome_size
-## 1 unknown                  4.62
-## 2 unknown SRR098028        4.63
-## 3 unknown SRR098281        4.60
-## 4 unknown SRR098282        4.59
-## 5 unknown SRR098283        4.66
-## 6 unknown SRR098284        4.63
+##     sample generation   clade strain     cit       run genome_size
+## 1   REL606          0     N/A REL606 unknown                  4.62
+## 2 REL1166A       2000 unknown REL606 unknown SRR098028        4.63
+## 3   ZDB409       5000 unknown REL606 unknown SRR098281        4.60
+## 4   ZDB429      10000      UC REL606 unknown SRR098282        4.59
+## 5   ZDB446      15000      UC REL606 unknown SRR098283        4.66
+## 6   ZDB458      20000 (C1,C2) REL606 unknown SRR098284        4.63
 \end{verbatim}
+
+\hypertarget{brain-teaser}{%
+\subsubsection*{Brain Teaser}\label{brain-teaser}}
+\addcontentsline{toc}{subsubsection}{Brain Teaser}
+
+Can a tibble contain different data types in each column?
 
 As you will see in the following sections, many of the useful data frame functions are the same for tibbles.
 
@@ -2346,15 +2185,15 @@ We can explore the contents of a tibble in several ways. By typing the name of t
 \end{Shaded}
 
 \begin{verbatim}
-## Observations: 30
-## Variables: 7
-## $ sample      <fct> REL606, REL1166A, Z...
-## $ generation  <int> 0, 2000, 5000, 1000...
-## $ clade       <fct> "N/A", "unknown", "...
-## $ strain      <fct> REL606, REL606, REL...
-## $ cit         <fct> unknown, unknown, u...
-## $ run         <fct> , SRR098028, SRR098...
-## $ genome_size <dbl> 4.62, 4.63, 4.60, 4...
+## Rows: 30
+## Columns: 7
+## $ sample      <fct> REL606, REL1166A, ZDB409, ZDB429, ZDB446, ZDB458, ZDB46...
+## $ generation  <int> 0, 2000, 5000, 10000, 15000, 20000, 20000, 20000, 25000...
+## $ clade       <fct> "N/A", "unknown", "unknown", "UC", "UC", "(C1,C2)", "(C...
+## $ strain      <fct> REL606, REL606, REL606, REL606, REL606, REL606, REL606,...
+## $ cit         <fct> unknown, unknown, unknown, unknown, unknown, unknown, u...
+## $ run         <fct> , SRR098028, SRR098281, SRR098282, SRR098283, SRR098284...
+## $ genome_size <dbl> 4.62, 4.63, 4.60, 4.59, 4.66, 4.63, 4.62, 4.61, 4.65, 4...
 \end{verbatim}
 
 As with data frames, we can return a vector containing the values of a variable (column) using the \$ sign:
@@ -2366,10 +2205,8 @@ As with data frames, we can return a vector containing the values of a variable 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]     0  2000  5000 10000 15000 20000
-##  [7] 20000 20000 25000 25000 30000 30000
-## [13] 31500 31500 31500 32000 32000 32500
-## [19] 32500 33000 33000 33000 34000 34000
+##  [1]     0  2000  5000 10000 15000 20000 20000 20000 25000 25000 30000 30000
+## [13] 31500 31500 31500 32000 32000 32500 32500 33000 33000 33000 34000 34000
 ## [25] 36000 36000 38000 38000 40000 40000
 \end{verbatim}
 
@@ -2404,11 +2241,9 @@ If we leave an index blank, this acts as a wildcard and matches all of the rows 
 
 \begin{verbatim}
 ## # A tibble: 1 x 7
-##   sample generation clade strain cit   run  
-##   <fct>       <int> <fct> <fct>  <fct> <fct>
-## 1 CZB154      33000 Cit+  REL606 plus  SRR0~
-## # ... with 1 more variable:
-## #   genome_size <dbl>
+##   sample generation clade strain cit   run       genome_size
+##   <fct>       <int> <fct> <fct>  <fct> <fct>           <dbl>
+## 1 CZB154      33000 Cit+  REL606 plus  SRR098026        4.76
 \end{verbatim}
 
 \begin{Shaded}
@@ -2468,15 +2303,11 @@ Note that subsetting a tibble using the {[}{]} method returns another tibble. In
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] REL606   REL1166A ZDB409   ZDB429  
-##  [5] ZDB446   ZDB458   ZDB464*  ZDB467  
-##  [9] ZDB477   ZDB483   ZDB16    ZDB357  
-## [13] ZDB199*  ZDB200   ZDB564   ZDB30*  
-## [17] ZDB172   ZDB158   ZDB143   CZB199  
-## [21] CZB152   CZB154   ZDB83    ZDB87   
-## [25] ZDB96    ZDB99    ZDB107   ZDB111  
-## [29] REL10979 REL10988
-## 30 Levels: CZB152 CZB154 ... ZDB99
+##  [1] REL606   REL1166A ZDB409   ZDB429   ZDB446   ZDB458   ZDB464*  ZDB467  
+##  [9] ZDB477   ZDB483   ZDB16    ZDB357   ZDB199*  ZDB200   ZDB564   ZDB30*  
+## [17] ZDB172   ZDB158   ZDB143   CZB199   CZB152   CZB154   ZDB83    ZDB87   
+## [25] ZDB96    ZDB99    ZDB107   ZDB111   REL10979 REL10988
+## 30 Levels: CZB152 CZB154 CZB199 REL10979 REL10988 REL1166A REL606 ... ZDB99
 \end{verbatim}
 
 For more information on tibbles see the \href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{tibbles vignette}.
@@ -2512,18 +2343,18 @@ The \texttt{gather()} function takes multiple columns, and gathers them into key
 \begin{Highlighting}[]
 \NormalTok{messy <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
   \DataTypeTok{name =} \KeywordTok{c}\NormalTok{(}\StringTok{"Wilbur"}\NormalTok{, }\StringTok{"Petunia"}\NormalTok{, }\StringTok{"Gregory"}\NormalTok{),}
-  \DataTypeTok{a =} \KeywordTok{c}\NormalTok{(}\DecValTok{67}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{64}\NormalTok{),}
-  \DataTypeTok{b =} \KeywordTok{c}\NormalTok{(}\DecValTok{56}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+  \DataTypeTok{drugA =} \KeywordTok{c}\NormalTok{(}\DecValTok{67}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{64}\NormalTok{),}
+  \DataTypeTok{drugB =} \KeywordTok{c}\NormalTok{(}\DecValTok{56}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{50}\NormalTok{)}
 \NormalTok{)}
 \NormalTok{messy}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##      name  a  b
-## 1  Wilbur 67 56
-## 2 Petunia 80 90
-## 3 Gregory 64 50
+##      name drugA drugB
+## 1  Wilbur    67    56
+## 2 Petunia    80    90
+## 3 Gregory    64    50
 \end{verbatim}
 
 We have three variables (name, drug and heartrate), but only name is currently in a column. We use \texttt{gather()} to gather the a and b columns into key-value pairs of drug and heartrate:
@@ -2531,21 +2362,36 @@ We have three variables (name, drug and heartrate), but only name is currently i
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{messy }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{gather}\NormalTok{(drug, heartrate, a}\OperatorTok{:}\NormalTok{b)}
+\StringTok{  }\KeywordTok{gather}\NormalTok{(drug, heartrate, drugA}\OperatorTok{:}\NormalTok{drugB)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##      name drug heartrate
-## 1  Wilbur    a        67
-## 2 Petunia    a        80
-## 3 Gregory    a        64
-## 4  Wilbur    b        56
-## 5 Petunia    b        90
-## 6 Gregory    b        50
+##      name  drug heartrate
+## 1  Wilbur drugA        67
+## 2 Petunia drugA        80
+## 3 Gregory drugA        64
+## 4  Wilbur drugB        56
+## 5 Petunia drugB        90
+## 6 Gregory drugB        50
 \end{verbatim}
 
 Now each column is a variable and each row is an observation - tidy! Note: more about the ``pipe'' operator later.
+
+\hypertarget{exercise-7.4.1}{%
+\subsubsection*{EXERCISE 7.4.1}\label{exercise-7.4.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.4.1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  In this example, what is the key and what is the value?
+  \texttt{gather(messy,drug,\ heartrate,\ drugA:drugB)}
+\item
+  What does drugA:drugB mean?
+\item
+  What is the difference between long and wide data?
+\end{enumerate}
 
 \hypertarget{separate}{%
 \subsection*{\texorpdfstring{\texttt{separate()}}{separate()}}\label{separate}}
@@ -2562,16 +2408,11 @@ Sometimes two variables are clumped together in one column. separate() allows yo
 \end{Shaded}
 
 \begin{verbatim}
-##   id       trt    work.T1   home.T1
-## 1  1 treatment 0.08513597 0.6158293
-## 2  2   control 0.22543662 0.4296715
-## 3  3   control 0.27453052 0.6516557
-## 4  4 treatment 0.27230507 0.5677378
-##     work.T2    home.T2
-## 1 0.1135090 0.05190332
-## 2 0.5959253 0.26417767
-## 3 0.3580500 0.39879073
-## 4 0.4288094 0.83613414
+##   id       trt    work.T1   home.T1   work.T2    home.T2
+## 1  1 treatment 0.08513597 0.6158293 0.1135090 0.05190332
+## 2  2   control 0.22543662 0.4296715 0.5959253 0.26417767
+## 3  3   control 0.27453052 0.6516557 0.3580500 0.39879073
+## 4  4 treatment 0.27230507 0.5677378 0.4288094 0.83613414
 \end{verbatim}
 
 To tidy this data, we first use gather() to turn columns work.T1, home.T1, work.T2 and home.T2 into a key-value pair of key and time:
@@ -2615,41 +2456,32 @@ Next we use separate() to split the key into location and time, using a regular 
 \end{Shaded}
 
 \begin{verbatim}
-##    id       trt location timepoint
-## 1   1 treatment     work        T1
-## 2   2   control     work        T1
-## 3   3   control     work        T1
-## 4   4 treatment     work        T1
-## 5   1 treatment     home        T1
-## 6   2   control     home        T1
-## 7   3   control     home        T1
-## 8   4 treatment     home        T1
-## 9   1 treatment     work        T2
-## 10  2   control     work        T2
-## 11  3   control     work        T2
-## 12  4 treatment     work        T2
-## 13  1 treatment     home        T2
-## 14  2   control     home        T2
-## 15  3   control     home        T2
-## 16  4 treatment     home        T2
-##          time
-## 1  0.08513597
-## 2  0.22543662
-## 3  0.27453052
-## 4  0.27230507
-## 5  0.61582931
-## 6  0.42967153
-## 7  0.65165567
-## 8  0.56773775
-## 9  0.11350898
-## 10 0.59592531
-## 11 0.35804998
-## 12 0.42880942
-## 13 0.05190332
-## 14 0.26417767
-## 15 0.39879073
-## 16 0.83613414
+##    id       trt location timepoint       time
+## 1   1 treatment     work        T1 0.08513597
+## 2   2   control     work        T1 0.22543662
+## 3   3   control     work        T1 0.27453052
+## 4   4 treatment     work        T1 0.27230507
+## 5   1 treatment     home        T1 0.61582931
+## 6   2   control     home        T1 0.42967153
+## 7   3   control     home        T1 0.65165567
+## 8   4 treatment     home        T1 0.56773775
+## 9   1 treatment     work        T2 0.11350898
+## 10  2   control     work        T2 0.59592531
+## 11  3   control     work        T2 0.35804998
+## 12  4 treatment     work        T2 0.42880942
+## 13  1 treatment     home        T2 0.05190332
+## 14  2   control     home        T2 0.26417767
+## 15  3   control     home        T2 0.39879073
+## 16  4 treatment     home        T2 0.83613414
 \end{verbatim}
+
+You can also use integer position to split at.
+
+\hypertarget{brain-teaser-1}{%
+\subsubsection*{Brain Teaser}\label{brain-teaser-1}}
+\addcontentsline{toc}{subsubsection}{Brain Teaser}
+
+Why do we have ``\textbackslash{}'' before ``.'' in sep=''\textbackslash.''
 
 \hypertarget{spread}{%
 \subsection*{\texorpdfstring{\texttt{spread()}}{spread()}}\label{spread}}
@@ -2711,6 +2543,16 @@ We're going to learn some of the most common \texttt{dplyr} functions: \texttt{s
 ## 30 REL10988      C2   minus        4.62
 \end{verbatim}
 
+\hypertarget{exercise-7.6.1}{%
+\subsubsection*{EXERCISE 7.6.1}\label{exercise-7.6.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.6.1}
+
+Would the two calls to the select function below return the same tibble or not?
+
+\texttt{select(metadata,\ sample,\ clade,\ cit,\ genome\_size)}
+
+\texttt{select(metadata,\ -generation,-strain,-run)}
+
 To choose rows, use filter():
 
 \begin{Shaded}
@@ -2720,31 +2562,21 @@ To choose rows, use filter():
 \end{Shaded}
 
 \begin{verbatim}
-##     sample generation clade strain  cit
-## 1   ZDB564      31500  Cit+ REL606 plus
-## 2   ZDB172      32000  Cit+ REL606 plus
-## 3   ZDB143      32500  Cit+ REL606 plus
-## 4   CZB152      33000  Cit+ REL606 plus
-## 5   CZB154      33000  Cit+ REL606 plus
-## 6    ZDB87      34000    C2 REL606 plus
-## 7    ZDB96      36000  Cit+ REL606 plus
-## 8   ZDB107      38000  Cit+ REL606 plus
-## 9 REL10979      40000  Cit+ REL606 plus
-##         run genome_size
-## 1 SRR098289        4.74
-## 2 SRR098042        4.77
-## 3 SRR098040        4.79
-## 4 SRR097977        4.80
-## 5 SRR098026        4.76
-## 6 SRR098035        4.75
-## 7 SRR098036        4.74
-## 8 SRR098038        4.79
-## 9 SRR098029        4.78
+##     sample generation clade strain  cit       run genome_size
+## 1   ZDB564      31500  Cit+ REL606 plus SRR098289        4.74
+## 2   ZDB172      32000  Cit+ REL606 plus SRR098042        4.77
+## 3   ZDB143      32500  Cit+ REL606 plus SRR098040        4.79
+## 4   CZB152      33000  Cit+ REL606 plus SRR097977        4.80
+## 5   CZB154      33000  Cit+ REL606 plus SRR098026        4.76
+## 6    ZDB87      34000    C2 REL606 plus SRR098035        4.75
+## 7    ZDB96      36000  Cit+ REL606 plus SRR098036        4.74
+## 8   ZDB107      38000  Cit+ REL606 plus SRR098038        4.79
+## 9 REL10979      40000  Cit+ REL606 plus SRR098029        4.78
 \end{verbatim}
 
-\hypertarget{exercise-15}{%
-\subsubsection*{EXERCISE}\label{exercise-15}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-7.6.2}{%
+\subsubsection*{EXERCISE 7.6.2}\label{exercise-7.6.2}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.6.2}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2785,9 +2617,9 @@ The pipe operator can be tedious to type. In Rstudio pressing \texttt{Ctrl\ +\ S
 
 In the above we use the pipe to send the data set first through \texttt{filter}, to keep rows where cit was equal to `plus', and then through \texttt{select} to keep the sample and generation and clade columns. When the data frame is being passed to the \texttt{filter()} and \texttt{select()} functions through a pipe, we don't need to include it as an argument to these functions anymore.
 
-\hypertarget{exercise-16}{%
-\subsubsection*{EXERCISE}\label{exercise-16}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-7.7.1}{%
+\subsubsection*{EXERCISE 7.7.1}\label{exercise-7.7.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.7.1}
 
 Does the order of \texttt{filter()} and \texttt{select()} above matter? Why or why not?
 
@@ -2841,11 +2673,11 @@ If we wanted to create a new object with this smaller version of the data we cou
 
 We can think of the \texttt{filter()} and \texttt{select()} functions as verbs in the sentence; they do things to the data flowing through the pipeline.
 
-\hypertarget{exercise-17}{%
-\subsubsection*{EXERCISE}\label{exercise-17}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-7.7.2}{%
+\subsubsection*{EXERCISE 7.7.2}\label{exercise-7.7.2}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.7.2}
 
-Using pipes, subset \texttt{metadata} to include rows where the clade is `Cit+' and keep only the columns \texttt{sample}, \texttt{cit}, and \texttt{genome\_size}.\\
+Using pipes, subset \texttt{metadata} to include rows where the clade is `Cit+' and keep only the columns \texttt{sample}, \texttt{cit}, and \texttt{genome\_size}.
 How many rows are in that tibble?
 
 \hypertarget{mutate}{%
@@ -2863,75 +2695,50 @@ To create a new column of genome size in bp:
 \end{Shaded}
 
 \begin{verbatim}
-##      sample generation   clade strain
-## 1    REL606          0     N/A REL606
-## 2  REL1166A       2000 unknown REL606
-## 3    ZDB409       5000 unknown REL606
-## 4    ZDB429      10000      UC REL606
-## 5    ZDB446      15000      UC REL606
-## 6    ZDB458      20000 (C1,C2) REL606
-## 7   ZDB464*      20000 (C1,C2) REL606
-## 8    ZDB467      20000 (C1,C2) REL606
-## 9    ZDB477      25000      C1 REL606
-## 10   ZDB483      25000      C3 REL606
-## 11    ZDB16      30000      C1 REL606
-## 12   ZDB357      30000      C2 REL606
-## 13  ZDB199*      31500      C1 REL606
-## 14   ZDB200      31500      C2 REL606
-## 15   ZDB564      31500    Cit+ REL606
-## 16   ZDB30*      32000      C3 REL606
-## 17   ZDB172      32000    Cit+ REL606
-## 18   ZDB158      32500      C2 REL606
-## 19   ZDB143      32500    Cit+ REL606
-## 20   CZB199      33000      C1 REL606
-## 21   CZB152      33000    Cit+ REL606
-## 22   CZB154      33000    Cit+ REL606
-## 23    ZDB83      34000    Cit+ REL606
-## 24    ZDB87      34000      C2 REL606
-## 25    ZDB96      36000    Cit+ REL606
-## 26    ZDB99      36000      C1 REL606
-## 27   ZDB107      38000    Cit+ REL606
-## 28   ZDB111      38000      C2 REL606
-## 29 REL10979      40000    Cit+ REL606
-## 30 REL10988      40000      C2 REL606
-##        cit       run genome_size genome_bp
-## 1  unknown                  4.62   4620000
-## 2  unknown SRR098028        4.63   4630000
-## 3  unknown SRR098281        4.60   4600000
-## 4  unknown SRR098282        4.59   4590000
-## 5  unknown SRR098283        4.66   4660000
-## 6  unknown SRR098284        4.63   4630000
-## 7  unknown SRR098285        4.62   4620000
-## 8  unknown SRR098286        4.61   4610000
-## 9  unknown SRR098287        4.65   4650000
-## 10 unknown SRR098288        4.59   4590000
-## 11 unknown SRR098031        4.61   4610000
-## 12 unknown SRR098280        4.62   4620000
-## 13   minus SRR098044        4.62   4620000
-## 14   minus SRR098279        4.63   4630000
-## 15    plus SRR098289        4.74   4740000
-## 16   minus SRR098032        4.61   4610000
-## 17    plus SRR098042        4.77   4770000
-## 18   minus SRR098041        4.63   4630000
-## 19    plus SRR098040        4.79   4790000
-## 20   minus SRR098027        4.59   4590000
-## 21    plus SRR097977        4.80   4800000
-## 22    plus SRR098026        4.76   4760000
-## 23   minus SRR098034        4.60   4600000
-## 24    plus SRR098035        4.75   4750000
-## 25    plus SRR098036        4.74   4740000
-## 26   minus SRR098037        4.61   4610000
-## 27    plus SRR098038        4.79   4790000
-## 28   minus SRR098039        4.62   4620000
-## 29    plus SRR098029        4.78   4780000
-## 30   minus SRR098030        4.62   4620000
+##      sample generation   clade strain     cit       run genome_size genome_bp
+## 1    REL606          0     N/A REL606 unknown                  4.62   4620000
+## 2  REL1166A       2000 unknown REL606 unknown SRR098028        4.63   4630000
+## 3    ZDB409       5000 unknown REL606 unknown SRR098281        4.60   4600000
+## 4    ZDB429      10000      UC REL606 unknown SRR098282        4.59   4590000
+## 5    ZDB446      15000      UC REL606 unknown SRR098283        4.66   4660000
+## 6    ZDB458      20000 (C1,C2) REL606 unknown SRR098284        4.63   4630000
+## 7   ZDB464*      20000 (C1,C2) REL606 unknown SRR098285        4.62   4620000
+## 8    ZDB467      20000 (C1,C2) REL606 unknown SRR098286        4.61   4610000
+## 9    ZDB477      25000      C1 REL606 unknown SRR098287        4.65   4650000
+## 10   ZDB483      25000      C3 REL606 unknown SRR098288        4.59   4590000
+## 11    ZDB16      30000      C1 REL606 unknown SRR098031        4.61   4610000
+## 12   ZDB357      30000      C2 REL606 unknown SRR098280        4.62   4620000
+## 13  ZDB199*      31500      C1 REL606   minus SRR098044        4.62   4620000
+## 14   ZDB200      31500      C2 REL606   minus SRR098279        4.63   4630000
+## 15   ZDB564      31500    Cit+ REL606    plus SRR098289        4.74   4740000
+## 16   ZDB30*      32000      C3 REL606   minus SRR098032        4.61   4610000
+## 17   ZDB172      32000    Cit+ REL606    plus SRR098042        4.77   4770000
+## 18   ZDB158      32500      C2 REL606   minus SRR098041        4.63   4630000
+## 19   ZDB143      32500    Cit+ REL606    plus SRR098040        4.79   4790000
+## 20   CZB199      33000      C1 REL606   minus SRR098027        4.59   4590000
+## 21   CZB152      33000    Cit+ REL606    plus SRR097977        4.80   4800000
+## 22   CZB154      33000    Cit+ REL606    plus SRR098026        4.76   4760000
+## 23    ZDB83      34000    Cit+ REL606   minus SRR098034        4.60   4600000
+## 24    ZDB87      34000      C2 REL606    plus SRR098035        4.75   4750000
+## 25    ZDB96      36000    Cit+ REL606    plus SRR098036        4.74   4740000
+## 26    ZDB99      36000      C1 REL606   minus SRR098037        4.61   4610000
+## 27   ZDB107      38000    Cit+ REL606    plus SRR098038        4.79   4790000
+## 28   ZDB111      38000      C2 REL606   minus SRR098039        4.62   4620000
+## 29 REL10979      40000    Cit+ REL606    plus SRR098029        4.78   4780000
+## 30 REL10988      40000      C2 REL606   minus SRR098030        4.62   4620000
 \end{verbatim}
 
-\hypertarget{exercise-18}{%
-\subsubsection*{EXERCISE}\label{exercise-18}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-7.8.1}{%
+\subsubsection*{EXERCISE 7.8.1}\label{exercise-7.8.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.8.1}
 
-Use the \texttt{mutate()} function to mutate generation into a fraction from 0 to 1.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Use the \texttt{mutate()} function to mutate generation into a fraction from 0 to 1.
+\item
+  What if you want to change a column instead of create a new column. Can you do that with \texttt{mutate}?
+\end{enumerate}
 
 \hypertarget{split-apply-combine-data-analysis-and-the-summarize-function}{%
 \section{Split-apply-combine data analysis and the summarize() function}\label{split-apply-combine-data-analysis-and-the-summarize-function}}
@@ -2957,9 +2764,9 @@ Many data analysis tasks can be approached using the ``split-apply-combine'' par
 
 Here the summary function used was \texttt{n()} to find the count for each group. We can also apply many other functions to individual columns to get other summary statistics. For example, in the R base package we can use built-in functions like \texttt{mean}, \texttt{median}, \texttt{min}, and \texttt{max}. By default, all R functions operating on vectors that contains missing data will return \texttt{NA}. It's a way to make sure that users know they have missing data, and make a conscious decision on how to deal with it. When dealing with simple statistics like the \texttt{mean}, the easiest way to ignore \texttt{NA} (the missing data) is to use \texttt{na.rm=TRUE} (rm stands for remove).
 
-\hypertarget{exercise-19}{%
-\subsubsection*{EXERCISE}\label{exercise-19}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-7.9.1}{%
+\subsubsection*{EXERCISE 7.9.1}\label{exercise-7.9.1}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.9.1}
 
 Use the \texttt{group\_by()} and \texttt{summarize()} to view mean \texttt{genome\_size} by mutant status (ie. cit).
 
@@ -2999,7 +2806,7 @@ Looks like for one of these clones, the clade is missing. We could then discard 
 \begin{Highlighting}[]
 \NormalTok{metadata }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(cit, clade) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{mean_size =} \KeywordTok{mean}\NormalTok{(genome_size, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{mean_size =} \KeywordTok{mean}\NormalTok{(genome_size, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(clade))}
 \end{Highlighting}
 \end{Shaded}
@@ -3057,9 +2864,9 @@ You can also summarize multiple variables at the same time:
 
 For a summary of the tidyr and dplyr functions, see this \href{http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf}{Handy dplyr cheatsheet}.
 
-\hypertarget{exercise-20}{%
-\subsubsection*{EXERCISE}\label{exercise-20}}
-\addcontentsline{toc}{subsubsection}{EXERCISE}
+\hypertarget{exercise-7.9.2}{%
+\subsubsection*{EXERCISE 7.9.2}\label{exercise-7.9.2}}
+\addcontentsline{toc}{subsubsection}{EXERCISE 7.9.2}
 
 Create a tibble containing each unique clade (removing the samples with unknown clades) and the rank of it's mean genome size. (note that ranking genome size will not sort the table; the row order will be unchanged. You can use the \texttt{arrange()} function to sort the table).
 
@@ -3088,8 +2895,8 @@ This section uses a different data set from the same experiment - the LTEE (long
 
 Download the data onto your computer from \href{https://www.dropbox.com/s/1z7qrbke9l6o6ee/combined_tidy_vcf.csv?dl=0}{this} dropbox link and move it into the \texttt{data} directory of your RStudio project.
 
-\hypertarget{exercise-21}{%
-\subsubsection*{EXERCISE}\label{exercise-21}}
+\hypertarget{exercise}{%
+\subsubsection*{EXERCISE}\label{exercise}}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Read the data into R. Call this data \texttt{variants}. Ensure that you have read the data in by calling \texttt{head(variants)}.
@@ -3135,8 +2942,8 @@ You can further investigate the structure of the data frame using the \texttt{st
 ##  $ gt_GT_alleles: Factor w/ 57 levels "A","AC","ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG",..: 31 46 46 29 25 46 1 1 4 15 ...
 \end{verbatim}
 
-\hypertarget{exercise-22}{%
-\subsubsection*{EXERCISE}\label{exercise-22}}
+\hypertarget{exercise-1}{%
+\subsubsection*{EXERCISE}\label{exercise-1}}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Take a few minutes to familiarize yourself with this dataset. There are a lot of variables (how many?), so only worry about the ones listed below.
@@ -3291,12 +3098,12 @@ To add a geom to the plot use the \texttt{+} operator. Because we have two conti
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-109-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-97-1.pdf}
 
 The \texttt{+} in the \texttt{ggplot2} package is particularly useful because it allows you to modify existing \texttt{ggplot} objects. This means you can easily set up plot templates and conveniently explore different types of plots, so the above plot can also be generated with code like this:
 
@@ -3306,7 +3113,7 @@ The \texttt{+} in the \texttt{ggplot2} package is particularly useful because it
 \NormalTok{coverage_plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP))}
 
 \CommentTok{# Draw the plot}
-\NormalTok{coverage_plot }\OperatorTok{+}\StringTok{ }
+\NormalTok{coverage_plot }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3335,20 +3142,28 @@ Notes:
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{brain-teaser-2}{%
+\subsubsection*{Brain Teaser}\label{brain-teaser-2}}
+\addcontentsline{toc}{subsubsection}{Brain Teaser}
+
+Can you add multiple geom\_ layers to the same plot?
+A Yes
+B No
+
 \hypertarget{principles-of-effective-display}{%
 \subsection*{Principles of effective display}\label{principles-of-effective-display}}
 \addcontentsline{toc}{subsection}{Principles of effective display}
 
 SOURCE: (Whitlock \& Schluter, The Analysis of Biological Data){[}\url{http://whitlockschluter.zoology.ubc.ca/}{]}
 
-We will follow these metrics to create and evaluate figures:\\
-1. Show the data\\
-2. Make patterns in the data easy to see\\
-3. Represent magnitudes honestly\\
+We will follow these metrics to create and evaluate figures:
+1. Show the data
+2. Make patterns in the data easy to see
+3. Represent magnitudes honestly
 4. Draw graphical elements clearly, minimizing clutter
 
-\hypertarget{exercise-23}{%
-\subsubsection*{EXERCISE}\label{exercise-23}}
+\hypertarget{exercise-2}{%
+\subsubsection*{EXERCISE}\label{exercise-2}}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Create a scatter plot (using the \texttt{geom\_point()} function for quality (\texttt{QUAL}) versus coverage depth (\texttt{DP}).
@@ -3361,12 +3176,12 @@ Building plots with \texttt{ggplot2} is typically an iterative process. We start
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-112-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-100-1.pdf}
 
 Then, we start modifying this plot to extract more information from it. For instance, we can add transparency (\texttt{alpha}) to avoid overplotting:
 
@@ -3377,7 +3192,7 @@ Then, we start modifying this plot to extract more information from it. For inst
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-113-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-101-1.pdf}
 
 We can also add colors for all the points:
 
@@ -3388,45 +3203,45 @@ We can also add colors for all the points:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-114-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-102-1.pdf}
 
 Or to color each species in the plot differently, you could use a vector as an input to the argument color. \texttt{ggplot2} will provide a different color corresponding to different values in the vector. Here is an example where we color with \texttt{sample\_id}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-115-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-103-1.pdf}
 
 Notice that we can change the geom layer and colors will be still determined by \texttt{sample\_id}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-116-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-104-1.pdf}
 
 To make our plot more readable, we can add axis labels:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Base Pair Position"}\NormalTok{, }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ DP, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Base Pair Position"}\NormalTok{,}
        \DataTypeTok{y =} \StringTok{"Read Depth (DP)"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-117-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-105-1.pdf}
 
-\hypertarget{exercise-24}{%
-\subsubsection*{EXERCISE}\label{exercise-24}}
+\hypertarget{exercise-3}{%
+\subsubsection*{EXERCISE}\label{exercise-3}}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Create a scatter plot of mapping quality (\texttt{MQ}) over position (\texttt{POS}) with the samples showing in different colors. Make sure to give your plot relevant axis labels.
@@ -3438,48 +3253,48 @@ Create a scatter plot of mapping quality (\texttt{MQ}) over position (\texttt{PO
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ MQ, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}\StringTok{ }
-\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Base Pair Position"}\NormalTok{, }
-      \DataTypeTok{y =} \StringTok{"Mapping Quality (MQ)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ MQ, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}
+\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Base Pair Position"}\NormalTok{,}
+      \DataTypeTok{y =} \StringTok{"Mapping Quality (MQ)"}\NormalTok{) }\OperatorTok{+}
 \StringTok{ }\KeywordTok{facet_grid}\NormalTok{(. }\OperatorTok{~}\StringTok{ }\NormalTok{sample_id)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-118-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-106-1.pdf}
 
 This looks ok, but it would be easier to read if the plot facets were stacked vertically rather than horizontally. The \texttt{facet\_grid} geometry allows you to explicitly specify how you want your plots to be arranged via formula notation (\texttt{rows\ \textasciitilde{}\ columns}); a \texttt{.} can be used as a placeholder that indicates only one row or column).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ MQ, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}\StringTok{ }
-\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Base Pair Position"}\NormalTok{, }
-      \DataTypeTok{y =} \StringTok{"Mapping Quality (MQ)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ MQ, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}
+\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Base Pair Position"}\NormalTok{,}
+      \DataTypeTok{y =} \StringTok{"Mapping Quality (MQ)"}\NormalTok{) }\OperatorTok{+}
 \StringTok{ }\KeywordTok{facet_grid}\NormalTok{(sample_id }\OperatorTok{~}\StringTok{ }\NormalTok{.)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-119-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-107-1.pdf}
 
 Usually plots with white background look more readable when printed. We can set the background to white using the function \texttt{theme\_bw()}. Additionally, you can remove the grid:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ MQ, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Base Pair Position"}\NormalTok{, }
-       \DataTypeTok{y =} \StringTok{"Mapping Quality (MQ)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ POS, }\DataTypeTok{y =}\NormalTok{ MQ, }\DataTypeTok{color =}\NormalTok{ sample_id)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Base Pair Position"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"Mapping Quality (MQ)"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{facet_grid}\NormalTok{(sample_id }\OperatorTok{~}\StringTok{ }\NormalTok{.) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.grid =} \KeywordTok{element_blank}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-120-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-108-1.pdf}
 
-\hypertarget{exercise-25}{%
-\subsubsection*{EXERCISE}\label{exercise-25}}
+\hypertarget{exercise-4}{%
+\subsubsection*{EXERCISE}\label{exercise-4}}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Use what you just learned to create a scatter plot of PHRED scaled quality (\texttt{QUAL}) over position (\texttt{POS}) with the samples showing in different colors. Make sure to give your plot relevant axis labels.
@@ -3491,16 +3306,16 @@ We can create barplots using the \texttt{geom\_bar} geom. Let's make a barplot s
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ INDEL, }\DataTypeTok{fill =}\NormalTok{ sample_id)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ INDEL, }\DataTypeTok{fill =}\NormalTok{ sample_id)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{facet_grid}\NormalTok{(sample_id }\OperatorTok{~}\StringTok{ }\NormalTok{.)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-121-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-109-1.pdf}
 
-\hypertarget{exercise-26}{%
-\subsubsection*{EXERCISE}\label{exercise-26}}
+\hypertarget{exercise-5}{%
+\subsubsection*{EXERCISE}\label{exercise-5}}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Since we already have the sample\_id labels on the individual plot facets, we don't need the legend. Use the help file for \texttt{geom\_bar} and any other online resources you want to use to remove the legend from the plot.
@@ -3518,11 +3333,10 @@ Sometimes it can be useful to plot a single variable at a time. Usually this is 
 \end{Shaded}
 
 \begin{verbatim}
-## `stat_bin()` using `bins = 30`. Pick
-## better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 \end{verbatim}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-122-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-110-1.pdf}
 
 R is giving us a warning. We can choose to ignore this if we are able to see what we want in the plot. Otherwise, we can change the \texttt{binwidth} by using the binwidth argument:
 
@@ -3533,10 +3347,10 @@ R is giving us a warning. We can choose to ignore this if we are able to see wha
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-123-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-111-1.pdf}
 
-\hypertarget{exercise-27}{%
-\subsubsection*{EXERCISE}\label{exercise-27}}
+\hypertarget{exercise-6}{%
+\subsubsection*{EXERCISE}\label{exercise-6}}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Create a plot that shows the distribution of Read Depth (DP) for each sample separately.
@@ -3586,15 +3400,15 @@ To create a boxplot, use the \texttt{geom\_boxplot()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ sample_id, }\DataTypeTok{y =}\NormalTok{ DP)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ variants, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ sample_id, }\DataTypeTok{y =}\NormalTok{ DP)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-124-1.pdf}
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-112-1.pdf}
 
-\hypertarget{exercise-28}{%
-\subsubsection*{EXERCISE}\label{exercise-28}}
+\hypertarget{exercise-7}{%
+\subsubsection*{EXERCISE}\label{exercise-7}}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 \begin{enumerate}
@@ -3748,8 +3562,8 @@ We need to tell \texttt{separate()} to split on the \texttt{\textbar{}\textbar{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }
+\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3759,8 +3573,8 @@ That's easy with \texttt{select()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{GWEIGHT, }\OperatorTok{-}\NormalTok{GID, }\OperatorTok{-}\NormalTok{YORF)}
 \end{Highlighting}
 \end{Shaded}
@@ -3771,9 +3585,9 @@ They're variables not names and tidy data principles tell us that each variable 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{GWEIGHT, }\OperatorTok{-}\NormalTok{GID, }\OperatorTok{-}\NormalTok{YORF) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{GWEIGHT, }\OperatorTok{-}\NormalTok{GID, }\OperatorTok{-}\NormalTok{YORF) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\OperatorTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3784,10 +3598,10 @@ Why yes, it seems that our \texttt{variable} column is comprised of both nutrien
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{GWEIGHT, }\OperatorTok{-}\NormalTok{GID, }\OperatorTok{-}\NormalTok{YORF) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\OperatorTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{GWEIGHT, }\OperatorTok{-}\NormalTok{GID, }\OperatorTok{-}\NormalTok{YORF) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\OperatorTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{separate}\NormalTok{(variable, }\KeywordTok{c}\NormalTok{(}\StringTok{"nutrient"}\NormalTok{, }\StringTok{"growth_rate"}\NormalTok{), }\DataTypeTok{sep =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3799,43 +3613,33 @@ Why yes, it seems that our \texttt{variable} column is comprised of both nutrien
 \end{Shaded}
 
 \begin{verbatim}
-## [1] " ER to Golgi transport "       
-## [2] " biological process unknown "  
-## [3] " proteolysis and peptidolysis "
-## [4] " mRNA polyadenylylation* "     
-## [5] " vesicle fusion* "             
-## [6] " biological process unknown "
+## [1] " ER to Golgi transport "        " biological process unknown "  
+## [3] " proteolysis and peptidolysis " " mRNA polyadenylylation* "     
+## [5] " vesicle fusion* "              " biological process unknown "
 \end{verbatim}
 
 \textbf{Bonus}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{GWEIGHT, }\OperatorTok{-}\NormalTok{GID, }\OperatorTok{-}\NormalTok{YORF) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\OperatorTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{separate}\NormalTok{(variable, }\KeywordTok{c}\NormalTok{(}\StringTok{"nutrient"}\NormalTok{, }\StringTok{"growth_rate"}\NormalTok{), }\DataTypeTok{sep =} \DecValTok{1}\NormalTok{, }\DataTypeTok{convert =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{clean <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(NAME, }\KeywordTok{c}\NormalTok{(}\StringTok{"gene_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{GWEIGHT, }\OperatorTok{-}\NormalTok{GID, }\OperatorTok{-}\NormalTok{YORF) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\OperatorTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(variable, }\KeywordTok{c}\NormalTok{(}\StringTok{"nutrient"}\NormalTok{, }\StringTok{"growth_rate"}\NormalTok{), }\DataTypeTok{sep =} \DecValTok{1}\NormalTok{, }\DataTypeTok{convert =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate_at}\NormalTok{(}\KeywordTok{vars}\NormalTok{(gene_name}\OperatorTok{:}\NormalTok{gene_id), str_trim)}
 \KeywordTok{head}\NormalTok{(clean)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##   gene_name                           BP
-## 1      SFB2        ER to Golgi transport
-## 2             biological process unknown
-## 3      QRI7 proteolysis and peptidolysis
-## 4      CFT2      mRNA polyadenylylation*
-## 5      SSO2              vesicle fusion*
-## 6      PSP2   biological process unknown
-##                              MP gene_id
-## 1    molecular function unknown YNL049C
-## 2    molecular function unknown YNL095C
-## 3 metalloendopeptidase activity YDL104C
-## 4                   RNA binding YLR115W
-## 5              t-SNARE activity YMR183C
-## 6    molecular function unknown YML017W
+##   gene_name                           BP                            MP gene_id
+## 1      SFB2        ER to Golgi transport    molecular function unknown YNL049C
+## 2             biological process unknown    molecular function unknown YNL095C
+## 3      QRI7 proteolysis and peptidolysis metalloendopeptidase activity YDL104C
+## 4      CFT2      mRNA polyadenylylation*                   RNA binding YLR115W
+## 5      SSO2              vesicle fusion*              t-SNARE activity YMR183C
+## 6      PSP2   biological process unknown    molecular function unknown YML017W
 ##     number nutrient growth_rate expression
 ## 1  1082129        G        0.05      -0.24
 ## 2  1086222        G        0.05       0.28
@@ -3876,131 +3680,6 @@ In a typical analysis you wouldn't necessarily know which gene(s) to start looki
 
 \textbf{Bonus:} To increase readability of the plot it can helpful to change those nutrients from letters to full words. Although there are ways to do this directly in ggplot the easiest is to change it in the original data.
 
-\hypertarget{task-3-solution}{%
-\subsection*{Task 3 Solution}\label{task-3-solution}}
-\addcontentsline{toc}{subsection}{Task 3 Solution}
-
-1. Filter your now cleaned data to contain only the gene LEU1.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{leu<-}\StringTok{ }\NormalTok{clean }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(gene_name }\OperatorTok{==}\StringTok{ "LEU1"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-2. Make a plot of the expression of this gene at various growth rates. Use colour to distinguish the different nutrients.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(gene_name }\OperatorTok{==}\StringTok{ "LEU1"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ growth_rate, }\DataTypeTok{y =}\NormalTok{ expression)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ nutrient))}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-134-1.pdf}
-
-3. What are some conclusions you can make from this data?
-
-\begin{itemize}
-\tightlist
-\item
-  When leucine is limiting the expression of LEU1 is higher than when any of the other nutrients are limiting.
-\item
-  As growth rate increase the expresison of LEU1 decreases but only in leucine limiting conditions. In all other conditions it increases as growth rate increases.
-\end{itemize}
-
-4. What biological process is LEU1 classified as?
-
-leucine biosynthesis
-
-5. Filter your cleaned data for all genes that are in the same biological process as LEU1.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lbs<-}\StringTok{ }\NormalTok{clean }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(BP }\OperatorTok{==}\StringTok{ "leucine biosynthesis"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-6. Make a plot of these genes, the same as you had for LEU1 but faceted by gene.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(BP }\OperatorTok{==}\StringTok{ "leucine biosynthesis"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ growth_rate, }\DataTypeTok{y =}\NormalTok{ expression)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ nutrient)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{gene_name)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-136-1.pdf}
-
-7. Do any of the other genes follow the same pattern as LEU1?
-
-LEU2 seems to but the expression difference in leucine limiting conditions is not quite so high.
-
-8. Make it pretty
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(BP }\OperatorTok{==}\StringTok{ "leucine biosynthesis"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ growth_rate, }\DataTypeTok{y =}\NormalTok{ expression, }\DataTypeTok{colour =}\NormalTok{ nutrient)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{gene_name) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{scale_color_brewer}\NormalTok{(}\StringTok{"Nutrient"}\NormalTok{, }\DataTypeTok{palette =} \StringTok{"Accent"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Growth Rate"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Expression (log2)"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{strip.background =} \KeywordTok{element_blank}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-137-1.pdf}
-
-Bonus: Changing nutrient names
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{nutrient_key =}\StringTok{ }\KeywordTok{c}\NormalTok{(}
-  \DataTypeTok{G =} \StringTok{"Glucose"}\NormalTok{,}
-  \DataTypeTok{N =} \StringTok{"Ammonium"}\NormalTok{,}
-  \DataTypeTok{P =} \StringTok{"Phosphate"}\NormalTok{,}
-  \DataTypeTok{S =} \StringTok{"Sulfate"}\NormalTok{,}
-  \DataTypeTok{U =} \StringTok{"Uracil"}\NormalTok{,}
-  \DataTypeTok{L =} \StringTok{"Leucine"}
-\NormalTok{)}
-\NormalTok{nutrient_key[}\StringTok{"P"}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##           P 
-## "Phosphate"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{nutrient_names =}\NormalTok{ nutrient_key[nutrient]) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{filter}\NormalTok{(BP }\OperatorTok{==}\StringTok{ "leucine biosynthesis"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ growth_rate, }\DataTypeTok{y =}\NormalTok{ expression, }\DataTypeTok{colour =}\NormalTok{ nutrient_names)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{gene_name) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{scale_color_brewer}\NormalTok{(}\StringTok{"Nutrient"}\NormalTok{, }\DataTypeTok{palette =} \StringTok{"Accent"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Growth Rate"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Expression (log2)"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{strip.background =} \KeywordTok{element_blank}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-138-1.pdf}
-
 \hypertarget{task-4-heatmap}{%
 \section*{Task 4: Heatmap}\label{task-4-heatmap}}
 \addcontentsline{toc}{section}{Task 4: Heatmap}
@@ -4024,86 +3703,6 @@ Questions to answer:
   Once you've got data in the correct format start by making a simple heatmap with default parameters. Do you like it? Is there anything wrong with it? What would change from a data interpretation perspective? What about from aethetics perspective?
 \end{enumerate}
 
-\hypertarget{task-4-solution}{%
-\subsection*{Task 4 Solution}\label{task-4-solution}}
-\addcontentsline{toc}{subsection}{Task 4 Solution}
-
-1. Start by installing the \texttt{pheatmap} package from CRAN. Have a look at the help page for the \texttt{pheatamp()} function. Which argument specifies the data? What format does it need?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#install.packages("pheatmap")}
-\KeywordTok{library}\NormalTok{(pheatmap)}
-\NormalTok{?pheatmap}
-\end{Highlighting}
-\end{Shaded}
-
-Looks like \texttt{pheatmap()} needs a numeric matix given with the \texttt{mat} arguments, which is the first and only required arugment.
-
-2. Using what you learned from the help function get the gene expression data into a format that \texttt{pheatmap()} can use. Think about what you want your heatmap to look like - what are the columns and rows?
-
-Here we're going to go back to our pre-tidied data. This doesn't negate the work we did to tidy it nor does it mean the the data is now `dirty' or bad somehow. Tidy data is standardized but many R tools still don't work with data in this format and so we must adapt.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#head(raw)}
-\NormalTok{hm_mat <-}\StringTok{ }\NormalTok{raw }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{GID, }\OperatorTok{-}\NormalTok{YORF, }\OperatorTok{-}\NormalTok{NAME, }\OperatorTok{-}\NormalTok{GWEIGHT) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{as.matrix}\NormalTok{()}
-
-\KeywordTok{class}\NormalTok{(hm_mat)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "matrix"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{typeof}\NormalTok{(hm_mat)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "double"
-\end{verbatim}
-
-3. Once you've got data in the correct format start by making a simple heatmap with default parameters. Do you like it? Is there anything wrong with it? What would change from a data interpretation perspective? What about from aethetics perspective?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{pheatmap}\NormalTok{(hm_mat)}
-\end{Highlighting}
-\end{Shaded}
-
-Overall this actually looks pretty good. Because these data have already been normalized and scaled we don't need to do much here but there are few tweaks that may help.
-
-\begin{itemize}
-\tightlist
-\item
-  The default is to order both the rows and columns, however, because this is a timecourse experiment we may not want to order the columns. In fact if we look at the raw data we see that the columns are already ordered by time.
-\item
-  The colours are better than the typical red/green (which you should NEVER use, BTW) but still leave something to be desired. This could be changed in a final version of the plot. Note that we have a diverging colour scale with values ranging from -6 to +6. This is becuase these data are mean-centred. Blue (negative) values are below the mean for that gene and red values (positive) are above the mean for that gene. Yellow is the mean expression for that gene. Mean-centering is a handy way to show fold-changes, but should always be displayed with a diverging colour scale.
-\item
-  To help with visualizing the different nutrients, we can add gaps to the heatmap to make a column for each nutrient.
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(RColorBrewer)}
-\KeywordTok{pheatmap}\NormalTok{(hm_mat,}
-         \DataTypeTok{cluster_cols =} \OtherTok{FALSE}\NormalTok{,}
-         \DataTypeTok{color =} \KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{rev}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(}\DataTypeTok{n =} \DecValTok{7}\NormalTok{, }\DataTypeTok{name =} \StringTok{"RdBu"}\NormalTok{)))(}\DecValTok{100}\NormalTok{),}
-         \DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{length.out =} \DecValTok{101}\NormalTok{),}
-         \DataTypeTok{gaps_col =} \KeywordTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{18}\NormalTok{,}\DecValTok{24}\NormalTok{,}\DecValTok{30}\NormalTok{)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{summary}{%
-\chapter{Summary}\label{summary}}
-
-\bibliography{book.bib,packages.bib}
+  \bibliography{book.bib,packages.bib}
 
 \end{document}

@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Make a new RStudio Project and create a `data` directory in your RStudio Project.
 
-You can download the file directly from dropbox using [this link](https://www.dropbox.com/s/gt05aqpmohd9un6/Ecoli_metadata.csv?dl=0). Remember to put this file in a directory that makes sense (ex. in your RStudio Project directory in a `data` directory). 
+You can download the file directly from dropbox using [this link](https://www.dropbox.com/s/gt05aqpmohd9un6/Ecoli_metadata.csv?dl=0). Remember to put this file in a directory that makes sense (ex. in your RStudio Project directory in a `data` directory).
 
 <br>
 
@@ -16,11 +16,11 @@ You can download the file directly from dropbox using [this link](https://www.dr
 
 Spreadsheet data is often saved in one of the following formats:
 
-* A *Comma Separated Values* `.csv` file. You can think of a `.csv` file as a bare-bones spreadsheet where:    
-    * Each line in the file corresponds to one row of data/one observation.  
-    * Values for each line are separated with commas. In other words, the values of different variables are separated by commas.  
-    * The first line is often, but not always, a header row indicating the names of the columns/variables.  
-* An Excel `.xlsx` file. This format is based on Microsoft’s proprietary Excel software. As opposed to a bare-bones `.csv` files, `.xlsx` Excel files sometimes contain a lot of meta-data, or put more simply, data about the data. Some examples of spreadsheet meta-data include the use of bold and italic fonts, colored cells, different column widths, and formula macros.  
+* A *Comma Separated Values* `.csv` file. You can think of a `.csv` file as a bare-bones spreadsheet where:
+    * Each line in the file corresponds to one row of data/one observation.
+    * Values for each line are separated with commas. In other words, the values of different variables are separated by commas.
+    * The first line is often, but not always, a header row indicating the names of the columns/variables.
+* An Excel `.xlsx` file. This format is based on Microsoft’s proprietary Excel software. As opposed to a bare-bones `.csv` files, `.xlsx` Excel files sometimes contain a lot of meta-data, or put more simply, data about the data. Some examples of spreadsheet meta-data include the use of bold and italic fonts, colored cells, different column widths, and formula macros.
 * A Google Sheets file, which is a “cloud” or online-based way to work with a spreadsheet. Google Sheets allows you to download your data in both comma separated values `.csv` and Excel `.xlsx` formats however: go to the Google Sheets menu bar -> File -> Download as -> Select “Microsoft Excel” or “Comma-separated values.”
 
 There are several ways to import data into R. Here, we will use the tools every R installation comes with (ie. "base R") to import a comma-delimited file containing some data. We will need to load the file using a function called `read.csv()`.
@@ -53,7 +53,7 @@ One common R package (a set of code with features you can download and add to yo
 
 Now let's read in some data. We're going to study a population of *Escherichia coli* (designated Ara-3), which were propagated for more than 40,000 generations in a glucose-limited minimal medium. This medium was supplemented with citrate, which the ancestral *E. coli* cannot metabolize in the aerobic conditions of the experiment. Sequencing of the populations at regular time points revealed that spontaneous citrate-using mutants (Cit+) appeared at around 31,000 generations in one of twelve populations. The dataset is stored as a comma separated value (CSV) file. This metadata describes information on the Ara-3 clones and the columns represent:
 
-Column | Description                                            
+Column | Description
 :---| :------------------------------
 sample   | clone name
 generation | generation when sample frozen
@@ -79,7 +79,9 @@ head(metadata)
 
 ## What are data frames?
 
-A data frame is the standard way in R to store tabular data. It can also be thought of as a collection of vectors, all of which have the same length. Each vector represents a column and each vector can be a different data type (ex. characters, integers). 
+![](df.jpg)
+
+A data frame is the standard way in R to store tabular data. It can also be thought of as a collection of vectors, all of which have the same length. Each vector represents a column and each vector can be a different data type (ex. characters, integers).
 
 The `str()` function is useful to insepct the data types of the columns.
 ```{r}
@@ -105,7 +107,7 @@ Try the following functions on the <b>BMI</b> data frame:
 * `rownames()`
 * `colnames()`
 
-What information does each of these functions tell you? 
+What information does each of these functions tell you?
 </div>
 
 ### Saving or "writing" a data frame {-}
@@ -189,7 +191,7 @@ Try the following indices on the metadata data frame:
 * `metadata$run`
 * `metadata[metadata$cit == "plus",]`
 
-What information does the last line tell you? 
+What information does the last line tell you?
 </div>
 
 You can assign a subset of your data frame to a new object. For example, to create a new data frame of only observations from cit- samples:
@@ -215,7 +217,7 @@ m
 
 To output the dimensions of a matrix, use the `dim()` function.
 ```{r}
-dim(m) 
+dim(m)
 ```
 R will list the number of rows first and the number of columns second. To list only the number of rows or the number of columns, use the `nrow()` and `ncol()`. The `length()` function will output the total number of elements.
 ```{r}
@@ -233,5 +235,3 @@ A list is an R-object which can contain many different types of elements inside 
 list1 <- list(c(2,5,3),21.3, BMI)
 list1
 ```
-
-

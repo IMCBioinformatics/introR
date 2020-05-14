@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Installing R Packages | Introduction to R for Biologists</title>
   <meta name="description" content="This tutorial covers workshop material" />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Installing R Packages | Introduction to R for Biologists" />
   <meta property="og:type" content="book" />
@@ -21,10 +21,10 @@
   <meta name="twitter:description" content="This tutorial covers workshop material" />
   
 
-<meta name="author" content="Alana Schick" />
+<meta name="author" content="Alana Schick &amp; Hena Ramay" />
 
 
-<meta name="date" content="2020-05-10" />
+<meta name="date" content="2020-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,9 +53,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +64,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -180,16 +182,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>5</b> R Basics</a><ul>
 <li class="chapter" data-level="5.1" data-path="r-basics.html"><a href="r-basics.html#creating-objects-in-r"><i class="fa fa-check"></i><b>5.1</b> Creating objects in R</a></li>
-<li class="chapter" data-level="5.2" data-path="r-basics.html"><a href="r-basics.html#objects-vs.variables"><i class="fa fa-check"></i><b>5.2</b> Objects vs. variables</a></li>
-<li class="chapter" data-level="5.3" data-path="r-basics.html"><a href="r-basics.html#comments"><i class="fa fa-check"></i><b>5.3</b> Comments</a></li>
-<li class="chapter" data-level="5.4" data-path="r-basics.html"><a href="r-basics.html#functions-and-their-arguments"><i class="fa fa-check"></i><b>5.4</b> Functions and their arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>5.5</b> Vectors</a></li>
-<li class="chapter" data-level="5.6" data-path="r-basics.html"><a href="r-basics.html#indexing-vectors"><i class="fa fa-check"></i><b>5.6</b> Indexing vectors</a><ul>
+<li class="chapter" data-level="5.2" data-path="r-basics.html"><a href="r-basics.html#objects-vs.-variables"><i class="fa fa-check"></i><b>5.2</b> Objects vs. variables</a></li>
+<li class="chapter" data-level="5.3" data-path="r-basics.html"><a href="r-basics.html#functions-and-their-arguments"><i class="fa fa-check"></i><b>5.3</b> Functions and their arguments</a></li>
+<li class="chapter" data-level="5.4" data-path="r-basics.html"><a href="r-basics.html#data-types-in-r"><i class="fa fa-check"></i><b>5.4</b> Data types in R</a></li>
+<li class="chapter" data-level="5.5" data-path="r-basics.html"><a href="r-basics.html#data-structures-in-r"><i class="fa fa-check"></i><b>5.5</b> Data structures in R</a></li>
+<li class="chapter" data-level="5.6" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>5.6</b> Vectors</a></li>
+<li class="chapter" data-level="5.7" data-path="r-basics.html"><a href="r-basics.html#indexing-vectors"><i class="fa fa-check"></i><b>5.7</b> Indexing vectors</a><ul>
 <li class="chapter" data-level="" data-path="r-basics.html"><a href="r-basics.html#adding-values-to-vectors"><i class="fa fa-check"></i>Adding values to vectors</a></li>
 <li class="chapter" data-level="" data-path="r-basics.html"><a href="r-basics.html#replacing-values-in-existing-vectors"><i class="fa fa-check"></i>Replacing values in existing vectors</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="r-basics.html"><a href="r-basics.html#conditional-subsetting"><i class="fa fa-check"></i><b>5.7</b> Conditional subsetting</a></li>
-<li class="chapter" data-level="5.8" data-path="r-basics.html"><a href="r-basics.html#so-we-can-use-this-to-select-only-the-values-above-50"><i class="fa fa-check"></i><b>5.8</b> so we can use this to select only the values above 50</a></li>
+<li class="chapter" data-level="5.8" data-path="r-basics.html"><a href="r-basics.html#conditional-subsetting"><i class="fa fa-check"></i><b>5.8</b> Conditional subsetting</a></li>
 <li class="chapter" data-level="5.9" data-path="r-basics.html"><a href="r-basics.html#missing-data"><i class="fa fa-check"></i><b>5.9</b> Missing data</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="starting-with-data.html"><a href="starting-with-data.html"><i class="fa fa-check"></i><b>6</b> Starting with Data</a><ul>
@@ -247,8 +249,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9" data-path="project.html"><a href="project.html"><i class="fa fa-check"></i><b>9</b> Project</a><ul>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-0-download-the-data"><i class="fa fa-check"></i>Task 0: Download the data</a></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-data-import-and-examination"><i class="fa fa-check"></i>Task 1: Data import and examination</a></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-data-tidying"><i class="fa fa-check"></i>Task 2: Data Tidying</a></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-data-import-and-examination"><i class="fa fa-check"></i>Task 1: Data import and examination</a><ul>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-solution"><i class="fa fa-check"></i>Task 1 Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-data-tidying"><i class="fa fa-check"></i>Task 2: Data Tidying</a><ul>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-solution"><i class="fa fa-check"></i>Task 2 Solution</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-3-plots"><i class="fa fa-check"></i>Task 3: Plots</a></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-4-heatmap"><i class="fa fa-check"></i>Task 4: Heatmap</a></li>
 </ul></li>
@@ -313,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Type the name of the package under “Packages (separate multiple with space or comma):” In this case, type <code>tidyverse</code></li>
 <li>Click <code>Install</code></li>
 </ol></li>
-<li><strong>Slightly harder way</strong>: An alternative way to install a package is by typing <code>install.packages(&quot;tidyverse&quot;)</code> in the Console pane of RStudio and hitting enter. Note you must include the quotation marks.</li>
+<li><strong>Slightly harder way</strong>: An alternative way to install a package is by typing <code>install.packages("tidyverse")</code> in the Console pane of RStudio and hitting enter. Note you must include the quotation marks.</li>
 </ol>
 </div>
 <p>If you want to update an already installed package to a newer version, you need to re-install it by repeating the above steps.</p>
@@ -321,16 +327,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="bioconductor" class="section level3 unnumbered">
 <h3>2. Bioconductor</h3>
 <p>Bioconductor is a repository for R packages that concern computational biology or bioinformatics. To install the <code>knitr</code> package from Bioconductor, type the following in the Console of RStudio:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;knitr&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="installing-r-packages.html#cb8-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</span>
+<span id="cb8-2"><a href="installing-r-packages.html#cb8-2"></a>    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb8-3"><a href="installing-r-packages.html#cb8-3"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;knitr&quot;</span>)</span></code></pre></div>
 </div>
 <div id="github" class="section level3 unnumbered">
 <h3>3. Github</h3>
 <p>Some packages are not hosted on CRAN or Bioconductor, but are instead stored in Github repositories. Sometimes this is because they are very new and have not yet been contributed. To install the <code>dplyr</code> package from Github, type the following in the Console of RStudio:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(devtools)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">install_github</span>(<span class="st">&quot;hadley/dplyr&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="installing-r-packages.html#cb9-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
+<span id="cb9-2"><a href="installing-r-packages.html#cb9-2"></a><span class="kw">library</span>(devtools)</span>
+<span id="cb9-3"><a href="installing-r-packages.html#cb9-3"></a><span class="kw">install_github</span>(<span class="st">&quot;hadley/dplyr&quot;</span>)</span></code></pre></div>
 <div class="box">
 <h4 id="exercise-4.2.1" class="unnumbered">EXERCISE 4.2.1</h4>
 <p>Practice what you have just learned and install the R package <code>ggplot2</code>.</p>
@@ -340,7 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="loading-a-package" class="section level2">
 <h2><span class="header-section-number">4.3</span> Loading a package</h2>
 <p>Recall that after you’ve installed a package, you need to “load” it, in other words open it. We do this by using the <code>library()</code> command. For example, to load the <code>tidyverse</code> package, run the following code in the Console pane. What do we mean by “run the following code”? Either type or copy &amp; paste the following code into the Console pane and then hit the enter key.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="installing-r-packages.html#cb10-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <p>If after running the above code, a blinking cursor returns next to the <code>&gt;</code> “prompt” sign, it means you were successful and the <code>tidyverse</code> package is now loaded and ready to use. If however, you get a red “error message” that reads…</p>
 <pre><code>Error in library(tidyverse) : there is no package called ‘tidyverse’</code></pre>
 <p>it means that you didn’t successfully install it. In that case, go back to the previous subsection and trying install it again.</p>

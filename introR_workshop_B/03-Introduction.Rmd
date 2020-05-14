@@ -6,7 +6,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R and the RStudio IDE
 
-Short presentation introducing R and the RStudio IDE. Attempting to convince you how amazing R is. Slides will be uploaded [here](intro.pdf). 
+Short presentation introducing R and the RStudio IDE. Attempting to convince you how amazing R is. Slides will be uploaded [here](intro.pdf).
 
 ## Why learn R
 
@@ -20,18 +20,18 @@ Working with scripts forces you to have a deeper understanding of what you are d
 
 ### R code is great for reproducibility {-}
 
-Reproducibility is when someone else (including your future self) can obtain the same results from the same dataset when using the same analysis.  
+Reproducibility is when someone else (including your future self) can obtain the same results from the same dataset when using the same analysis.
 
 **Short-term goals:**
 
-* Are the tables and figures reproducible from the code and data?  
-* Does the code actually do what you think it does?  
-* In addition to what was done, is it clear why is was done? (e.g., how were parameter settings chosen?)  
+* Are the tables and figures reproducible from the code and data?
+* Does the code actually do what you think it does?
+* In addition to what was done, is it clear why is was done? (e.g., how were parameter settings chosen?)
 
-**Long-term goals:** 
+**Long-term goals:**
 
-* Can the code be used for other data?  
-* Can you extend the code to do other things?  
+* Can the code be used for other data?
+* Can you extend the code to do other things?
 
 An increasing number of journals and funding agencies expect analyses to be reproducible, so knowing R will give you an edge with those requirements.
 
@@ -70,7 +70,7 @@ If R is still waiting for you to enter more data because it isn't complete yet, 
 <br>
 <br>
 
-## Creating an RStudio project  
+## Creating an RStudio project
 
 One of the benefits of RStudio is something called an RStudio Project. An RStudio project allows you to more easily:
 
@@ -99,7 +99,7 @@ Now that we are ready to start exploring R, we will want to keep a record of the
 To create an R script:
 
 * Click the `File` menu, click on `New File` and then `R Script`.
-* Save your script by clicking the save icon that is in the bar above the first line in the script editor, or click `File` then `Save`. 
+* Save your script by clicking the save icon that is in the bar above the first line in the script editor, or click `File` then `Save`.
 * In the "Save File" window that opens, name your file`rworkshop_basicscript`.
 * The new script <b>rworkshop_basicscript.R</b> should appear under "files" in the output pane. All R scripts end with the ".R" file extension.
 
@@ -128,14 +128,15 @@ Using RStudio projects makes this easy and ensures that your working directory i
 getwd()
 ```
 
-If for some reason your working directory is not what it should be, you can change it in the RStudio interface by navigating in the file browser where your working directory should be, and clicking on the blue gear icon “More”, and select “Set As Working Directory”. Alternatively you can use:  
+If for some reason your working directory is not what it should be, you can change it in the RStudio interface by navigating in the file browser where your working directory should be, and clicking on the blue gear icon “More”, and select “Set As Working Directory”. Alternatively you can use:
 
 ```{r, eval = FALSE}
 setwd("/path/to/working/directory")
 ```
-to reset your working directory. 
+to reset your working directory.
 
-![filepath](filepath.jpg)
+
+![](filepath.jpg)
 
 
 
@@ -206,6 +207,5 @@ The R-help mailing list: it is read by a lot of people (including most of the R 
 
 * ["How to ask for R help"](https://blog.revolutionanalytics.com/2014/01/how-to-ask-for-r-help.html) has  useful guidelines
 * This [blog post by Jon Skeet](https://codeblog.jonskeet.uk/2010/08/29/writing-the-perfect-question/) has quite comprehensive advice on how to ask programming questions.
-* The ["reprex"](https://cran.rstudio.com/web/packages/reprex/) package is very helpful to create reproducible examples when asking for help. 
+* The ["reprex"](https://cran.rstudio.com/web/packages/reprex/) package is very helpful to create reproducible examples when asking for help.
     * The rOpensci blog on [How to ask questions so they get answered](https://ropensci.org/commcalls/2017-03-07/) and ["video recording"](https://vimeo.com/208749032) includes a presentation of the reprex package and of its philosophy.
-

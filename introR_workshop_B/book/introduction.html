@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="This tutorial covers workshop material" />
   
 
-<meta name="author" content="Alana Schick" />
+<meta name="author" content="Alana Schick &amp; Hena Ramay" />
 
 
 <meta name="date" content="2020-05-13" />
@@ -183,15 +183,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>5</b> R Basics</a><ul>
 <li class="chapter" data-level="5.1" data-path="r-basics.html"><a href="r-basics.html#creating-objects-in-r"><i class="fa fa-check"></i><b>5.1</b> Creating objects in R</a></li>
 <li class="chapter" data-level="5.2" data-path="r-basics.html"><a href="r-basics.html#objects-vs.-variables"><i class="fa fa-check"></i><b>5.2</b> Objects vs. variables</a></li>
-<li class="chapter" data-level="5.3" data-path="r-basics.html"><a href="r-basics.html#comments"><i class="fa fa-check"></i><b>5.3</b> Comments</a></li>
-<li class="chapter" data-level="5.4" data-path="r-basics.html"><a href="r-basics.html#functions-and-their-arguments"><i class="fa fa-check"></i><b>5.4</b> Functions and their arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>5.5</b> Vectors</a></li>
-<li class="chapter" data-level="5.6" data-path="r-basics.html"><a href="r-basics.html#indexing-vectors"><i class="fa fa-check"></i><b>5.6</b> Indexing vectors</a><ul>
+<li class="chapter" data-level="5.3" data-path="r-basics.html"><a href="r-basics.html#functions-and-their-arguments"><i class="fa fa-check"></i><b>5.3</b> Functions and their arguments</a></li>
+<li class="chapter" data-level="5.4" data-path="r-basics.html"><a href="r-basics.html#data-types-in-r"><i class="fa fa-check"></i><b>5.4</b> Data types in R</a></li>
+<li class="chapter" data-level="5.5" data-path="r-basics.html"><a href="r-basics.html#data-structures-in-r"><i class="fa fa-check"></i><b>5.5</b> Data structures in R</a></li>
+<li class="chapter" data-level="5.6" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>5.6</b> Vectors</a></li>
+<li class="chapter" data-level="5.7" data-path="r-basics.html"><a href="r-basics.html#indexing-vectors"><i class="fa fa-check"></i><b>5.7</b> Indexing vectors</a><ul>
 <li class="chapter" data-level="" data-path="r-basics.html"><a href="r-basics.html#adding-values-to-vectors"><i class="fa fa-check"></i>Adding values to vectors</a></li>
 <li class="chapter" data-level="" data-path="r-basics.html"><a href="r-basics.html#replacing-values-in-existing-vectors"><i class="fa fa-check"></i>Replacing values in existing vectors</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="r-basics.html"><a href="r-basics.html#conditional-subsetting"><i class="fa fa-check"></i><b>5.7</b> Conditional subsetting</a></li>
-<li class="chapter" data-level="5.8" data-path="r-basics.html"><a href="r-basics.html#so-we-can-use-this-to-select-only-the-values-above-50"><i class="fa fa-check"></i><b>5.8</b> so we can use this to select only the values above 50</a></li>
+<li class="chapter" data-level="5.8" data-path="r-basics.html"><a href="r-basics.html#conditional-subsetting"><i class="fa fa-check"></i><b>5.8</b> Conditional subsetting</a></li>
 <li class="chapter" data-level="5.9" data-path="r-basics.html"><a href="r-basics.html#missing-data"><i class="fa fa-check"></i><b>5.9</b> Missing data</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="starting-with-data.html"><a href="starting-with-data.html"><i class="fa fa-check"></i><b>6</b> Starting with Data</a><ul>
@@ -297,16 +297,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Reproducibility is when someone else (including your future self) can obtain the same results from the same dataset when using the same analysis.</p>
 <p><strong>Short-term goals:</strong></p>
 <ul>
-<li>Are the tables and figures reproducible from the code and data?<br />
-</li>
-<li>Does the code actually do what you think it does?<br />
-</li>
+<li>Are the tables and figures reproducible from the code and data?</li>
+<li>Does the code actually do what you think it does?</li>
 <li>In addition to what was done, is it clear why is was done? (e.g., how were parameter settings chosen?)</li>
 </ul>
 <p><strong>Long-term goals:</strong></p>
 <ul>
-<li>Can the code be used for other data?<br />
-</li>
+<li>Can the code be used for other data?</li>
 <li>Can you extend the code to do other things?</li>
 </ul>
 <p>An increasing number of journals and funding agencies expect analyses to be reproducible, so knowing R will give you an edge with those requirements.</p>
@@ -393,10 +390,7 @@ script files (plain text files that contain your code).</p>
 <p>If for some reason your working directory is not what it should be, you can change it in the RStudio interface by navigating in the file browser where your working directory should be, and clicking on the blue gear icon “More”, and select “Set As Working Directory”. Alternatively you can use:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction.html#cb3-1"></a><span class="kw">setwd</span>(<span class="st">&quot;/path/to/working/directory&quot;</span>)</span></code></pre></div>
 <p>to reset your working directory.</p>
-<div class="figure">
-<img src="filepath.jpg" alt="" />
-<p class="caption">filepath</p>
-</div>
+<p><img src="filepath.jpg" /></p>
 </div>
 </div>
 <div id="how-to-learn-more" class="section level2">
