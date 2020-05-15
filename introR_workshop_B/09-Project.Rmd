@@ -10,9 +10,7 @@ The data we're going to work with comes from a yeast microarray experiment [(Bra
 
 The R world is full of niche tools designed for a specific problem or data type.  This is particularly true for Bioconductor and genomics analysis.  RNA-seq is a good example where all data import, analysis, and even plotting is done with custom packages and functions designed for gene expression data. Analysis of microbiome data with phyloseq is another example.  Now this is not a bad thing and can enable simple, rapid analysis.  Yet the point of learning a programming language like R is so you can take back control of your analysis and put the tools to work for your specific problem.  
 
-For this project we're going to take some genomic data and pull it out of the context that it's usually analyzed in.  Bioconductor has a plethora of tools for analyzing microarray data and the `limma` package is by far the most comprehensive and useful.  However, for our project we're going to take microarray data that has already been processed and instead use it with data analysis tools that we've been learning.  
-
-The take-away from this project to make the tools work for you instead of you working for them.  Data, genomic or not, is still data and we can use the tools available to us in R to gain valuable insights.
+For this project we're going to take some genomic data and analyze it with the tools that we've been learning. The take-away from this project to make the tools work for you instead of you working for them.  Data, genomic or not, is still data and we can use the tools available to us in R to gain valuable insights.
 
 <br>
 
@@ -32,7 +30,7 @@ Your goal is get the data loaded into R and answer the following questions:
 
 1. How many rows and columns are there?
 2. What do the rows and columns represent?
-3. On first glimpse do the column datatypes look correct?
+3. On first glimpse do the column **datatypes** look correct?
 4. What about column names? 
 5. Is this data tidy?  Why or why not?  
 
@@ -40,37 +38,37 @@ As you look through the data start thinking about what steps you'll need to get 
 
 <br>
 
-### Task 1 Solution {-}
+<!-- ### Task 1 Solution {-} -->
 
-<b>1. How many rows and columns are there?</b>
+<!-- <b>1. How many rows and columns are there?</b> -->
 
-```{r}
-library(tidyverse)
+<!-- ```{r} -->
+<!-- library(tidyverse) -->
 
-raw <- read.csv("data/Brauer2008_DataSet1.csv")
-#head(raw)
-dim(raw)
-```
+<!-- raw <- read.csv("data/Brauer2008_DataSet1.csv") -->
+<!-- #head(raw) -->
+<!-- dim(raw) -->
+<!-- ``` -->
 
-There are 5537 rows and 40 columns.
+<!-- There are 5537 rows and 40 columns. -->
 
-<b>2. What do the rows and columns represent?</b>
+<!-- <b>2. What do the rows and columns represent?</b> -->
 
-Rows are genes and columns are a mix of different variables including gene names and expression values.
+<!-- Rows are genes and columns are a mix of different variables including gene names and expression values. -->
 
-<b>3. On first glimpse do the column datatypes look correct?</b>
+<!-- <b>3. On first glimpse do the column datatypes look correct?</b> -->
 
-Yes, it seems that R has guessed correctly on what the values should be.
+<!-- Yes, it seems that R has guessed correctly on what the values should be. -->
 
-<b>4. What about column names? </b>
+<!-- <b>4. What about column names? </b> -->
 
-The columns that have the gene expression values don't look right.  Something is up with that period in there.
+<!-- The columns that have the gene expression values don't look right.  Something is up with that period in there. -->
 
-<b>5. Is this data tidy?  Why or why not?</b>
+<!-- <b>5. Is this data tidy?  Why or why not?</b> -->
 
-It's not.  Each observation does not form a row and each variable does not form a column.
+<!-- It's not.  Each observation does not form a row and each variable does not form a column. -->
 
-<br>
+<!-- <br> -->
 
 
 ## Task 2: Data Tidying {-}
@@ -96,65 +94,65 @@ Try to code all the cleaning steps as a single pipeline. Remember the `separate(
 
 <br>
 
-### Task 2 Solution {-}
+<!-- ### Task 2 Solution {-} -->
 
-<b>1. Which column contains multiple variables?  Split it up so each column represents a single variable.</b>
+<!-- <b>1. Which column contains multiple variables?  Split it up so each column represents a single variable.</b> -->
 
-We need to tell `separate()` to split on the `||` character using the `sep` argument.  However, the `|` character is actually a special character for something called regular expressions, which we don't need to worry about right now.  That's why we need to use the double backslash, which "escapes" the `|` character and tells `separate()` to interpret it like a normal character. If we used `sep = "||"` this would give us the wrong result.
+<!-- We need to tell `separate()` to split on the `||` character using the `sep` argument.  However, the `|` character is actually a special character for something called regular expressions, which we don't need to worry about right now.  That's why we need to use the double backslash, which "escapes" the `|` character and tells `separate()` to interpret it like a normal character. If we used `sep = "||"` this would give us the wrong result. -->
 
-```{r}
-clean <- raw %>%
-  separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|")
-```
+<!-- ```{r} -->
+<!-- clean <- raw %>% -->
+<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") -->
+<!-- ``` -->
 
-<b>2. The `GWEIGHT`, `GID`, and `YORF` columns we also won't need so you can get rid of those.</b>
+<!-- <b>2. The `GWEIGHT`, `GID`, and `YORF` columns we also won't need so you can get rid of those.</b> -->
 
-That's easy with `select()`.
+<!-- That's easy with `select()`. -->
 
-```{r}
-clean <- raw %>%
-  separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>%
-  select(-GWEIGHT, -GID, -YORF)
-```
+<!-- ```{r} -->
+<!-- clean <- raw %>% -->
+<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>% -->
+<!--   select(-GWEIGHT, -GID, -YORF) -->
+<!-- ``` -->
 
-<b>3. What's wrong with the column names?  How can you fix that?</b>
+<!-- <b>3. What's wrong with the column names?  How can you fix that?</b> -->
 
-They're variables not names and tidy data principles tell us that each variable should be a column.  And these are not just not just 1 variable - both nutrient and growth rate are present.  We can fix this with `gather()`.
+<!-- They're variables not names and tidy data principles tell us that each variable should be a column.  And these are not just not just 1 variable - both nutrient and growth rate are present.  We can fix this with `gather()`. -->
 
-```{r}
-clean <- raw %>%
-  separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>%
-  select(-GWEIGHT, -GID, -YORF) %>%
-  gather(variable, expression, G0.05:U0.3)
-```
+<!-- ```{r} -->
+<!-- clean <- raw %>% -->
+<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>% -->
+<!--   select(-GWEIGHT, -GID, -YORF) %>% -->
+<!--   gather(variable, expression, G0.05:U0.3) -->
+<!-- ``` -->
 
-<b>4. Check again: do you have any columns that have multipe variables?  Be sure to fix any before you move on.</b>
+<!-- <b>4. Check again: do you have any columns that have multipe variables?  Be sure to fix any before you move on.</b> -->
 
-Why yes, it seems that our `variable` column is comprised of both nutrient and growth rate.  We'll have to use `separate()` again.  The trick here is how to specify the correct place to split the variable.  We want the first letter in one column (nutrient) and the the remaining part in a second column (growth_rate).  If you read the help for the `separate()` function you'll see that if you provide a number to the `sep` argument it will split at this position.  This works great for us.  There are other ways to split this variable, however, these require a bit more knowledge of regular expressions.  And always go with the simplist soluion you can find.
+<!-- Why yes, it seems that our `variable` column is comprised of both nutrient and growth rate.  We'll have to use `separate()` again.  The trick here is how to specify the correct place to split the variable.  We want the first letter in one column (nutrient) and the the remaining part in a second column (growth_rate).  If you read the help for the `separate()` function you'll see that if you provide a number to the `sep` argument it will split at this position.  This works great for us.  There are other ways to split this variable, however, these require a bit more knowledge of regular expressions.  And always go with the simplist soluion you can find. -->
 
-```{r}
-clean <- raw %>%
-  separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>%
-  select(-GWEIGHT, -GID, -YORF) %>%
-  gather(variable, expression, G0.05:U0.3) %>%
-  separate(variable, c("nutrient", "growth_rate"), sep = 1)
-```
+<!-- ```{r} -->
+<!-- clean <- raw %>% -->
+<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>% -->
+<!--   select(-GWEIGHT, -GID, -YORF) %>% -->
+<!--   gather(variable, expression, G0.05:U0.3) %>% -->
+<!--   separate(variable, c("nutrient", "growth_rate"), sep = 1) -->
+<!-- ``` -->
 
-```{r}
-head(clean$BP)
-```
+<!-- ```{r} -->
+<!-- head(clean$BP) -->
+<!-- ``` -->
 
-**Bonus**
+<!-- **Bonus** -->
 
-```{r}
-clean <- raw %>%
-  separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>%
-  select(-GWEIGHT, -GID, -YORF) %>%
-  gather(variable, expression, G0.05:U0.3) %>%
-  separate(variable, c("nutrient", "growth_rate"), sep = 1, convert = TRUE) %>%
-  mutate_at(vars(gene_name:gene_id), str_trim)
-head(clean)
-```
+<!-- ```{r} -->
+<!-- clean <- raw %>% -->
+<!--   separate(NAME, c("gene_name", "BP", "MP", "gene_id", "number"), sep = "\\|\\|") %>% -->
+<!--   select(-GWEIGHT, -GID, -YORF) %>% -->
+<!--   gather(variable, expression, G0.05:U0.3) %>% -->
+<!--   separate(variable, c("nutrient", "growth_rate"), sep = 1, convert = TRUE) %>% -->
+<!--   mutate_at(vars(gene_name:gene_id), str_trim) -->
+<!-- head(clean) -->
+<!-- ``` -->
 
 <br>
 
