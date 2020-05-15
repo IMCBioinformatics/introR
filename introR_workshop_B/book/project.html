@@ -268,13 +268,13 @@
 </ul>
 <p>Questions to answer:</p>
 <ol style="list-style-type: decimal">
-<li>Which column contains multiple variables? Split it up so each column represents a single variable.</li>
+<li>Which <strong>column</strong> contains multiple variables? Split it up so each column represents a single variable. (Hint: for the <code>sep</code> argument, use <code>sep = &quot;\\|\\|&quot;</code>. But think about why!)</li>
 <li>The <code>GWEIGHT</code>, <code>GID</code>, and <code>YORF</code> columns we also won’t need so you can get rid of those.</li>
-<li>What’s wrong with the column names? How can you fix that?</li>
-<li>Check again: do you have any columns that have multiple variables? Be sure to fix any before you move on.</li>
+<li>Is this data in <strong>long</strong> format? How can you fix that?</li>
+<li>Do you have any columns that have multiple variables? Be sure to fix any before you move on.</li>
 </ol>
 <p>Try to code all the cleaning steps as a single pipeline. Remember the <code>separate()</code> and <code>gather()</code> functions from the tidyr package.</p>
-<p><strong>Bonus:</strong> Your cleaning steps may have left some variables with extra white space at the end. Using <code>dplyr::mutate_at()</code> and a certain function from the <code>stringr</code> package see if you can clean these up.</p>
+<p><strong>Bonus:</strong> Your cleaning steps may have left some variables with extra white space at the end. Hint: Using <code>mutate_at()</code> with the <code>str_trim</code> option, see if you can clean these up.</p>
 <p><br></p>
 <!-- ### Task 2 Solution {-} -->
 <!-- <b>1. Which column contains multiple variables?  Split it up so each column represents a single variable.</b> -->

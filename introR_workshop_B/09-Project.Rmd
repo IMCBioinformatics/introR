@@ -83,14 +83,14 @@ You've learned about the tidy data concepts, now it's time to put them into prac
 
 Questions to answer:
 
-1. Which column contains multiple variables?  Split it up so each column represents a single variable.
+1. Which **column** contains multiple variables?  Split it up so each column represents a single variable. (Hint: for the `sep` argument, use `sep = "\\|\\|"`. But think about why!)
 2. The `GWEIGHT`, `GID`, and `YORF` columns we also won't need so you can get rid of those.
-3. What's wrong with the column names?  How can you fix that?
-4. Check again: do you have any columns that have multiple variables?  Be sure to fix any before you move on.
+3. Is this data in **long** format?  How can you fix that?
+4. Do you have any columns that have multiple variables?  Be sure to fix any before you move on.
 
 Try to code all the cleaning steps as a single pipeline. Remember the `separate()` and `gather()` functions from the tidyr package.
 
-**Bonus:** Your cleaning steps may have left some variables with extra white space at the end.  Using `dplyr::mutate_at()` and a certain function from the `stringr` package see if you can clean these up.
+**Bonus:** Your cleaning steps may have left some variables with extra white space at the end.  Hint: Using `mutate_at()` with the `str_trim` option, see if you can clean these up.
 
 <br>
 
