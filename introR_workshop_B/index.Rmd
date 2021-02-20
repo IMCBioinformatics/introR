@@ -1,6 +1,6 @@
 --- 
 title: "Introduction to R for Biologists"
-author: "Alana Schick & Hena Ramay"
+author: "Hena Ramay"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
