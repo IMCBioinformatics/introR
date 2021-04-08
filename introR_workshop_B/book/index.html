@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Introduction to R for Biologists</title>
   <meta name="description" content="This tutorial covers workshop material" />
-  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Introduction to R for Biologists" />
   <meta property="og:type" content="book" />
@@ -21,10 +21,10 @@
   <meta name="twitter:description" content="This tutorial covers workshop material" />
   
 
-<meta name="author" content="Alana Schick &amp; Hena Ramay" />
+<meta name="author" content="Hena Ramay" />
 
 
-<meta name="date" content="2020-05-13" />
+<meta name="date" content="2021-04-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 
 <link rel="next" href="pre-workshop.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -53,18 +54,18 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -84,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -133,24 +134,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Intro R Workshop</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#workshop-schedule"><i class="fa fa-check"></i><b>1.1</b> Workshop Schedule</a><ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#workshop-schedule"><i class="fa fa-check"></i><b>1.1</b> Workshop Schedule</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#day-1"><i class="fa fa-check"></i>Day 1</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#day-2"><i class="fa fa-check"></i>Day 2</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#important-links"><i class="fa fa-check"></i><b>1.2</b> Important links</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="pre-workshop.html"><a href="pre-workshop.html"><i class="fa fa-check"></i><b>2</b> Pre-workshop</a><ul>
-<li class="chapter" data-level="2.1" data-path="pre-workshop.html"><a href="pre-workshop.html#installation"><i class="fa fa-check"></i><b>2.1</b> Installation</a><ul>
+<li class="chapter" data-level="2" data-path="pre-workshop.html"><a href="pre-workshop.html"><i class="fa fa-check"></i><b>2</b> Pre-workshop</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pre-workshop.html"><a href="pre-workshop.html#installation"><i class="fa fa-check"></i><b>2.1</b> Installation</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="pre-workshop.html"><a href="pre-workshop.html#windows"><i class="fa fa-check"></i><b>2.1.1</b> Windows</a></li>
 <li class="chapter" data-level="2.1.2" data-path="pre-workshop.html"><a href="pre-workshop.html#macos"><i class="fa fa-check"></i><b>2.1.2</b> MacOS</a></li>
 <li class="chapter" data-level="2.1.3" data-path="pre-workshop.html"><a href="pre-workshop.html#linux"><i class="fa fa-check"></i><b>2.1.3</b> Linux</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="pre-workshop.html"><a href="pre-workshop.html#datacamp-courses"><i class="fa fa-check"></i><b>2.2</b> Datacamp Courses</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>3</b> Introduction</a><ul>
+<li class="chapter" data-level="3" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="introduction.html"><a href="introduction.html#r-and-the-rstudio-ide"><i class="fa fa-check"></i><b>3.1</b> R and the RStudio IDE</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction.html"><a href="introduction.html#why-learn-r"><i class="fa fa-check"></i><b>3.2</b> Why learn R</a><ul>
+<li class="chapter" data-level="3.2" data-path="introduction.html"><a href="introduction.html#why-learn-r"><i class="fa fa-check"></i><b>3.2</b> Why learn R</a>
+<ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#r-does-not-involve-a-lot-of-pointing-and-clicking---thats-a-good-thing"><i class="fa fa-check"></i>R does not involve a lot of pointing and clicking - that’s a good thing!</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#r-code-is-great-for-reproducibility"><i class="fa fa-check"></i>R code is great for reproducibility</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#r-is-interdisciplinary-and-extensible"><i class="fa fa-check"></i>R is interdisciplinary and extensible</a></li>
@@ -160,10 +167,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#interacting-with-r"><i class="fa fa-check"></i>Interacting with R</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="introduction.html"><a href="introduction.html#creating-an-rstudio-project"><i class="fa fa-check"></i><b>3.3</b> Creating an RStudio project</a></li>
-<li class="chapter" data-level="3.4" data-path="introduction.html"><a href="introduction.html#creating-your-first-r-script"><i class="fa fa-check"></i><b>3.4</b> Creating your first R script</a><ul>
+<li class="chapter" data-level="3.4" data-path="introduction.html"><a href="introduction.html#creating-your-first-r-script"><i class="fa fa-check"></i><b>3.4</b> Creating your first R script</a>
+<ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#organizing-your-working-directory"><i class="fa fa-check"></i>Organizing your working directory</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="introduction.html"><a href="introduction.html#how-to-learn-more"><i class="fa fa-check"></i><b>3.5</b> How to learn more?</a><ul>
+<li class="chapter" data-level="3.5" data-path="introduction.html"><a href="introduction.html#how-to-learn-more"><i class="fa fa-check"></i><b>3.5</b> How to learn more?</a>
+<ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#seeking-help"><i class="fa fa-check"></i>Seeking help</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#i-am-stuck-i-get-an-error-message-that-i-dont-understand"><i class="fa fa-check"></i>I am stuck… I get an error message that I don’t understand</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#asking-for-help"><i class="fa fa-check"></i>Asking for help</a></li>
@@ -171,56 +180,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#how-to-ask-for-r-help-useful-guidelines"><i class="fa fa-check"></i>How to ask for R help useful guidelines</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="installing-r-packages.html"><a href="installing-r-packages.html"><i class="fa fa-check"></i><b>4</b> Installing R Packages</a><ul>
+<li class="chapter" data-level="4" data-path="installing-r-packages.html"><a href="installing-r-packages.html"><i class="fa fa-check"></i><b>4</b> Installing R Packages</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="installing-r-packages.html"><a href="installing-r-packages.html#what-are-r-packages"><i class="fa fa-check"></i><b>4.1</b> What are R packages?</a></li>
-<li class="chapter" data-level="4.2" data-path="installing-r-packages.html"><a href="installing-r-packages.html#installing-r-packages-from-different-sources"><i class="fa fa-check"></i><b>4.2</b> Installing R packages from different sources</a><ul>
+<li class="chapter" data-level="4.2" data-path="installing-r-packages.html"><a href="installing-r-packages.html#installing-r-packages-from-different-sources"><i class="fa fa-check"></i><b>4.2</b> Installing R packages from different sources</a>
+<ul>
 <li class="chapter" data-level="" data-path="installing-r-packages.html"><a href="installing-r-packages.html#cran"><i class="fa fa-check"></i>1. CRAN</a></li>
 <li class="chapter" data-level="" data-path="installing-r-packages.html"><a href="installing-r-packages.html#bioconductor"><i class="fa fa-check"></i>2. Bioconductor</a></li>
 <li class="chapter" data-level="" data-path="installing-r-packages.html"><a href="installing-r-packages.html#github"><i class="fa fa-check"></i>3. Github</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="installing-r-packages.html"><a href="installing-r-packages.html#loading-a-package"><i class="fa fa-check"></i><b>4.3</b> Loading a package</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>5</b> R Basics</a><ul>
+<li class="chapter" data-level="5" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>5</b> R Basics</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="r-basics.html"><a href="r-basics.html#creating-objects-in-r"><i class="fa fa-check"></i><b>5.1</b> Creating objects in R</a></li>
 <li class="chapter" data-level="5.2" data-path="r-basics.html"><a href="r-basics.html#objects-vs.-variables"><i class="fa fa-check"></i><b>5.2</b> Objects vs. variables</a></li>
 <li class="chapter" data-level="5.3" data-path="r-basics.html"><a href="r-basics.html#functions-and-their-arguments"><i class="fa fa-check"></i><b>5.3</b> Functions and their arguments</a></li>
 <li class="chapter" data-level="5.4" data-path="r-basics.html"><a href="r-basics.html#data-types-in-r"><i class="fa fa-check"></i><b>5.4</b> Data types in R</a></li>
 <li class="chapter" data-level="5.5" data-path="r-basics.html"><a href="r-basics.html#data-structures-in-r"><i class="fa fa-check"></i><b>5.5</b> Data structures in R</a></li>
 <li class="chapter" data-level="5.6" data-path="r-basics.html"><a href="r-basics.html#vectors"><i class="fa fa-check"></i><b>5.6</b> Vectors</a></li>
-<li class="chapter" data-level="5.7" data-path="r-basics.html"><a href="r-basics.html#indexing-vectors"><i class="fa fa-check"></i><b>5.7</b> Indexing vectors</a><ul>
+<li class="chapter" data-level="5.7" data-path="r-basics.html"><a href="r-basics.html#indexing-vectors"><i class="fa fa-check"></i><b>5.7</b> Indexing vectors</a>
+<ul>
 <li class="chapter" data-level="" data-path="r-basics.html"><a href="r-basics.html#adding-values-to-vectors"><i class="fa fa-check"></i>Adding values to vectors</a></li>
 <li class="chapter" data-level="" data-path="r-basics.html"><a href="r-basics.html#replacing-values-in-existing-vectors"><i class="fa fa-check"></i>Replacing values in existing vectors</a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="r-basics.html"><a href="r-basics.html#conditional-subsetting"><i class="fa fa-check"></i><b>5.8</b> Conditional subsetting</a></li>
 <li class="chapter" data-level="5.9" data-path="r-basics.html"><a href="r-basics.html#missing-data"><i class="fa fa-check"></i><b>5.9</b> Missing data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="starting-with-data.html"><a href="starting-with-data.html"><i class="fa fa-check"></i><b>6</b> Starting with Data</a><ul>
+<li class="chapter" data-level="6" data-path="starting-with-data.html"><a href="starting-with-data.html"><i class="fa fa-check"></i><b>6</b> Starting with Data</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="starting-with-data.html"><a href="starting-with-data.html#download-the-data"><i class="fa fa-check"></i><b>6.1</b> Download the data</a></li>
 <li class="chapter" data-level="6.2" data-path="starting-with-data.html"><a href="starting-with-data.html#csv-files"><i class="fa fa-check"></i><b>6.2</b> CSV files</a></li>
 <li class="chapter" data-level="6.3" data-path="starting-with-data.html"><a href="starting-with-data.html#sidenote-importing-data-from-excel"><i class="fa fa-check"></i><b>6.3</b> Sidenote: Importing data from Excel</a></li>
 <li class="chapter" data-level="6.4" data-path="starting-with-data.html"><a href="starting-with-data.html#import-data"><i class="fa fa-check"></i><b>6.4</b> Import data</a></li>
-<li class="chapter" data-level="6.5" data-path="starting-with-data.html"><a href="starting-with-data.html#what-are-data-frames"><i class="fa fa-check"></i><b>6.5</b> What are data frames?</a><ul>
+<li class="chapter" data-level="6.5" data-path="starting-with-data.html"><a href="starting-with-data.html#what-are-data-frames"><i class="fa fa-check"></i><b>6.5</b> What are data frames?</a>
+<ul>
 <li class="chapter" data-level="" data-path="starting-with-data.html"><a href="starting-with-data.html#saving-or-writing-a-data-frame"><i class="fa fa-check"></i>Saving or “writing” a data frame</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="starting-with-data.html"><a href="starting-with-data.html#what-are-factors"><i class="fa fa-check"></i><b>6.6</b> What are factors?</a><ul>
+<li class="chapter" data-level="6.6" data-path="starting-with-data.html"><a href="starting-with-data.html#what-are-factors"><i class="fa fa-check"></i><b>6.6</b> What are factors?</a>
+<ul>
 <li class="chapter" data-level="" data-path="starting-with-data.html"><a href="starting-with-data.html#the-sign"><i class="fa fa-check"></i>The $ sign</a></li>
 </ul></li>
 <li class="chapter" data-level="6.7" data-path="starting-with-data.html"><a href="starting-with-data.html#plotting-and-ordering-factors"><i class="fa fa-check"></i><b>6.7</b> Plotting and ordering factors</a></li>
 <li class="chapter" data-level="6.8" data-path="starting-with-data.html"><a href="starting-with-data.html#subsetting-data-frames"><i class="fa fa-check"></i><b>6.8</b> Subsetting data frames</a></li>
-<li class="chapter" data-level="6.9" data-path="starting-with-data.html"><a href="starting-with-data.html#other-data-types"><i class="fa fa-check"></i><b>6.9</b> Other data types</a><ul>
+<li class="chapter" data-level="6.9" data-path="starting-with-data.html"><a href="starting-with-data.html#other-data-types"><i class="fa fa-check"></i><b>6.9</b> Other data types</a>
+<ul>
 <li class="chapter" data-level="" data-path="starting-with-data.html"><a href="starting-with-data.html#matrices"><i class="fa fa-check"></i>Matrices</a></li>
 <li class="chapter" data-level="" data-path="starting-with-data.html"><a href="starting-with-data.html#lists"><i class="fa fa-check"></i>Lists</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Manipulating Data in the tidyverse</a><ul>
+<li class="chapter" data-level="7" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Manipulating Data in the tidyverse</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#what-is-the-tidyverse"><i class="fa fa-check"></i><b>7.1</b> What is the Tidyverse</a></li>
-<li class="chapter" data-level="7.2" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#tibbles"><i class="fa fa-check"></i><b>7.2</b> Tibbles</a><ul>
+<li class="chapter" data-level="7.2" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#tibbles"><i class="fa fa-check"></i><b>7.2</b> Tibbles</a>
+<ul>
 <li class="chapter" data-level="" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#create-a-tibble"><i class="fa fa-check"></i>Create a tibble</a></li>
 <li class="chapter" data-level="" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#reading-in-tibbles"><i class="fa fa-check"></i>Reading in tibbles</a></li>
 <li class="chapter" data-level="" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#data-frames-versus-tibbles"><i class="fa fa-check"></i>Data frames versus tibbles</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#exploring-tibbles"><i class="fa fa-check"></i><b>7.3</b> Exploring tibbles</a></li>
-<li class="chapter" data-level="7.4" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#tidy-data"><i class="fa fa-check"></i><b>7.4</b> Tidy data</a><ul>
+<li class="chapter" data-level="7.4" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#tidy-data"><i class="fa fa-check"></i><b>7.4</b> Tidy data</a>
+<ul>
 <li><a href="manipulating-data-in-the-tidyverse.html#gather"><code>gather()</code></a></li>
 <li><a href="manipulating-data-in-the-tidyverse.html#separate"><code>separate()</code></a></li>
 <li><a href="manipulating-data-in-the-tidyverse.html#spread"><code>spread()</code></a></li>
@@ -232,29 +252,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.9" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#split-apply-combine-data-analysis-and-the-summarize-function"><i class="fa fa-check"></i><b>7.9</b> Split-apply-combine data analysis and the summarize() function</a></li>
 <li class="chapter" data-level="7.10" data-path="manipulating-data-in-the-tidyverse.html"><a href="manipulating-data-in-the-tidyverse.html#other-great-resources"><i class="fa fa-check"></i><b>7.10</b> Other great resources</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>8</b> Data Visualization with ggplot2</a><ul>
+<li class="chapter" data-level="8" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html"><i class="fa fa-check"></i><b>8</b> Data Visualization with ggplot2</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
-<li class="chapter" data-level="8.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#plotting-with-ggplot2"><i class="fa fa-check"></i><b>8.2</b> Plotting with ggplot2</a><ul>
+<li class="chapter" data-level="8.2" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#plotting-with-ggplot2"><i class="fa fa-check"></i><b>8.2</b> Plotting with ggplot2</a>
+<ul>
 <li class="chapter" data-level="" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#principles-of-effective-display"><i class="fa fa-check"></i>Principles of effective display</a></li>
 <li class="chapter" data-level="" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#building-plots-iteratively"><i class="fa fa-check"></i>Building plots iteratively</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#faceting"><i class="fa fa-check"></i><b>8.3</b> Faceting</a></li>
 <li class="chapter" data-level="8.4" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#barplots"><i class="fa fa-check"></i><b>8.4</b> Barplots</a></li>
 <li class="chapter" data-level="8.5" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#histograms"><i class="fa fa-check"></i><b>8.5</b> Histograms</a></li>
-<li class="chapter" data-level="8.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>8.6</b> Boxplots</a><ul>
+<li class="chapter" data-level="8.6" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>8.6</b> Boxplots</a>
+<ul>
 <li class="chapter" data-level="" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#the-five-number-summary"><i class="fa fa-check"></i>The Five Number Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="data-visualization-with-ggplot2.html"><a href="data-visualization-with-ggplot2.html#themes"><i class="fa fa-check"></i><b>8.7</b> Themes</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="project.html"><a href="project.html"><i class="fa fa-check"></i><b>9</b> Project</a><ul>
+<li class="chapter" data-level="9" data-path="project.html"><a href="project.html"><i class="fa fa-check"></i><b>9</b> Project</a>
+<ul>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-0-download-the-data"><i class="fa fa-check"></i>Task 0: Download the data</a></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-data-import-and-examination"><i class="fa fa-check"></i>Task 1: Data import and examination</a><ul>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-solution"><i class="fa fa-check"></i>Task 1 Solution</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-data-tidying"><i class="fa fa-check"></i>Task 2: Data Tidying</a><ul>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-solution"><i class="fa fa-check"></i>Task 2 Solution</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-data-import-and-examination"><i class="fa fa-check"></i>Task 1: Data import and examination</a></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-data-tidying"><i class="fa fa-check"></i>Task 2: Data Tidying</a></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-3-plots"><i class="fa fa-check"></i>Task 3: Plots</a></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-4-heatmap"><i class="fa fa-check"></i>Task 4: Heatmap</a></li>
 </ul></li>
@@ -280,14 +300,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">Introduction to R for Biologists</h1>
-<p class="author"><em>Alana Schick &amp; Hena Ramay</em></p>
-<p class="date"><em>2020-05-13</em></p>
+<p class="author"><em>Hena Ramay</em></p>
+<p class="date"><em>2021-04-07</em></p>
 </div>
-<div id="welcome" class="section level1">
+<div id="welcome" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Welcome</h1>
 <p>Workshop material will be added here as we go along. For each day of the workshop, the basic material will be uploaded and more details will be added based on your questions and problems we encounter. So please ask as many questions are you can to help us in making this workshop better!!</p>
 <!-- You can download these notes as a pdf using the link [here](book/IntroRWorkshop.pdf). -->
-<div id="workshop-schedule" class="section level2">
+<div id="workshop-schedule" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Workshop Schedule</h2>
 <p>*Subject to change, depending how things go.</p>
 <div id="day-1" class="section level3 unnumbered">
@@ -409,7 +429,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 </div>
-<div id="important-links" class="section level2">
+<div id="important-links" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Important links</h2>
 <ul>
 <li>Datacamp: <a href="https://www.datacamp.com/home">link</a></li>
