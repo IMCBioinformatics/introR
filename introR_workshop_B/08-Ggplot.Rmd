@@ -10,7 +10,7 @@ variants <- read.csv("data/combined_tidy_vcf.csv")
 
 This section uses a different data set from the same experiment - the LTEE (long-term evolution experiment). This data was pulished in: Tempo and mode of genome evolution in a 50,000-generation experiment [Tenaillon et al 2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4988878/).
 
-Download the data onto your computer from [this](https://www.dropbox.com/s/1z7qrbke9l6o6ee/combined_tidy_vcf.csv?dl=0) dropbox link and move it into the `data` directory of your RStudio project.
+Download the data onto your computer from [this](https://www.dropbox.com/s/wyg99ym3rbuxqvm/combined_tidy_vcf.csv?dl=0) dropbox link and move it into the `data` directory of your RStudio project.
 
 <div class = "box">
 #### EXERCISE {-}
