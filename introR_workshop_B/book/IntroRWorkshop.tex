@@ -117,7 +117,7 @@
 
 \title{Introduction to R for Biologists}
 \author{Hena Ramay}
-\date{2021-04-07}
+\date{2021-04-16}
 
 \begin{document}
 \maketitle
@@ -2367,6 +2367,20 @@ Sometimes two variables are clumped together in one column. separate() allows yo
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\NormalTok{messy }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{id =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}
+  \AttributeTok{trt =} \FunctionTok{sample}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}control\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}treatment\textquotesingle{}}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)),}
+  \AttributeTok{work.T1 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
+  \AttributeTok{home.T1 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
+  \AttributeTok{work.T2 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
+  \AttributeTok{home.T2 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{messy}
 \end{Highlighting}
 \end{Shaded}
@@ -3399,6 +3413,26 @@ Your goal is get the data loaded into R and answer the following questions:
 
 As you look through the data start thinking about what steps you'll need to get it into a workable state.
 
+\hypertarget{task-1-solution}{%
+\subsection*{Task 1 Solution}\label{task-1-solution}}
+\addcontentsline{toc}{subsection}{Task 1 Solution}
+
+1. How many rows and columns are there?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{raw }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/Brauer2008\_DataSet1.csv"}\NormalTok{)}
+\CommentTok{\#head(raw)}
+\FunctionTok{dim}\NormalTok{(raw)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5537   40
+\end{verbatim}
+
 There are 5537 rows and 40 columns.
 
 2. What do the rows and columns represent?
@@ -3454,6 +3488,103 @@ Try to code all the cleaning steps as a single pipeline. Remember the \texttt{se
 
 \textbf{Bonus:} Your cleaning steps may have left some variables with extra white space at the end. Hint: Using \texttt{mutate\_at()} with the \texttt{str\_trim} option, see if you can clean these up.
 
+\hypertarget{task-2-solution}{%
+\subsection*{Task 2 Solution}\label{task-2-solution}}
+\addcontentsline{toc}{subsection}{Task 2 Solution}
+
+1. Which column contains multiple variables? Split it up so each column represents a single variable.
+
+We need to tell \texttt{separate()} to split on the \texttt{\textbar{}\textbar{}} character using the \texttt{sep} argument. However, the \texttt{\textbar{}} character is actually a special character for something called regular expressions, which we don't need to worry about right now. That's why we need to use the double backslash, which ``escapes'' the \texttt{\textbar{}} character and tells \texttt{separate()} to interpret it like a normal character. If we used \texttt{sep\ =\ "\textbar{}\textbar{}"} this would give us the wrong result.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+2. The \texttt{GWEIGHT}, \texttt{GID}, and \texttt{YORF} columns we also won't need so you can get rid of those.
+
+That's easy with \texttt{select()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GWEIGHT, }\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF)}
+\end{Highlighting}
+\end{Shaded}
+
+3. What's wrong with the column names? How can you fix that?
+
+They're variables not names and tidy data principles tell us that each variable should be a column. And these are not just not just 1 variable - both nutrient and growth rate are present. We can fix this with \texttt{gather()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GWEIGHT, }\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\SpecialCharTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+4. Check again: do you have any columns that have multipe variables? Be sure to fix any before you move on.
+
+Why yes, it seems that our \texttt{variable} column is comprised of both nutrient and growth rate. We'll have to use \texttt{separate()} again. The trick here is how to specify the correct place to split the variable. We want the first letter in one column (nutrient) and the the remaining part in a second column (growth\_rate). If you read the help for the \texttt{separate()} function you'll see that if you provide a number to the \texttt{sep} argument it will split at this position. This works great for us. There are other ways to split this variable, however, these require a bit more knowledge of regular expressions. And always go with the simplist soluion you can find.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GWEIGHT, }\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\SpecialCharTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{separate}\NormalTok{(variable, }\FunctionTok{c}\NormalTok{(}\StringTok{"nutrient"}\NormalTok{, }\StringTok{"growth\_rate"}\NormalTok{), }\AttributeTok{sep =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(clean}\SpecialCharTok{$}\NormalTok{BP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] " ER to Golgi transport "        " biological process unknown "  
+## [3] " proteolysis and peptidolysis " " mRNA polyadenylylation* "     
+## [5] " vesicle fusion* "              " biological process unknown "
+\end{verbatim}
+
+\textbf{Bonus}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GWEIGHT, }\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\SpecialCharTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{separate}\NormalTok{(variable, }\FunctionTok{c}\NormalTok{(}\StringTok{"nutrient"}\NormalTok{, }\StringTok{"growth\_rate"}\NormalTok{), }\AttributeTok{sep =} \DecValTok{1}\NormalTok{, }\AttributeTok{convert =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate\_at}\NormalTok{(}\FunctionTok{vars}\NormalTok{(gene\_name}\SpecialCharTok{:}\NormalTok{gene\_id), str\_trim)}
+\FunctionTok{head}\NormalTok{(clean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   gene_name                           BP                            MP gene_id
+## 1      SFB2        ER to Golgi transport    molecular function unknown YNL049C
+## 2             biological process unknown    molecular function unknown YNL095C
+## 3      QRI7 proteolysis and peptidolysis metalloendopeptidase activity YDL104C
+## 4      CFT2      mRNA polyadenylylation*                   RNA binding YLR115W
+## 5      SSO2              vesicle fusion*              t-SNARE activity YMR183C
+## 6      PSP2   biological process unknown    molecular function unknown YML017W
+##     number nutrient growth_rate expression
+## 1  1082129        G        0.05      -0.24
+## 2  1086222        G        0.05       0.28
+## 3  1085955        G        0.05      -0.02
+## 4  1081958        G        0.05      -0.33
+## 5  1081214        G        0.05       0.05
+## 6  1083036        G        0.05      -0.69
+\end{verbatim}
+
 \hypertarget{task-3-plots}{%
 \section*{Task 3: Plots}\label{task-3-plots}}
 \addcontentsline{toc}{section}{Task 3: Plots}
@@ -3485,6 +3616,131 @@ In a typical analysis you wouldn't necessarily know which gene(s) to start looki
 
 \textbf{Bonus:} To increase readability of the plot it can helpful to change those nutrients from letters to full words. Although there are ways to do this directly in ggplot the easiest is to change it in the original data.
 
+\hypertarget{task-3-solution}{%
+\subsection*{Task 3 Solution}\label{task-3-solution}}
+\addcontentsline{toc}{subsection}{Task 3 Solution}
+
+1. Filter your now cleaned data to contain only the gene LEU1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{leu}\OtherTok{\textless{}{-}}\NormalTok{ clean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(gene\_name }\SpecialCharTok{==} \StringTok{"LEU1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+2. Make a plot of the expression of this gene at various growth rates. Use colour to distinguish the different nutrients.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(gene\_name }\SpecialCharTok{==} \StringTok{"LEU1"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ growth\_rate, }\AttributeTok{y =}\NormalTok{ expression)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ nutrient))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-122-1.pdf}
+
+3. What are some conclusions you can make from this data?
+
+\begin{itemize}
+\tightlist
+\item
+  When leucine is limiting the expression of LEU1 is higher than when any of the other nutrients are limiting.
+\item
+  As growth rate increase the expresison of LEU1 decreases but only in leucine limiting conditions. In all other conditions it increases as growth rate increases.
+\end{itemize}
+
+4. What biological process is LEU1 classified as?
+
+leucine biosynthesis
+
+5. Filter your cleaned data for all genes that are in the same biological process as LEU1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lbs}\OtherTok{\textless{}{-}}\NormalTok{ clean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(BP }\SpecialCharTok{==} \StringTok{"leucine biosynthesis"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+6. Make a plot of these genes, the same as you had for LEU1 but faceted by gene.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(BP }\SpecialCharTok{==} \StringTok{"leucine biosynthesis"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ growth\_rate, }\AttributeTok{y =}\NormalTok{ expression)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ nutrient)) }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{gene\_name)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-124-1.pdf}
+
+7. Do any of the other genes follow the same pattern as LEU1?
+
+LEU2 seems to but the expression difference in leucine limiting conditions is not quite so high.
+
+8. Make it pretty
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(BP }\SpecialCharTok{==} \StringTok{"leucine biosynthesis"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ growth\_rate, }\AttributeTok{y =}\NormalTok{ expression, }\AttributeTok{colour =}\NormalTok{ nutrient)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{gene\_name) }\SpecialCharTok{+}
+    \FunctionTok{scale\_color\_brewer}\NormalTok{(}\StringTok{"Nutrient"}\NormalTok{, }\AttributeTok{palette =} \StringTok{"Accent"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Growth Rate"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Expression (log2)"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{strip.background =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-125-1.pdf}
+
+Bonus: Changing nutrient names
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nutrient\_key }\OtherTok{=} \FunctionTok{c}\NormalTok{(}
+  \AttributeTok{G =} \StringTok{"Glucose"}\NormalTok{,}
+  \AttributeTok{N =} \StringTok{"Ammonium"}\NormalTok{,}
+  \AttributeTok{P =} \StringTok{"Phosphate"}\NormalTok{,}
+  \AttributeTok{S =} \StringTok{"Sulfate"}\NormalTok{,}
+  \AttributeTok{U =} \StringTok{"Uracil"}\NormalTok{,}
+  \AttributeTok{L =} \StringTok{"Leucine"}
+\NormalTok{)}
+\NormalTok{nutrient\_key[}\StringTok{"P"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           P 
+## "Phosphate"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{nutrient\_names =}\NormalTok{ nutrient\_key[nutrient]) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(BP }\SpecialCharTok{==} \StringTok{"leucine biosynthesis"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ growth\_rate, }\AttributeTok{y =}\NormalTok{ expression, }\AttributeTok{colour =}\NormalTok{ nutrient\_names)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{gene\_name) }\SpecialCharTok{+}
+    \FunctionTok{scale\_color\_brewer}\NormalTok{(}\StringTok{"Nutrient"}\NormalTok{, }\AttributeTok{palette =} \StringTok{"Accent"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Growth Rate"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Expression (log2)"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{strip.background =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-126-1.pdf}
+
 \hypertarget{task-4-heatmap}{%
 \section*{Task 4: Heatmap}\label{task-4-heatmap}}
 \addcontentsline{toc}{section}{Task 4: Heatmap}
@@ -3507,6 +3763,87 @@ Questions to answer:
 \item
   Once you've got data in the correct format start by making a simple heatmap with default parameters. Do you like it? Is there anything wrong with it? What would change from a data interpretation perspective? What about from aethetics perspective?
 \end{enumerate}
+
+\hypertarget{task-4-solution}{%
+\subsection*{Task 4 Solution}\label{task-4-solution}}
+\addcontentsline{toc}{subsection}{Task 4 Solution}
+
+1. Start by installing the \texttt{pheatmap} package from CRAN. Have a look at the help page for the \texttt{pheatamp()} function. Which argument specifies the data? What format does it need?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("pheatmap")}
+\FunctionTok{library}\NormalTok{(pheatmap)}
+\NormalTok{?pheatmap}
+\end{Highlighting}
+\end{Shaded}
+
+Looks like \texttt{pheatmap()} needs a numeric matix given with the \texttt{mat} arguments, which is the first and only required arugment.
+
+2. Using what you learned from the help function get the gene expression data into a format that \texttt{pheatmap()} can use. Think about what you want your heatmap to look like - what are the columns and rows?
+
+Here we're going to go back to our pre-tidied data. This doesn't negate the work we did to tidy it nor does it mean the the data is now `dirty' or bad somehow. Tidy data is standardized but many R tools still don't work with data in this format and so we must adapt.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#head(raw)}
+\NormalTok{hm\_mat }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF, }\SpecialCharTok{{-}}\NormalTok{NAME, }\SpecialCharTok{{-}}\NormalTok{GWEIGHT) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as.matrix}\NormalTok{()}
+
+\FunctionTok{class}\NormalTok{(hm\_mat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "matrix"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{typeof}\NormalTok{(hm\_mat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "double"
+\end{verbatim}
+
+3. Once you've got data in the correct format start by making a simple heatmap with default parameters. Do you like it? Is there anything wrong with it? What would change from a data interpretation perspective? What about from aethetics perspective?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pheatmap}\NormalTok{(hm\_mat)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-129-1.pdf}
+
+Overall this actually looks pretty good. Because these data have already been normalized and scaled we don't need to do much here but there are few tweaks that may help.
+
+\begin{itemize}
+\tightlist
+\item
+  The default is to order both the rows and columns, however, because this is a timecourse experiment we may not want to order the columns. In fact if we look at the raw data we see that the columns are already ordered by time.
+\item
+  The colours are better than the typical red/green (which you should NEVER use, BTW) but still leave something to be desired. This could be changed in a final version of the plot. Note that we have a diverging colour scale with values ranging from -6 to +6. This is becuase these data are mean-centred. Blue (negative) values are below the mean for that gene and red values (positive) are above the mean for that gene. Yellow is the mean expression for that gene. Mean-centering is a handy way to show fold-changes, but should always be displayed with a diverging colour scale.
+\item
+  To help with visualizing the different nutrients, we can add gaps to the heatmap to make a column for each nutrient.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+\FunctionTok{pheatmap}\NormalTok{(hm\_mat,}
+         \AttributeTok{cluster\_cols =} \ConstantTok{FALSE}\NormalTok{,}
+         \AttributeTok{color =} \FunctionTok{colorRampPalette}\NormalTok{(}\FunctionTok{rev}\NormalTok{(}\FunctionTok{brewer.pal}\NormalTok{(}\AttributeTok{n =} \DecValTok{7}\NormalTok{, }\AttributeTok{name =} \StringTok{"RdBu"}\NormalTok{)))(}\DecValTok{100}\NormalTok{),}
+         \AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{101}\NormalTok{),}
+         \AttributeTok{gaps\_col =} \FunctionTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{18}\NormalTok{,}\DecValTok{24}\NormalTok{,}\DecValTok{30}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-131-1.pdf}
 
   \bibliography{book.bib,packages.bib}
 

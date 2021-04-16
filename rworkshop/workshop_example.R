@@ -191,4 +191,92 @@ metadata_tib[,c("sample","clade")]
 
 ### Tidy data
 
+messy <- data.frame(
+    name = c("Wilbur", "Petunia", "Gregory"),
+    gender=c("Male","Female","Male"),
+    drugA = c(67, 80, 64),
+    drugB = c(56, 90, 50)
+)
+
+head(messy)
+gather(messy,key = "drug",value = "heartrate")
+gather(messy,key = "drug",value = "heartrate",drugA:drugB)
+gather(messy,key = "drug",value = "heartrate",-name,-gender)
+
+
+x[2:5]
+x[-1]
+
+set.seed(10)
+messy <- data.frame(
+    id = 1:4,
+    trt = sample(rep(c('control', 'treatment'), each = 2)),
+    work.T1 = runif(4),
+    home.T1 = runif(4),
+    work.T2 = runif(4),
+    home.T2 = runif(4)
+)
+
+gather(messy,key = "Place",value="x",-id,-trt)
+long<-gather(messy,key = "Place",value="x",work.T1:home.T2)
+
+separate(long,col = Place,into = c("Place","Timepoint"),sep = "\\.")
+
+## dplyr
+select(messy,-id)
+
+filter(messy,trt=="control")
+
+selected<-select(metadata, sample, clade, cit, genome_size)
+
+filter(selected,cit %in% c("plus","minus") )
+filter(metadata,generation <= 30000)
+
+
+new<-metadata %>% filter(cit=="plus") %>% select(cit,run)
+
+metadata %>% filter(clade=="Cit+") %>% select(sample, cit, genome_size)
+
+metadata %>% mutate(genome_bp=genome_size*1e6)
+
+metadata %>% mutate(generation=generation/max(generation))
+
+metadata %>% group_by(cit,generation) %>% summarise(average=mean(genome_size))
+
+metadata %>% group_by(cit,generation)
+
+ggplot(data = metadat)
+
+metadata %>% filter(generation > 2000) %>% ggplot(mapping = aes(x=sample,y = genome_size))
+
+
+variants<-read_csv("combined_tidy_vcf.csv")
+
+first_plot<-variants %>% ggplot(aes(x = POS,y=DP,color=sample_id))
+first_plot + geom_point(alpha=0.5)
+
+ggplot(variants,aes(x=sample_id,y=DP,fill=sample_id)) +geom_boxplot()
+
+Brauer<-read_csv("Brauer2008_DataSet1.csv")
+
+tidy_data<-separate(Brauer, 
+         col="NAME",
+         into = c("Name","function","function2","SystematicName","acc"),
+         sep="\\|\\|") %>%
+    select(-GID,-GWEIGHT,-YORF) %>% gather(key = "Nutrients_Conc",value="Expression",G0.05:U0.3)
+
+tidy_data %>% separate(col=Nutrients_Conc,into = c("Nutrient","Conc"),sep = 1)
+
+## dplyr
+tidy_data %>% mutate(Name=trimws(Name,which = "right"))
+
+## Old way 
+tidy_data$Name<-trimws(tidy_data$Name,which = "right")
+
+Brauer<-read_csv("Brauer2008_DataSet1.csv") %>%separate(col="NAME",
+                                                        into = c("Name","function","function2","SystematicName","acc"),
+                                                        sep="\\|\\|")
+
+
+
 
