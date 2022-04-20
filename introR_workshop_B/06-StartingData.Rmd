@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Make a new RStudio Project and create a `data` directory in your RStudio Project.
 
-You can download the file directly from dropbox using [this link](https://www.dropbox.com/s/gt05aqpmohd9un6/Ecoli_metadata.csv?dl=0). Remember to put this file in a directory that makes sense (ex. in your RStudio Project directory in a `data` directory). 
+You can download the file directly from dropbox using [this link](https://www.dropbox.com/sh/pegir6j09mq7sia/AACQO9BnNAEl4EofAhmyqjmXa?dl=0). Remember to put this file in a directory that makes sense (ex. in your RStudio Project directory in a `data` directory). 
 
 <br>
 
