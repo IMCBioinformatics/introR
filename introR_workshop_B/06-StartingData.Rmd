@@ -151,6 +151,8 @@ Let's extract the `cit` column of the metadata to a new object, so we don't end 
 ```{r}
 cit <- metadata$cit
 cit
+cit<- factor(cit)
+cit
 str(cit)
 ```
 

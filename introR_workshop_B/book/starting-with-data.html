@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Starting with Data | Introduction to R for Biologists</title>
   <meta name="description" content="This tutorial covers workshop material" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Starting with Data | Introduction to R for Biologists" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Hena Ramay" />
 
 
-<meta name="date" content="2021-04-16" />
+<meta name="date" content="2022-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="r-basics.html"/>
 <link rel="next" href="manipulating-data-in-the-tidyverse.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,7 +51,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -117,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -273,22 +276,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-0-download-the-data"><i class="fa fa-check"></i>Task 0: Download the data</a></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-data-import-and-examination"><i class="fa fa-check"></i>Task 1: Data import and examination</a>
-<ul>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-solution"><i class="fa fa-check"></i>Task 1 Solution</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-data-tidying"><i class="fa fa-check"></i>Task 2: Data Tidying</a>
-<ul>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-solution"><i class="fa fa-check"></i>Task 2 Solution</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-3-plots"><i class="fa fa-check"></i>Task 3: Plots</a>
-<ul>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-3-solution"><i class="fa fa-check"></i>Task 3 Solution</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-4-heatmap"><i class="fa fa-check"></i>Task 4: Heatmap</a>
-<ul>
-<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-4-solution"><i class="fa fa-check"></i>Task 4 Solution</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-1-data-import-and-examination"><i class="fa fa-check"></i>Task 1: Data import and examination</a></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-2-data-tidying"><i class="fa fa-check"></i>Task 2: Data Tidying</a></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-3-plots"><i class="fa fa-check"></i>Task 3: Plots</a></li>
+<li class="chapter" data-level="" data-path="project.html"><a href="project.html#task-4-heatmap"><i class="fa fa-check"></i>Task 4: Heatmap</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -419,12 +410,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>str()</code> function is useful to insepct the data types of the columns.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="starting-with-data.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(metadata)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    30 obs. of  7 variables:
-##  $ sample     : Factor w/ 30 levels &quot;CZB152&quot;,&quot;CZB154&quot;,..: 7 6 18 19 20 21 22 23 24 25 ...
+##  $ sample     : chr  &quot;REL606&quot; &quot;REL1166A&quot; &quot;ZDB409&quot; &quot;ZDB429&quot; ...
 ##  $ generation : int  0 2000 5000 10000 15000 20000 20000 20000 25000 25000 ...
-##  $ clade      : Factor w/ 8 levels &quot;(C1,C2)&quot;,&quot;C1&quot;,..: 6 8 8 7 7 1 1 1 2 4 ...
-##  $ strain     : Factor w/ 1 level &quot;REL606&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ cit        : Factor w/ 3 levels &quot;minus&quot;,&quot;plus&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ run        : Factor w/ 30 levels &quot;&quot;,&quot;SRR097977&quot;,..: 1 5 22 23 24 25 26 27 28 29 ...
+##  $ clade      : chr  &quot;N/A&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;UC&quot; ...
+##  $ strain     : chr  &quot;REL606&quot; &quot;REL606&quot; &quot;REL606&quot; &quot;REL606&quot; ...
+##  $ cit        : chr  &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; ...
+##  $ run        : chr  &quot;&quot; &quot;SRR098028&quot; &quot;SRR098281&quot; &quot;SRR098282&quot; ...
 ##  $ genome_size: num  4.62 4.63 4.6 4.59 4.66 4.63 4.62 4.61 4.65 4.59 ...</code></pre>
 <div id="exercise-6.5.1" class="section level4 unnumbered box">
 <h4>EXERCISE 6.5.1</h4>
@@ -462,12 +453,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Factors are stored as integers, and have labels associated with these unique integers. While factors look (and often behave) like character vectors, they are actually integers under the hood, and you need to be careful when treating them like strings.</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="starting-with-data.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(metadata)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    30 obs. of  7 variables:
-##  $ sample     : Factor w/ 30 levels &quot;CZB152&quot;,&quot;CZB154&quot;,..: 7 6 18 19 20 21 22 23 24 25 ...
+##  $ sample     : chr  &quot;REL606&quot; &quot;REL1166A&quot; &quot;ZDB409&quot; &quot;ZDB429&quot; ...
 ##  $ generation : int  0 2000 5000 10000 15000 20000 20000 20000 25000 25000 ...
-##  $ clade      : Factor w/ 8 levels &quot;(C1,C2)&quot;,&quot;C1&quot;,..: 6 8 8 7 7 1 1 1 2 4 ...
-##  $ strain     : Factor w/ 1 level &quot;REL606&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ cit        : Factor w/ 3 levels &quot;minus&quot;,&quot;plus&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ run        : Factor w/ 30 levels &quot;&quot;,&quot;SRR097977&quot;,..: 1 5 22 23 24 25 26 27 28 29 ...
+##  $ clade      : chr  &quot;N/A&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;UC&quot; ...
+##  $ strain     : chr  &quot;REL606&quot; &quot;REL606&quot; &quot;REL606&quot; &quot;REL606&quot; ...
+##  $ cit        : chr  &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; ...
+##  $ run        : chr  &quot;&quot; &quot;SRR098028&quot; &quot;SRR098281&quot; &quot;SRR098282&quot; ...
 ##  $ genome_size: num  4.62 4.63 4.6 4.59 4.66 4.63 4.62 4.61 4.65 4.59 ...</code></pre>
 <p>Here we can see which columns/variables are factors. When we read in a file, any column that contains text is automatically assumed to be a factor. Once created, factors can only contain a pre-defined set values, known as levels. By default, R always sorts levels in alphabetical order.</p>
 <p>For instance, we see that <code>cit</code> is a Factor w/ 3 levels, <code>"minus"</code>, <code>"plus"</code> and <code>"unknown"</code>.</p>
@@ -475,30 +466,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>The $ sign</h3>
 <p>To isolate a column or variable of a data frame, we use the <strong>$</strong> operator. This applies to any type of variable. For example:</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="starting-with-data.html#cb115-1" aria-hidden="true" tabindex="-1"></a>metadata<span class="sc">$</span>sample</span></code></pre></div>
-<pre><code>##  [1] REL606   REL1166A ZDB409   ZDB429   ZDB446   ZDB458   ZDB464*  ZDB467  
-##  [9] ZDB477   ZDB483   ZDB16    ZDB357   ZDB199*  ZDB200   ZDB564   ZDB30*  
-## [17] ZDB172   ZDB158   ZDB143   CZB199   CZB152   CZB154   ZDB83    ZDB87   
-## [25] ZDB96    ZDB99    ZDB107   ZDB111   REL10979 REL10988
-## 30 Levels: CZB152 CZB154 CZB199 REL10979 REL10988 REL1166A REL606 ... ZDB99</code></pre>
+<pre><code>##  [1] &quot;REL606&quot;   &quot;REL1166A&quot; &quot;ZDB409&quot;   &quot;ZDB429&quot;   &quot;ZDB446&quot;   &quot;ZDB458&quot;  
+##  [7] &quot;ZDB464*&quot;  &quot;ZDB467&quot;   &quot;ZDB477&quot;   &quot;ZDB483&quot;   &quot;ZDB16&quot;    &quot;ZDB357&quot;  
+## [13] &quot;ZDB199*&quot;  &quot;ZDB200&quot;   &quot;ZDB564&quot;   &quot;ZDB30*&quot;   &quot;ZDB172&quot;   &quot;ZDB158&quot;  
+## [19] &quot;ZDB143&quot;   &quot;CZB199&quot;   &quot;CZB152&quot;   &quot;CZB154&quot;   &quot;ZDB83&quot;    &quot;ZDB87&quot;   
+## [25] &quot;ZDB96&quot;    &quot;ZDB99&quot;    &quot;ZDB107&quot;   &quot;ZDB111&quot;   &quot;REL10979&quot; &quot;REL10988&quot;</code></pre>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="starting-with-data.html#cb117-1" aria-hidden="true" tabindex="-1"></a>metadata<span class="sc">$</span>genome_size</span></code></pre></div>
 <pre><code>##  [1] 4.62 4.63 4.60 4.59 4.66 4.63 4.62 4.61 4.65 4.59 4.61 4.62 4.62 4.63 4.74
 ## [16] 4.61 4.77 4.63 4.79 4.59 4.80 4.76 4.60 4.75 4.74 4.61 4.79 4.62 4.78 4.62</code></pre>
 <p>To determine the number of levels of any factor, use the <code>nlevels()</code> function:</p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="starting-with-data.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nlevels</span>(metadata<span class="sc">$</span>run)</span></code></pre></div>
-<pre><code>## [1] 30</code></pre>
+<pre><code>## [1] 0</code></pre>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="starting-with-data.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nlevels</span>(metadata<span class="sc">$</span>clade)</span></code></pre></div>
-<pre><code>## [1] 8</code></pre>
+<pre><code>## [1] 0</code></pre>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="starting-with-data.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nlevels</span>(metadata<span class="sc">$</span>strain)</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
+<pre><code>## [1] 0</code></pre>
 <p>Let’s extract the <code>cit</code> column of the metadata to a new object, so we don’t end up modifying our original data frame.</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="starting-with-data.html#cb125-1" aria-hidden="true" tabindex="-1"></a>cit <span class="ot">&lt;-</span> metadata<span class="sc">$</span>cit</span>
 <span id="cb125-2"><a href="starting-with-data.html#cb125-2" aria-hidden="true" tabindex="-1"></a>cit</span></code></pre></div>
+<pre><code>##  [1] &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot;
+##  [8] &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;unknown&quot; &quot;minus&quot;   &quot;minus&quot;  
+## [15] &quot;plus&quot;    &quot;minus&quot;   &quot;plus&quot;    &quot;minus&quot;   &quot;plus&quot;    &quot;minus&quot;   &quot;plus&quot;   
+## [22] &quot;plus&quot;    &quot;minus&quot;   &quot;plus&quot;    &quot;plus&quot;    &quot;minus&quot;   &quot;plus&quot;    &quot;minus&quot;  
+## [29] &quot;plus&quot;    &quot;minus&quot;</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="starting-with-data.html#cb127-1" aria-hidden="true" tabindex="-1"></a>cit<span class="ot">&lt;-</span> <span class="fu">factor</span>(cit)</span>
+<span id="cb127-2"><a href="starting-with-data.html#cb127-2" aria-hidden="true" tabindex="-1"></a>cit</span></code></pre></div>
 <pre><code>##  [1] unknown unknown unknown unknown unknown unknown unknown unknown unknown
 ## [10] unknown unknown unknown minus   minus   plus    minus   plus    minus  
 ## [19] plus    minus   plus    plus    minus   plus    plus    minus   plus   
 ## [28] minus   plus    minus  
 ## Levels: minus plus unknown</code></pre>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="starting-with-data.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cit)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="starting-with-data.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cit)</span></code></pre></div>
 <pre><code>##  Factor w/ 3 levels &quot;minus&quot;,&quot;plus&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...</code></pre>
 <p>For the sake of efficiency, R stores the content of a factor as a vector of integers, which an integer is assigned to each of the possible levels. Recall levels are assigned in alphabetical order. In this case, the first item in our <code>cit</code> object is <code>unknown</code>, which happens to be the 3rd level of our factor, ordered alphabeticaly.</p>
 </div>
@@ -506,18 +504,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="plotting-and-ordering-factors" class="section level2" number="6.7">
 <h2><span class="header-section-number">6.7</span> Plotting and ordering factors</h2>
 <p>One of the most common uses for factors will be when you plot categorical values. For example, suppose we want to know how many of our clones had citrate-using mutant status? We could generate a plot:</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="starting-with-data.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cit)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="starting-with-data.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cit)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 <p>This isn’t a particularly pretty example of a plot. But it can be a useful way to get acquainted with your data.</p>
 <p>To reorder the levels of a factor:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="starting-with-data.html#cb130-1" aria-hidden="true" tabindex="-1"></a>cit <span class="ot">&lt;-</span> <span class="fu">factor</span>(cit, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;unknown&quot;</span>, <span class="st">&quot;plus&quot;</span>, <span class="st">&quot;minus&quot;</span>))</span>
-<span id="cb130-2"><a href="starting-with-data.html#cb130-2" aria-hidden="true" tabindex="-1"></a>cit</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="starting-with-data.html#cb132-1" aria-hidden="true" tabindex="-1"></a>cit <span class="ot">&lt;-</span> <span class="fu">factor</span>(cit, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;unknown&quot;</span>, <span class="st">&quot;plus&quot;</span>, <span class="st">&quot;minus&quot;</span>))</span>
+<span id="cb132-2"><a href="starting-with-data.html#cb132-2" aria-hidden="true" tabindex="-1"></a>cit</span></code></pre></div>
 <pre><code>##  [1] unknown unknown unknown unknown unknown unknown unknown unknown unknown
 ## [10] unknown unknown unknown minus   minus   plus    minus   plus    minus  
 ## [19] plus    minus   plus    plus    minus   plus    plus    minus   plus   
 ## [28] minus   plus    minus  
 ## Levels: unknown plus minus</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="starting-with-data.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cit)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="starting-with-data.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cit)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 </div>
 <div id="subsetting-data-frames" class="section level2" number="6.8">
@@ -538,8 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>What information does the last line tell you?</p>
 </div>
 <p>You can assign a subset of your data frame to a new object. For example, to create a new data frame of only observations from cit- samples:</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="starting-with-data.html#cb133-1" aria-hidden="true" tabindex="-1"></a>cit_minus <span class="ot">&lt;-</span> metadata[metadata<span class="sc">$</span>cit <span class="sc">==</span> <span class="st">&quot;plus&quot;</span>,]</span>
-<span id="cb133-2"><a href="starting-with-data.html#cb133-2" aria-hidden="true" tabindex="-1"></a>cit_minus</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="starting-with-data.html#cb135-1" aria-hidden="true" tabindex="-1"></a>cit_minus <span class="ot">&lt;-</span> metadata[metadata<span class="sc">$</span>cit <span class="sc">==</span> <span class="st">&quot;plus&quot;</span>,]</span>
+<span id="cb135-2"><a href="starting-with-data.html#cb135-2" aria-hidden="true" tabindex="-1"></a>cit_minus</span></code></pre></div>
 <pre><code>##      sample generation clade strain  cit       run genome_size
 ## 15   ZDB564      31500  Cit+ REL606 plus SRR098289        4.74
 ## 17   ZDB172      32000  Cit+ REL606 plus SRR098042        4.77
@@ -558,28 +556,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="matrices" class="section level3 unnumbered">
 <h3>Matrices</h3>
 <p>A matrix is a two-dimensional rectangular dataset. It can be created by using a vector input to the matrix function.</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="starting-with-data.html#cb135-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;a&quot;</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb135-2"><a href="starting-with-data.html#cb135-2" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="starting-with-data.html#cb137-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;a&quot;</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb137-2"><a href="starting-with-data.html#cb137-2" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] &quot;a&quot;  &quot;a&quot;  &quot;b&quot; 
 ## [2,] &quot;c&quot;  &quot;b&quot;  &quot;a&quot;</code></pre>
 <p>To output the dimensions of a matrix, use the <code>dim()</code> function.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="starting-with-data.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(m) </span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="starting-with-data.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(m) </span></code></pre></div>
 <pre><code>## [1] 2 3</code></pre>
 <p>R will list the number of rows first and the number of columns second. To list only the number of rows or the number of columns, use the <code>nrow()</code> and <code>ncol()</code>. The <code>length()</code> function will output the total number of elements.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="starting-with-data.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(m)</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="starting-with-data.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(m)</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="starting-with-data.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(m)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="starting-with-data.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(m)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="starting-with-data.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(m)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="starting-with-data.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(m)</span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 </div>
 <div id="lists" class="section level3 unnumbered">
 <h3>Lists</h3>
 <p>A list is an R-object which can contain many different types of elements inside it like vectors, functions, and even another list.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="starting-with-data.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list</span></span>
-<span id="cb145-2"><a href="starting-with-data.html#cb145-2" aria-hidden="true" tabindex="-1"></a>list1 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">3</span>),<span class="fl">21.3</span>, BMI)</span>
-<span id="cb145-3"><a href="starting-with-data.html#cb145-3" aria-hidden="true" tabindex="-1"></a>list1</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="starting-with-data.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list</span></span>
+<span id="cb147-2"><a href="starting-with-data.html#cb147-2" aria-hidden="true" tabindex="-1"></a>list1 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">3</span>),<span class="fl">21.3</span>, BMI)</span>
+<span id="cb147-3"><a href="starting-with-data.html#cb147-3" aria-hidden="true" tabindex="-1"></a>list1</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 2 5 3
 ## 
@@ -605,7 +603,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -624,6 +621,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -644,6 +642,10 @@ gitbook.start({
 "text": null
 },
 "download": ["IntroRWorkshop.pdf", "IntroRWorkshop.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

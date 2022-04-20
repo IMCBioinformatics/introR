@@ -4,10 +4,14 @@
 %
 \documentclass[
 ]{book}
+\title{Introduction to R for Biologists}
+\author{Hena Ramay}
+\date{2022-04-19}
+
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -109,15 +113,11 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
 \usepackage{booktabs}
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
-
-\title{Introduction to R for Biologists}
-\author{Hena Ramay}
-\date{2021-04-16}
 
 \begin{document}
 \maketitle
@@ -1006,7 +1006,13 @@ There are the following data types which are used in R programming:
   >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.23}}
   >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.63}}@{}}
 \toprule
-Data type & Example & Description \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Data type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Example
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Description
+\end{minipage} \\
 \midrule
 \endhead
 \textbf{Logical} & True, False & It is a special data type for data with only two possible values which can be construed as true/false. \\
@@ -1619,12 +1625,12 @@ The \texttt{str()} function is useful to insepct the data types of the columns.
 
 \begin{verbatim}
 ## 'data.frame':    30 obs. of  7 variables:
-##  $ sample     : Factor w/ 30 levels "CZB152","CZB154",..: 7 6 18 19 20 21 22 23 24 25 ...
+##  $ sample     : chr  "REL606" "REL1166A" "ZDB409" "ZDB429" ...
 ##  $ generation : int  0 2000 5000 10000 15000 20000 20000 20000 25000 25000 ...
-##  $ clade      : Factor w/ 8 levels "(C1,C2)","C1",..: 6 8 8 7 7 1 1 1 2 4 ...
-##  $ strain     : Factor w/ 1 level "REL606": 1 1 1 1 1 1 1 1 1 1 ...
-##  $ cit        : Factor w/ 3 levels "minus","plus",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ run        : Factor w/ 30 levels "","SRR097977",..: 1 5 22 23 24 25 26 27 28 29 ...
+##  $ clade      : chr  "N/A" "unknown" "unknown" "UC" ...
+##  $ strain     : chr  "REL606" "REL606" "REL606" "REL606" ...
+##  $ cit        : chr  "unknown" "unknown" "unknown" "unknown" ...
+##  $ run        : chr  "" "SRR098028" "SRR098281" "SRR098282" ...
 ##  $ genome_size: num  4.62 4.63 4.6 4.59 4.66 4.63 4.62 4.61 4.65 4.59 ...
 \end{verbatim}
 
@@ -1699,12 +1705,12 @@ Factors are stored as integers, and have labels associated with these unique int
 
 \begin{verbatim}
 ## 'data.frame':    30 obs. of  7 variables:
-##  $ sample     : Factor w/ 30 levels "CZB152","CZB154",..: 7 6 18 19 20 21 22 23 24 25 ...
+##  $ sample     : chr  "REL606" "REL1166A" "ZDB409" "ZDB429" ...
 ##  $ generation : int  0 2000 5000 10000 15000 20000 20000 20000 25000 25000 ...
-##  $ clade      : Factor w/ 8 levels "(C1,C2)","C1",..: 6 8 8 7 7 1 1 1 2 4 ...
-##  $ strain     : Factor w/ 1 level "REL606": 1 1 1 1 1 1 1 1 1 1 ...
-##  $ cit        : Factor w/ 3 levels "minus","plus",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ run        : Factor w/ 30 levels "","SRR097977",..: 1 5 22 23 24 25 26 27 28 29 ...
+##  $ clade      : chr  "N/A" "unknown" "unknown" "UC" ...
+##  $ strain     : chr  "REL606" "REL606" "REL606" "REL606" ...
+##  $ cit        : chr  "unknown" "unknown" "unknown" "unknown" ...
+##  $ run        : chr  "" "SRR098028" "SRR098281" "SRR098282" ...
 ##  $ genome_size: num  4.62 4.63 4.6 4.59 4.66 4.63 4.62 4.61 4.65 4.59 ...
 \end{verbatim}
 
@@ -1725,11 +1731,11 @@ To isolate a column or variable of a data frame, we use the \textbf{\$} operator
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] REL606   REL1166A ZDB409   ZDB429   ZDB446   ZDB458   ZDB464*  ZDB467  
-##  [9] ZDB477   ZDB483   ZDB16    ZDB357   ZDB199*  ZDB200   ZDB564   ZDB30*  
-## [17] ZDB172   ZDB158   ZDB143   CZB199   CZB152   CZB154   ZDB83    ZDB87   
-## [25] ZDB96    ZDB99    ZDB107   ZDB111   REL10979 REL10988
-## 30 Levels: CZB152 CZB154 CZB199 REL10979 REL10988 REL1166A REL606 ... ZDB99
+##  [1] "REL606"   "REL1166A" "ZDB409"   "ZDB429"   "ZDB446"   "ZDB458"  
+##  [7] "ZDB464*"  "ZDB467"   "ZDB477"   "ZDB483"   "ZDB16"    "ZDB357"  
+## [13] "ZDB199*"  "ZDB200"   "ZDB564"   "ZDB30*"   "ZDB172"   "ZDB158"  
+## [19] "ZDB143"   "CZB199"   "CZB152"   "CZB154"   "ZDB83"    "ZDB87"   
+## [25] "ZDB96"    "ZDB99"    "ZDB107"   "ZDB111"   "REL10979" "REL10988"
 \end{verbatim}
 
 \begin{Shaded}
@@ -1752,7 +1758,7 @@ To determine the number of levels of any factor, use the \texttt{nlevels()} func
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 30
+## [1] 0
 \end{verbatim}
 
 \begin{Shaded}
@@ -1762,7 +1768,7 @@ To determine the number of levels of any factor, use the \texttt{nlevels()} func
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 8
+## [1] 0
 \end{verbatim}
 
 \begin{Shaded}
@@ -1772,7 +1778,7 @@ To determine the number of levels of any factor, use the \texttt{nlevels()} func
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1
+## [1] 0
 \end{verbatim}
 
 Let's extract the \texttt{cit} column of the metadata to a new object, so we don't end up modifying our original data frame.
@@ -1780,6 +1786,21 @@ Let's extract the \texttt{cit} column of the metadata to a new object, so we don
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{cit }\OtherTok{\textless{}{-}}\NormalTok{ metadata}\SpecialCharTok{$}\NormalTok{cit}
+\NormalTok{cit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "unknown" "unknown" "unknown" "unknown" "unknown" "unknown" "unknown"
+##  [8] "unknown" "unknown" "unknown" "unknown" "unknown" "minus"   "minus"  
+## [15] "plus"    "minus"   "plus"    "minus"   "plus"    "minus"   "plus"   
+## [22] "plus"    "minus"   "plus"    "plus"    "minus"   "plus"    "minus"  
+## [29] "plus"    "minus"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cit}\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(cit)}
 \NormalTok{cit}
 \end{Highlighting}
 \end{Shaded}
@@ -2099,7 +2120,7 @@ For some applications, you will need to use data frames and for others tibbles. 
 \begin{verbatim}
 ## # A tibble: 30 x 7
 ##    sample   generation clade   strain cit     run         genome_size
-##    <fct>         <int> <fct>   <fct>  <fct>   <fct>             <dbl>
+##    <chr>         <int> <chr>   <chr>  <chr>   <chr>             <dbl>
 ##  1 REL606            0 N/A     REL606 unknown ""                 4.62
 ##  2 REL1166A       2000 unknown REL606 unknown "SRR098028"        4.63
 ##  3 ZDB409         5000 unknown REL606 unknown "SRR098281"        4.6 
@@ -2152,13 +2173,13 @@ We can explore the contents of a tibble in several ways. By typing the name of t
 \begin{verbatim}
 ## Rows: 30
 ## Columns: 7
-## $ sample      <fct> REL606, REL1166A, ZDB409, ZDB429, ZDB446, ZDB458, ZDB46...
-## $ generation  <int> 0, 2000, 5000, 10000, 15000, 20000, 20000, 20000, 25000...
-## $ clade       <fct> "N/A", "unknown", "unknown", "UC", "UC", "(C1,C2)", "(C...
-## $ strain      <fct> REL606, REL606, REL606, REL606, REL606, REL606, REL606,...
-## $ cit         <fct> unknown, unknown, unknown, unknown, unknown, unknown, u...
-## $ run         <fct> , SRR098028, SRR098281, SRR098282, SRR098283, SRR098284...
-## $ genome_size <dbl> 4.62, 4.63, 4.60, 4.59, 4.66, 4.63, 4.62, 4.61, 4.65, 4...
+## $ sample      <chr> "REL606", "REL1166A", "ZDB409", "ZDB429", "ZDB446", "ZDB45~
+## $ generation  <int> 0, 2000, 5000, 10000, 15000, 20000, 20000, 20000, 25000, 2~
+## $ clade       <chr> "N/A", "unknown", "unknown", "UC", "UC", "(C1,C2)", "(C1,C~
+## $ strain      <chr> "REL606", "REL606", "REL606", "REL606", "REL606", "REL606"~
+## $ cit         <chr> "unknown", "unknown", "unknown", "unknown", "unknown", "un~
+## $ run         <chr> "", "SRR098028", "SRR098281", "SRR098282", "SRR098283", "S~
+## $ genome_size <dbl> 4.62, 4.63, 4.60, 4.59, 4.66, 4.63, 4.62, 4.61, 4.65, 4.59~
 \end{verbatim}
 
 As with data frames, we can return a vector containing the values of a variable (column) using the \$ sign:
@@ -2186,7 +2207,7 @@ Again, similar to data frames, we can use the subsetting operator {[}{]} directl
 \begin{verbatim}
 ## # A tibble: 1 x 1
 ##   sample
-##   <fct> 
+##   <chr> 
 ## 1 ZDB483
 \end{verbatim}
 
@@ -2207,7 +2228,7 @@ If we leave an index blank, this acts as a wildcard and matches all of the rows 
 \begin{verbatim}
 ## # A tibble: 1 x 7
 ##   sample generation clade strain cit   run       genome_size
-##   <fct>       <int> <fct> <fct>  <fct> <fct>           <dbl>
+##   <chr>       <int> <chr> <chr>  <chr> <chr>           <dbl>
 ## 1 CZB154      33000 Cit+  REL606 plus  SRR098026        4.76
 \end{verbatim}
 
@@ -2220,7 +2241,7 @@ If we leave an index blank, this acts as a wildcard and matches all of the rows 
 \begin{verbatim}
 ## # A tibble: 30 x 3
 ##    sample   generation clade  
-##    <fct>         <int> <fct>  
+##    <chr>         <int> <chr>  
 ##  1 REL606            0 N/A    
 ##  2 REL1166A       2000 unknown
 ##  3 ZDB409         5000 unknown
@@ -2245,7 +2266,7 @@ You can also refer to columns by name with quotation marks:
 \begin{verbatim}
 ## # A tibble: 30 x 1
 ##    sample  
-##    <fct>   
+##    <chr>   
 ##  1 REL606  
 ##  2 REL1166A
 ##  3 ZDB409  
@@ -2268,11 +2289,11 @@ Note that subsetting a tibble using the {[}{]} method returns another tibble. In
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] REL606   REL1166A ZDB409   ZDB429   ZDB446   ZDB458   ZDB464*  ZDB467  
-##  [9] ZDB477   ZDB483   ZDB16    ZDB357   ZDB199*  ZDB200   ZDB564   ZDB30*  
-## [17] ZDB172   ZDB158   ZDB143   CZB199   CZB152   CZB154   ZDB83    ZDB87   
-## [25] ZDB96    ZDB99    ZDB107   ZDB111   REL10979 REL10988
-## 30 Levels: CZB152 CZB154 CZB199 REL10979 REL10988 REL1166A REL606 ... ZDB99
+##  [1] "REL606"   "REL1166A" "ZDB409"   "ZDB429"   "ZDB446"   "ZDB458"  
+##  [7] "ZDB464*"  "ZDB467"   "ZDB477"   "ZDB483"   "ZDB16"    "ZDB357"  
+## [13] "ZDB199*"  "ZDB200"   "ZDB564"   "ZDB30*"   "ZDB172"   "ZDB158"  
+## [19] "ZDB143"   "CZB199"   "CZB152"   "CZB154"   "ZDB83"    "ZDB87"   
+## [25] "ZDB96"    "ZDB99"    "ZDB107"   "ZDB111"   "REL10979" "REL10988"
 \end{verbatim}
 
 For more information on tibbles see the \href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{tibbles vignette}.
@@ -2364,20 +2385,6 @@ Now each column is a variable and each row is an observation - tidy! Note: more 
 \includegraphics{./figures/tidyr-separate.png}
 
 Sometimes two variables are clumped together in one column. separate() allows you to tease them apart. We have some measurements of how much time people spend on their phones, measured at two locations (work and home), at two times. Each person has been randomly assigned to either treatment or control.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{10}\NormalTok{)}
-\NormalTok{messy }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
-  \AttributeTok{id =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}
-  \AttributeTok{trt =} \FunctionTok{sample}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}control\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}treatment\textquotesingle{}}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)),}
-  \AttributeTok{work.T1 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
-  \AttributeTok{home.T1 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
-  \AttributeTok{work.T2 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
-  \AttributeTok{home.T2 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2732,7 +2739,7 @@ Many data analysis tasks can be approached using the ``split-apply-combine'' par
 \begin{verbatim}
 ## # A tibble: 3 x 2
 ##   cit     `n()`
-##   <fct>   <int>
+##   <chr>   <int>
 ## 1 minus       9
 ## 2 plus        9
 ## 3 unknown    12
@@ -2757,14 +2764,15 @@ You can group by multiple columns too:
 \end{Shaded}
 
 \begin{verbatim}
-## `summarise()` has grouped output by 'cit'. You can override using the `.groups` argument.
+## `summarise()` has grouped output by 'cit'. You can override using the `.groups`
+## argument.
 \end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 13 x 3
 ## # Groups:   cit [3]
 ##    cit     clade   mean_size
-##    <fct>   <fct>       <dbl>
+##    <chr>   <chr>       <dbl>
 ##  1 minus   C1           4.61
 ##  2 minus   C2           4.62
 ##  3 minus   C3           4.61
@@ -2792,14 +2800,15 @@ Looks like for one of these clones, the clade is missing. We could then discard 
 \end{Shaded}
 
 \begin{verbatim}
-## `summarise()` has grouped output by 'cit'. You can override using the `.groups` argument.
+## `summarise()` has grouped output by 'cit'. You can override using the `.groups`
+## argument.
 \end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 13 x 3
 ## # Groups:   cit [3]
 ##    cit     clade   mean_size
-##    <fct>   <fct>       <dbl>
+##    <chr>   <chr>       <dbl>
 ##  1 minus   C1           4.61
 ##  2 minus   C2           4.62
 ##  3 minus   C3           4.61
@@ -2827,14 +2836,15 @@ You can also summarize multiple variables at the same time:
 \end{Shaded}
 
 \begin{verbatim}
-## `summarise()` has grouped output by 'cit'. You can override using the `.groups` argument.
+## `summarise()` has grouped output by 'cit'. You can override using the `.groups`
+## argument.
 \end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 13 x 4
 ## # Groups:   cit [3]
 ##    cit     clade   mean_size min_generation
-##    <fct>   <fct>       <dbl>          <int>
+##    <chr>   <chr>       <dbl>          <int>
 ##  1 minus   C1           4.61          31500
 ##  2 minus   C2           4.62          31500
 ##  3 minus   C3           4.61          32000
@@ -2881,7 +2891,7 @@ There are several functions for ranking observations, which handle tied values d
 
 This section uses a different data set from the same experiment - the LTEE (long-term evolution experiment). This data was pulished in: Tempo and mode of genome evolution in a 50,000-generation experiment \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4988878/}{Tenaillon et al 2016}.
 
-Download the data onto your computer from \href{https://www.dropbox.com/s/1z7qrbke9l6o6ee/combined_tidy_vcf.csv?dl=0}{this} dropbox link and move it into the \texttt{data} directory of your RStudio project.
+Download the data onto your computer from \href{https://www.dropbox.com/sh/pegir6j09mq7sia/AACQO9BnNAEl4EofAhmyqjmXa?dl=0}{this} dropbox link and move it into the \texttt{data} directory of your RStudio project.
 
 \hypertarget{exercise}{%
 \subsubsection*{EXERCISE}\label{exercise}}
@@ -2899,12 +2909,12 @@ You can further investigate the structure of the data frame using the \texttt{st
 
 \begin{verbatim}
 ## 'data.frame':    801 obs. of  29 variables:
-##  $ sample_id    : Factor w/ 3 levels "SRR2584863","SRR2584866",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ CHROM        : Factor w/ 1 level "CP000819.1": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ sample_id    : chr  "SRR2584863" "SRR2584863" "SRR2584863" "SRR2584863" ...
+##  $ CHROM        : chr  "CP000819.1" "CP000819.1" "CP000819.1" "CP000819.1" ...
 ##  $ POS          : int  9972 263235 281923 433359 473901 648692 1331794 1733343 2103887 2333538 ...
 ##  $ ID           : logi  NA NA NA NA NA NA ...
-##  $ REF          : Factor w/ 59 levels "A","ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG",..: 49 33 33 30 24 16 16 33 2 12 ...
-##  $ ALT          : Factor w/ 57 levels "A","AC","ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG",..: 31 46 46 29 25 46 1 1 4 15 ...
+##  $ REF          : chr  "T" "G" "G" "CTTTTTTT" ...
+##  $ ALT          : chr  "G" "T" "T" "CTTTTTTTT" ...
 ##  $ QUAL         : num  91 85 217 64 228 210 178 225 56 167 ...
 ##  $ FILTER       : logi  NA NA NA NA NA NA ...
 ##  $ INDEL        : logi  FALSE FALSE FALSE TRUE TRUE FALSE ...
@@ -2922,12 +2932,12 @@ You can further investigate the structure of the data frame using the \texttt{st
 ##  $ HOB          : logi  NA NA NA NA NA NA ...
 ##  $ AC           : int  1 1 1 1 1 1 1 1 1 1 ...
 ##  $ AN           : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ DP4          : Factor w/ 217 levels "0,0,0,2","0,0,0,3",..: 3 132 73 141 176 104 61 74 133 137 ...
+##  $ DP4          : chr  "0,0,0,4" "0,1,0,5" "0,0,4,5" "0,1,3,8" ...
 ##  $ MQ           : int  60 33 60 60 60 60 60 60 60 60 ...
-##  $ Indiv        : Factor w/ 3 levels "/home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ gt_PL        : Factor w/ 206 levels "100,0","103,0",..: 16 10 134 198 142 127 93 142 9 80 ...
+##  $ Indiv        : chr  "/home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam" "/home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam" "/home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam" "/home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam" ...
+##  $ gt_PL        : chr  "121,0" "112,0" "247,0" "91,0" ...
 ##  $ gt_GT        : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ gt_GT_alleles: Factor w/ 57 levels "A","AC","ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG",..: 31 46 46 29 25 46 1 1 4 15 ...
+##  $ gt_GT_alleles: chr  "G" "T" "T" "CTTTTTTTT" ...
 \end{verbatim}
 
 \hypertarget{exercise-1}{%
@@ -2940,7 +2950,11 @@ Take a few minutes to familiarize yourself with this dataset. There are a lot of
   >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.10}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.90}}@{}}
 \toprule
-Column & Description \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Column
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
 \midrule
 \endhead
 sample\_id & sample ID \\
@@ -3413,44 +3427,6 @@ Your goal is get the data loaded into R and answer the following questions:
 
 As you look through the data start thinking about what steps you'll need to get it into a workable state.
 
-\hypertarget{task-1-solution}{%
-\subsection*{Task 1 Solution}\label{task-1-solution}}
-\addcontentsline{toc}{subsection}{Task 1 Solution}
-
-1. How many rows and columns are there?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-
-\NormalTok{raw }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/Brauer2008\_DataSet1.csv"}\NormalTok{)}
-\CommentTok{\#head(raw)}
-\FunctionTok{dim}\NormalTok{(raw)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 5537   40
-\end{verbatim}
-
-There are 5537 rows and 40 columns.
-
-2. What do the rows and columns represent?
-
-Rows are genes and columns are a mix of different variables including gene names and expression values.
-
-3. On first glimpse do the column datatypes look correct?
-
-Yes, it seems that R has guessed correctly on what the values should be.
-
-4. What about column names?
-
-The columns that have the gene expression values don't look right. Something is up with that period in there.
-
-5. Is this data tidy? Why or why not?
-
-It's not. Each observation does not form a row and each variable does not form a column.
-
 \hypertarget{task-2-data-tidying}{%
 \section*{Task 2: Data Tidying}\label{task-2-data-tidying}}
 \addcontentsline{toc}{section}{Task 2: Data Tidying}
@@ -3488,103 +3464,6 @@ Try to code all the cleaning steps as a single pipeline. Remember the \texttt{se
 
 \textbf{Bonus:} Your cleaning steps may have left some variables with extra white space at the end. Hint: Using \texttt{mutate\_at()} with the \texttt{str\_trim} option, see if you can clean these up.
 
-\hypertarget{task-2-solution}{%
-\subsection*{Task 2 Solution}\label{task-2-solution}}
-\addcontentsline{toc}{subsection}{Task 2 Solution}
-
-1. Which column contains multiple variables? Split it up so each column represents a single variable.
-
-We need to tell \texttt{separate()} to split on the \texttt{\textbar{}\textbar{}} character using the \texttt{sep} argument. However, the \texttt{\textbar{}} character is actually a special character for something called regular expressions, which we don't need to worry about right now. That's why we need to use the double backslash, which ``escapes'' the \texttt{\textbar{}} character and tells \texttt{separate()} to interpret it like a normal character. If we used \texttt{sep\ =\ "\textbar{}\textbar{}"} this would give us the wrong result.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-2. The \texttt{GWEIGHT}, \texttt{GID}, and \texttt{YORF} columns we also won't need so you can get rid of those.
-
-That's easy with \texttt{select()}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GWEIGHT, }\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF)}
-\end{Highlighting}
-\end{Shaded}
-
-3. What's wrong with the column names? How can you fix that?
-
-They're variables not names and tidy data principles tell us that each variable should be a column. And these are not just not just 1 variable - both nutrient and growth rate are present. We can fix this with \texttt{gather()}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GWEIGHT, }\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\SpecialCharTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-4. Check again: do you have any columns that have multipe variables? Be sure to fix any before you move on.
-
-Why yes, it seems that our \texttt{variable} column is comprised of both nutrient and growth rate. We'll have to use \texttt{separate()} again. The trick here is how to specify the correct place to split the variable. We want the first letter in one column (nutrient) and the the remaining part in a second column (growth\_rate). If you read the help for the \texttt{separate()} function you'll see that if you provide a number to the \texttt{sep} argument it will split at this position. This works great for us. There are other ways to split this variable, however, these require a bit more knowledge of regular expressions. And always go with the simplist soluion you can find.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GWEIGHT, }\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\SpecialCharTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{separate}\NormalTok{(variable, }\FunctionTok{c}\NormalTok{(}\StringTok{"nutrient"}\NormalTok{, }\StringTok{"growth\_rate"}\NormalTok{), }\AttributeTok{sep =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(clean}\SpecialCharTok{$}\NormalTok{BP)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] " ER to Golgi transport "        " biological process unknown "  
-## [3] " proteolysis and peptidolysis " " mRNA polyadenylylation* "     
-## [5] " vesicle fusion* "              " biological process unknown "
-\end{verbatim}
-
-\textbf{Bonus}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{separate}\NormalTok{(NAME, }\FunctionTok{c}\NormalTok{(}\StringTok{"gene\_name"}\NormalTok{, }\StringTok{"BP"}\NormalTok{, }\StringTok{"MP"}\NormalTok{, }\StringTok{"gene\_id"}\NormalTok{, }\StringTok{"number"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GWEIGHT, }\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{gather}\NormalTok{(variable, expression, G0}\FloatTok{.05}\SpecialCharTok{:}\NormalTok{U0}\FloatTok{.3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{separate}\NormalTok{(variable, }\FunctionTok{c}\NormalTok{(}\StringTok{"nutrient"}\NormalTok{, }\StringTok{"growth\_rate"}\NormalTok{), }\AttributeTok{sep =} \DecValTok{1}\NormalTok{, }\AttributeTok{convert =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate\_at}\NormalTok{(}\FunctionTok{vars}\NormalTok{(gene\_name}\SpecialCharTok{:}\NormalTok{gene\_id), str\_trim)}
-\FunctionTok{head}\NormalTok{(clean)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   gene_name                           BP                            MP gene_id
-## 1      SFB2        ER to Golgi transport    molecular function unknown YNL049C
-## 2             biological process unknown    molecular function unknown YNL095C
-## 3      QRI7 proteolysis and peptidolysis metalloendopeptidase activity YDL104C
-## 4      CFT2      mRNA polyadenylylation*                   RNA binding YLR115W
-## 5      SSO2              vesicle fusion*              t-SNARE activity YMR183C
-## 6      PSP2   biological process unknown    molecular function unknown YML017W
-##     number nutrient growth_rate expression
-## 1  1082129        G        0.05      -0.24
-## 2  1086222        G        0.05       0.28
-## 3  1085955        G        0.05      -0.02
-## 4  1081958        G        0.05      -0.33
-## 5  1081214        G        0.05       0.05
-## 6  1083036        G        0.05      -0.69
-\end{verbatim}
-
 \hypertarget{task-3-plots}{%
 \section*{Task 3: Plots}\label{task-3-plots}}
 \addcontentsline{toc}{section}{Task 3: Plots}
@@ -3616,131 +3495,6 @@ In a typical analysis you wouldn't necessarily know which gene(s) to start looki
 
 \textbf{Bonus:} To increase readability of the plot it can helpful to change those nutrients from letters to full words. Although there are ways to do this directly in ggplot the easiest is to change it in the original data.
 
-\hypertarget{task-3-solution}{%
-\subsection*{Task 3 Solution}\label{task-3-solution}}
-\addcontentsline{toc}{subsection}{Task 3 Solution}
-
-1. Filter your now cleaned data to contain only the gene LEU1.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{leu}\OtherTok{\textless{}{-}}\NormalTok{ clean }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(gene\_name }\SpecialCharTok{==} \StringTok{"LEU1"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-2. Make a plot of the expression of this gene at various growth rates. Use colour to distinguish the different nutrients.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(gene\_name }\SpecialCharTok{==} \StringTok{"LEU1"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ growth\_rate, }\AttributeTok{y =}\NormalTok{ expression)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ nutrient))}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-122-1.pdf}
-
-3. What are some conclusions you can make from this data?
-
-\begin{itemize}
-\tightlist
-\item
-  When leucine is limiting the expression of LEU1 is higher than when any of the other nutrients are limiting.
-\item
-  As growth rate increase the expresison of LEU1 decreases but only in leucine limiting conditions. In all other conditions it increases as growth rate increases.
-\end{itemize}
-
-4. What biological process is LEU1 classified as?
-
-leucine biosynthesis
-
-5. Filter your cleaned data for all genes that are in the same biological process as LEU1.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lbs}\OtherTok{\textless{}{-}}\NormalTok{ clean }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(BP }\SpecialCharTok{==} \StringTok{"leucine biosynthesis"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-6. Make a plot of these genes, the same as you had for LEU1 but faceted by gene.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(BP }\SpecialCharTok{==} \StringTok{"leucine biosynthesis"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ growth\_rate, }\AttributeTok{y =}\NormalTok{ expression)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ nutrient)) }\SpecialCharTok{+}
-    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{gene\_name)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-124-1.pdf}
-
-7. Do any of the other genes follow the same pattern as LEU1?
-
-LEU2 seems to but the expression difference in leucine limiting conditions is not quite so high.
-
-8. Make it pretty
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(BP }\SpecialCharTok{==} \StringTok{"leucine biosynthesis"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ growth\_rate, }\AttributeTok{y =}\NormalTok{ expression, }\AttributeTok{colour =}\NormalTok{ nutrient)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{gene\_name) }\SpecialCharTok{+}
-    \FunctionTok{scale\_color\_brewer}\NormalTok{(}\StringTok{"Nutrient"}\NormalTok{, }\AttributeTok{palette =} \StringTok{"Accent"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Growth Rate"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Expression (log2)"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{theme}\NormalTok{(}\AttributeTok{strip.background =} \FunctionTok{element\_blank}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-125-1.pdf}
-
-Bonus: Changing nutrient names
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{nutrient\_key }\OtherTok{=} \FunctionTok{c}\NormalTok{(}
-  \AttributeTok{G =} \StringTok{"Glucose"}\NormalTok{,}
-  \AttributeTok{N =} \StringTok{"Ammonium"}\NormalTok{,}
-  \AttributeTok{P =} \StringTok{"Phosphate"}\NormalTok{,}
-  \AttributeTok{S =} \StringTok{"Sulfate"}\NormalTok{,}
-  \AttributeTok{U =} \StringTok{"Uracil"}\NormalTok{,}
-  \AttributeTok{L =} \StringTok{"Leucine"}
-\NormalTok{)}
-\NormalTok{nutrient\_key[}\StringTok{"P"}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##           P 
-## "Phosphate"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{clean }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{nutrient\_names =}\NormalTok{ nutrient\_key[nutrient]) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{filter}\NormalTok{(BP }\SpecialCharTok{==} \StringTok{"leucine biosynthesis"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ growth\_rate, }\AttributeTok{y =}\NormalTok{ expression, }\AttributeTok{colour =}\NormalTok{ nutrient\_names)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{gene\_name) }\SpecialCharTok{+}
-    \FunctionTok{scale\_color\_brewer}\NormalTok{(}\StringTok{"Nutrient"}\NormalTok{, }\AttributeTok{palette =} \StringTok{"Accent"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Growth Rate"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Expression (log2)"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{theme}\NormalTok{(}\AttributeTok{strip.background =} \FunctionTok{element\_blank}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-126-1.pdf}
-
 \hypertarget{task-4-heatmap}{%
 \section*{Task 4: Heatmap}\label{task-4-heatmap}}
 \addcontentsline{toc}{section}{Task 4: Heatmap}
@@ -3763,87 +3517,6 @@ Questions to answer:
 \item
   Once you've got data in the correct format start by making a simple heatmap with default parameters. Do you like it? Is there anything wrong with it? What would change from a data interpretation perspective? What about from aethetics perspective?
 \end{enumerate}
-
-\hypertarget{task-4-solution}{%
-\subsection*{Task 4 Solution}\label{task-4-solution}}
-\addcontentsline{toc}{subsection}{Task 4 Solution}
-
-1. Start by installing the \texttt{pheatmap} package from CRAN. Have a look at the help page for the \texttt{pheatamp()} function. Which argument specifies the data? What format does it need?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#install.packages("pheatmap")}
-\FunctionTok{library}\NormalTok{(pheatmap)}
-\NormalTok{?pheatmap}
-\end{Highlighting}
-\end{Shaded}
-
-Looks like \texttt{pheatmap()} needs a numeric matix given with the \texttt{mat} arguments, which is the first and only required arugment.
-
-2. Using what you learned from the help function get the gene expression data into a format that \texttt{pheatmap()} can use. Think about what you want your heatmap to look like - what are the columns and rows?
-
-Here we're going to go back to our pre-tidied data. This doesn't negate the work we did to tidy it nor does it mean the the data is now `dirty' or bad somehow. Tidy data is standardized but many R tools still don't work with data in this format and so we must adapt.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#head(raw)}
-\NormalTok{hm\_mat }\OtherTok{\textless{}{-}}\NormalTok{ raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{GID, }\SpecialCharTok{{-}}\NormalTok{YORF, }\SpecialCharTok{{-}}\NormalTok{NAME, }\SpecialCharTok{{-}}\NormalTok{GWEIGHT) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{as.matrix}\NormalTok{()}
-
-\FunctionTok{class}\NormalTok{(hm\_mat)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "matrix"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{typeof}\NormalTok{(hm\_mat)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "double"
-\end{verbatim}
-
-3. Once you've got data in the correct format start by making a simple heatmap with default parameters. Do you like it? Is there anything wrong with it? What would change from a data interpretation perspective? What about from aethetics perspective?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{pheatmap}\NormalTok{(hm\_mat)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-129-1.pdf}
-
-Overall this actually looks pretty good. Because these data have already been normalized and scaled we don't need to do much here but there are few tweaks that may help.
-
-\begin{itemize}
-\tightlist
-\item
-  The default is to order both the rows and columns, however, because this is a timecourse experiment we may not want to order the columns. In fact if we look at the raw data we see that the columns are already ordered by time.
-\item
-  The colours are better than the typical red/green (which you should NEVER use, BTW) but still leave something to be desired. This could be changed in a final version of the plot. Note that we have a diverging colour scale with values ranging from -6 to +6. This is becuase these data are mean-centred. Blue (negative) values are below the mean for that gene and red values (positive) are above the mean for that gene. Yellow is the mean expression for that gene. Mean-centering is a handy way to show fold-changes, but should always be displayed with a diverging colour scale.
-\item
-  To help with visualizing the different nutrients, we can add gaps to the heatmap to make a column for each nutrient.
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(RColorBrewer)}
-\FunctionTok{pheatmap}\NormalTok{(hm\_mat,}
-         \AttributeTok{cluster\_cols =} \ConstantTok{FALSE}\NormalTok{,}
-         \AttributeTok{color =} \FunctionTok{colorRampPalette}\NormalTok{(}\FunctionTok{rev}\NormalTok{(}\FunctionTok{brewer.pal}\NormalTok{(}\AttributeTok{n =} \DecValTok{7}\NormalTok{, }\AttributeTok{name =} \StringTok{"RdBu"}\NormalTok{)))(}\DecValTok{100}\NormalTok{),}
-         \AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{101}\NormalTok{),}
-         \AttributeTok{gaps\_col =} \FunctionTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{18}\NormalTok{,}\DecValTok{24}\NormalTok{,}\DecValTok{30}\NormalTok{)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-131-1.pdf}
 
   \bibliography{book.bib,packages.bib}
 
