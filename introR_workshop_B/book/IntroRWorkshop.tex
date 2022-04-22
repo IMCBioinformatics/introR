@@ -6,7 +6,7 @@
 ]{book}
 \title{Introduction to R for Biologists}
 \author{Hena Ramay}
-\date{2022-04-20}
+\date{2022-04-22}
 
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -2385,6 +2385,20 @@ Now each column is a variable and each row is an observation - tidy! Note: more 
 \includegraphics{./figures/tidyr-separate.png}
 
 Sometimes two variables are clumped together in one column. separate() allows you to tease them apart. We have some measurements of how much time people spend on their phones, measured at two locations (work and home), at two times. Each person has been randomly assigned to either treatment or control.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\NormalTok{messy }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{id =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}
+  \AttributeTok{trt =} \FunctionTok{sample}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}control\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}treatment\textquotesingle{}}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)),}
+  \AttributeTok{work.T1 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
+  \AttributeTok{home.T1 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
+  \AttributeTok{work.T2 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{),}
+  \AttributeTok{home.T2 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{4}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -181,7 +181,7 @@ Now each column is a variable and each row is an observation - tidy! Note: more 
 <br>
 Sometimes two variables are clumped together in one column. separate() allows you to tease them apart. We have some measurements of how much time people spend on their phones, measured at two locations (work and home), at two times. Each person has been randomly assigned to either treatment or control.
 
-```{r, echo = FALSE}
+```{r, echo = T}
 set.seed(10)
 messy <- data.frame(
   id = 1:4,
