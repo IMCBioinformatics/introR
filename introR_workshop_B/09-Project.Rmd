@@ -218,52 +218,52 @@ clean %>%
 
 <b>7. Do any of the other genes follow the same pattern as LEU1?</b>
 
-<!-- <!-- LEU2 seems to but the expression difference in leucine limiting conditions is not quite so high. --> -->
+LEU2 seems to but the expression difference in leucine limiting conditions is not quite so high.
 
 
-<!-- <!-- <b>8. Make it pretty</b> --> -->
+<b>8. Make it pretty</b>
 
-<!-- <!-- ```{r} --> -->
-<!-- <!-- clean %>% --> -->
-<!-- <!--   filter(BP == "leucine biosynthesis") %>% --> -->
-<!-- <!--   ggplot(aes(x = growth_rate, y = expression, colour = nutrient)) + --> -->
-<!-- <!--     geom_line() + --> -->
-<!-- <!--     geom_point() + --> -->
-<!-- <!--     facet_wrap(~gene_name) + --> -->
-<!-- <!--     scale_color_brewer("Nutrient", palette = "Accent") + --> -->
-<!-- <!--     theme_bw() + --> -->
-<!-- <!--     labs(x = "Growth Rate", y = "Expression (log2)") + --> -->
-<!-- <!--     theme(strip.background = element_blank()) --> -->
-<!-- <!-- ``` --> -->
+```{r}
+clean %>%
+  filter(BP == "leucine biosynthesis") %>%
+  ggplot(aes(x = growth_rate, y = expression, colour = nutrient)) +
+    geom_line() +
+    geom_point() +
+    facet_wrap(~gene_name) +
+    scale_color_brewer("Nutrient", palette = "Accent") +
+    theme_bw() +
+    labs(x = "Growth Rate", y = "Expression (log2)") +
+    theme(strip.background = element_blank())
+```
 
-<!-- <!-- <b>Bonus: Changing nutrient names</b> --> -->
+<b>Bonus: Changing nutrient names</b>
 
-<!-- <!-- ```{r} --> -->
-<!-- <!-- nutrient_key = c( --> -->
-<!-- <!--   G = "Glucose", --> -->
-<!-- <!--   N = "Ammonium", --> -->
-<!-- <!--   P = "Phosphate", --> -->
-<!-- <!--   S = "Sulfate", --> -->
-<!-- <!--   U = "Uracil", --> -->
-<!-- <!--   L = "Leucine" --> -->
-<!-- <!-- ) --> -->
-<!-- <!-- nutrient_key["P"] --> -->
+```{r}
+nutrient_key = c(
+  G = "Glucose",
+  N = "Ammonium",
+  P = "Phosphate",
+  S = "Sulfate",
+  U = "Uracil",
+  L = "Leucine"
+)
+nutrient_key["P"]
 
-<!-- <!-- clean %>% --> -->
-<!-- <!--   mutate(nutrient_names = nutrient_key[nutrient]) %>% --> -->
-<!-- <!--     filter(BP == "leucine biosynthesis") %>% --> -->
-<!-- <!--     ggplot(aes(x = growth_rate, y = expression, colour = nutrient_names)) + --> -->
-<!-- <!--     geom_line() + --> -->
-<!-- <!--     geom_point() + --> -->
-<!-- <!--     facet_wrap(~gene_name) + --> -->
-<!-- <!--     scale_color_brewer("Nutrient", palette = "Accent") + --> -->
-<!-- <!--     theme_bw() + --> -->
-<!-- <!--     labs(x = "Growth Rate", y = "Expression (log2)") + --> -->
-<!-- <!--     theme(strip.background = element_blank()) --> -->
+clean %>%
+  mutate(nutrient_names = nutrient_key[nutrient]) %>%
+    filter(BP == "leucine biosynthesis") %>%
+    ggplot(aes(x = growth_rate, y = expression, colour = nutrient_names)) +
+    geom_line() +
+    geom_point() +
+    facet_wrap(~gene_name) +
+    scale_color_brewer("Nutrient", palette = "Accent") +
+    theme_bw() +
+    labs(x = "Growth Rate", y = "Expression (log2)") +
+    theme(strip.background = element_blank())
 
-<!-- <!-- ``` --> -->
+```
 
-<!-- <br> -->
+<br>
 
 ## Task 4: Heatmap {-}
 

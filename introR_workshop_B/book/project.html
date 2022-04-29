@@ -480,51 +480,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb242-5"><a href="project.html#cb242-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>gene_name)</span></code></pre></div>
 <p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
 <p><b>7. Do any of the other genes follow the same pattern as LEU1?</b></p>
-<!-- <!-- LEU2 seems to but the expression difference in leucine limiting conditions is not quite so high. -->
-<p>–&gt;</p>
-<!-- <!-- <b>8. Make it pretty</b> -->
-<p>–&gt;</p>
-<!-- <!-- ```{r} -->
-<p>–&gt;
-<!-- <!-- clean %>% --> –&gt;
-<!-- <!--   filter(BP == "leucine biosynthesis") %>% --> –&gt;
-<!-- <!--   ggplot(aes(x = growth_rate, y = expression, colour = nutrient)) + --> –&gt;
-<!-- <!--     geom_line() + --> –&gt;
-<!-- <!--     geom_point() + --> –&gt;
-<!-- <!--     facet_wrap(~gene_name) + --> –&gt;
-<!-- <!--     scale_color_brewer("Nutrient", palette = "Accent") + --> –&gt;
-<!-- <!--     theme_bw() + --> –&gt;
-<!-- <!--     labs(x = "Growth Rate", y = "Expression (log2)") + --> –&gt;
-<!-- <!--     theme(strip.background = element_blank()) --> –&gt;
-<!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- <b>Bonus: Changing nutrient names</b> -->
-<p>–&gt;</p>
-<!-- <!-- ```{r} -->
-<p>–&gt;
-<!-- <!-- nutrient_key = c( --> –&gt;
-<!-- <!--   G = "Glucose", --> –&gt;
-<!-- <!--   N = "Ammonium", --> –&gt;
-<!-- <!--   P = "Phosphate", --> –&gt;
-<!-- <!--   S = "Sulfate", --> –&gt;
-<!-- <!--   U = "Uracil", --> –&gt;
-<!-- <!--   L = "Leucine" --> –&gt;
-<!-- <!-- ) --> –&gt;
-<!-- <!-- nutrient_key["P"] --> –&gt;</p>
-<!-- <!-- clean %>% -->
-<p>–&gt;
-<!-- <!--   mutate(nutrient_names = nutrient_key[nutrient]) %>% --> –&gt;
-<!-- <!--     filter(BP == "leucine biosynthesis") %>% --> –&gt;
-<!-- <!--     ggplot(aes(x = growth_rate, y = expression, colour = nutrient_names)) + --> –&gt;
-<!-- <!--     geom_line() + --> –&gt;
-<!-- <!--     geom_point() + --> –&gt;
-<!-- <!--     facet_wrap(~gene_name) + --> –&gt;
-<!-- <!--     scale_color_brewer("Nutrient", palette = "Accent") + --> –&gt;
-<!-- <!--     theme_bw() + --> –&gt;
-<!-- <!--     labs(x = "Growth Rate", y = "Expression (log2)") + --> –&gt;
-<!-- <!--     theme(strip.background = element_blank()) --> –&gt;</p>
-<!-- <!-- ``` -->
-<p>–&gt;</p>
-<!-- <br> -->
+<p>LEU2 seems to but the expression difference in leucine limiting conditions is not quite so high.</p>
+<p><b>8. Make it pretty</b></p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="project.html#cb243-1" aria-hidden="true" tabindex="-1"></a>clean <span class="sc">%&gt;%</span></span>
+<span id="cb243-2"><a href="project.html#cb243-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(BP <span class="sc">==</span> <span class="st">&quot;leucine biosynthesis&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb243-3"><a href="project.html#cb243-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> growth_rate, <span class="at">y =</span> expression, <span class="at">colour =</span> nutrient)) <span class="sc">+</span></span>
+<span id="cb243-4"><a href="project.html#cb243-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb243-5"><a href="project.html#cb243-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb243-6"><a href="project.html#cb243-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>gene_name) <span class="sc">+</span></span>
+<span id="cb243-7"><a href="project.html#cb243-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_brewer</span>(<span class="st">&quot;Nutrient&quot;</span>, <span class="at">palette =</span> <span class="st">&quot;Accent&quot;</span>) <span class="sc">+</span></span>
+<span id="cb243-8"><a href="project.html#cb243-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb243-9"><a href="project.html#cb243-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Growth Rate&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Expression (log2)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb243-10"><a href="project.html#cb243-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">strip.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p><b>Bonus: Changing nutrient names</b></p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="project.html#cb244-1" aria-hidden="true" tabindex="-1"></a>nutrient_key <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb244-2"><a href="project.html#cb244-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">G =</span> <span class="st">&quot;Glucose&quot;</span>,</span>
+<span id="cb244-3"><a href="project.html#cb244-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">N =</span> <span class="st">&quot;Ammonium&quot;</span>,</span>
+<span id="cb244-4"><a href="project.html#cb244-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">P =</span> <span class="st">&quot;Phosphate&quot;</span>,</span>
+<span id="cb244-5"><a href="project.html#cb244-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">S =</span> <span class="st">&quot;Sulfate&quot;</span>,</span>
+<span id="cb244-6"><a href="project.html#cb244-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">U =</span> <span class="st">&quot;Uracil&quot;</span>,</span>
+<span id="cb244-7"><a href="project.html#cb244-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">L =</span> <span class="st">&quot;Leucine&quot;</span></span>
+<span id="cb244-8"><a href="project.html#cb244-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb244-9"><a href="project.html#cb244-9" aria-hidden="true" tabindex="-1"></a>nutrient_key[<span class="st">&quot;P&quot;</span>]</span></code></pre></div>
+<pre><code>##           P 
+## &quot;Phosphate&quot;</code></pre>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="project.html#cb246-1" aria-hidden="true" tabindex="-1"></a>clean <span class="sc">%&gt;%</span></span>
+<span id="cb246-2"><a href="project.html#cb246-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nutrient_names =</span> nutrient_key[nutrient]) <span class="sc">%&gt;%</span></span>
+<span id="cb246-3"><a href="project.html#cb246-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(BP <span class="sc">==</span> <span class="st">&quot;leucine biosynthesis&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb246-4"><a href="project.html#cb246-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> growth_rate, <span class="at">y =</span> expression, <span class="at">colour =</span> nutrient_names)) <span class="sc">+</span></span>
+<span id="cb246-5"><a href="project.html#cb246-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb246-6"><a href="project.html#cb246-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb246-7"><a href="project.html#cb246-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>gene_name) <span class="sc">+</span></span>
+<span id="cb246-8"><a href="project.html#cb246-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_brewer</span>(<span class="st">&quot;Nutrient&quot;</span>, <span class="at">palette =</span> <span class="st">&quot;Accent&quot;</span>) <span class="sc">+</span></span>
+<span id="cb246-9"><a href="project.html#cb246-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb246-10"><a href="project.html#cb246-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Growth Rate&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Expression (log2)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb246-11"><a href="project.html#cb246-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">strip.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<p><br></p>
 </div>
 </div>
 <div id="task-4-heatmap" class="section level2 unnumbered">
@@ -541,38 +534,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="task-4-solution" class="section level3 unnumbered">
 <h3>Task 4 Solution</h3>
 <p><b>1. Start by installing the <code>pheatmap</code> package from CRAN. Have a look at the help page for the <code>pheatamp()</code> function. Which argument specifies the data? What format does it need?</b></p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="project.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;pheatmap&quot;)</span></span>
-<span id="cb243-2"><a href="project.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
-<span id="cb243-3"><a href="project.html#cb243-3" aria-hidden="true" tabindex="-1"></a>?pheatmap</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="project.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;pheatmap&quot;)</span></span>
+<span id="cb247-2"><a href="project.html#cb247-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb247-3"><a href="project.html#cb247-3" aria-hidden="true" tabindex="-1"></a>?pheatmap</span></code></pre></div>
 <p>Looks like <code>pheatmap()</code> needs a numeric matix given with the <code>mat</code> arguments, which is the first and only required arugment.</p>
 <p><b>2. Using what you learned from the help function get the gene expression data into a format that <code>pheatmap()</code> can use. Think about what you want your heatmap to look like - what are the columns and rows?</b></p>
 <p>Here we’re going to go back to our pre-tidied data. This doesn’t negate the work we did to tidy it nor does it mean the the data is now ‘dirty’ or bad somehow. Tidy data is standardized but many R tools still don’t work with data in this format and so we must adapt.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="project.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="co">#head(raw)</span></span>
-<span id="cb244-2"><a href="project.html#cb244-2" aria-hidden="true" tabindex="-1"></a>hm_mat <span class="ot">&lt;-</span> raw <span class="sc">%&gt;%</span></span>
-<span id="cb244-3"><a href="project.html#cb244-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>GID, <span class="sc">-</span>YORF, <span class="sc">-</span>NAME, <span class="sc">-</span>GWEIGHT) <span class="sc">%&gt;%</span></span>
-<span id="cb244-4"><a href="project.html#cb244-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
-<span id="cb244-5"><a href="project.html#cb244-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb244-6"><a href="project.html#cb244-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(hm_mat)</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="project.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="co">#head(raw)</span></span>
+<span id="cb248-2"><a href="project.html#cb248-2" aria-hidden="true" tabindex="-1"></a>hm_mat <span class="ot">&lt;-</span> raw <span class="sc">%&gt;%</span></span>
+<span id="cb248-3"><a href="project.html#cb248-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>GID, <span class="sc">-</span>YORF, <span class="sc">-</span>NAME, <span class="sc">-</span>GWEIGHT) <span class="sc">%&gt;%</span></span>
+<span id="cb248-4"><a href="project.html#cb248-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb248-5"><a href="project.html#cb248-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb248-6"><a href="project.html#cb248-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(hm_mat)</span></code></pre></div>
 <pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="project.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(hm_mat)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="project.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(hm_mat)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
 <p><b>3. Once you’ve got data in the correct format start by making a simple heatmap with default parameters. Do you like it? Is there anything wrong with it? What would change from a data interpretation perspective? What about from aethetics perspective?</b></p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="project.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(hm_mat)</span></code></pre></div>
-<p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="project.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(hm_mat)</span></code></pre></div>
+<p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
 <p>Overall this actually looks pretty good. Because these data have already been normalized and scaled we don’t need to do much here but there are few tweaks that may help.</p>
 <ul>
 <li>The default is to order both the rows and columns, however, because this is a timecourse experiment we may not want to order the columns. In fact if we look at the raw data we see that the columns are already ordered by time.</li>
 <li>The colours are better than the typical red/green (which you should NEVER use, BTW) but still leave something to be desired. This could be changed in a final version of the plot. Note that we have a diverging colour scale with values ranging from -6 to +6. This is becuase these data are mean-centred. Blue (negative) values are below the mean for that gene and red values (positive) are above the mean for that gene. Yellow is the mean expression for that gene. Mean-centering is a handy way to show fold-changes, but should always be displayed with a diverging colour scale.</li>
 <li>To help with visualizing the different nutrients, we can add gaps to the heatmap to make a column for each nutrient.</li>
 </ul>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="project.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb249-2"><a href="project.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(hm_mat,</span>
-<span id="cb249-3"><a href="project.html#cb249-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb249-4"><a href="project.html#cb249-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> <span class="fu">colorRampPalette</span>(<span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">7</span>, <span class="at">name =</span> <span class="st">&quot;RdBu&quot;</span>)))(<span class="dv">100</span>),</span>
-<span id="cb249-5"><a href="project.html#cb249-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="dv">101</span>),</span>
-<span id="cb249-6"><a href="project.html#cb249-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">gaps_col =</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">12</span>,<span class="dv">18</span>,<span class="dv">24</span>,<span class="dv">30</span>)</span>
-<span id="cb249-7"><a href="project.html#cb249-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="project.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb253-2"><a href="project.html#cb253-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(hm_mat,</span>
+<span id="cb253-3"><a href="project.html#cb253-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb253-4"><a href="project.html#cb253-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> <span class="fu">colorRampPalette</span>(<span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">7</span>, <span class="at">name =</span> <span class="st">&quot;RdBu&quot;</span>)))(<span class="dv">100</span>),</span>
+<span id="cb253-5"><a href="project.html#cb253-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="dv">101</span>),</span>
+<span id="cb253-6"><a href="project.html#cb253-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">gaps_col =</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">12</span>,<span class="dv">18</span>,<span class="dv">24</span>,<span class="dv">30</span>)</span>
+<span id="cb253-7"><a href="project.html#cb253-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="IntroRWorkshop_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
 
 </div>
 </div>
