@@ -36,8 +36,9 @@ Your goal is get the data loaded into R and answer the following questions:
 
 As you look through the data start thinking about what steps you'll need to get it into a workable state.  
 
-<br>
+<be>
 
+<!--
 ### Task 1 Solution {-}
 
 <b>1. How many rows and columns are there?</b>
@@ -51,6 +52,8 @@ dim(raw)
 ```
 
 There are 5537 rows and 40 columns.
+
+-->
 
 <b>2. What do the rows and columns represent?</b>
 
