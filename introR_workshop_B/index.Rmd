@@ -1,6 +1,6 @@
 --- 
 title: "Introduction to R for Biologists"
-author: "Sahar, Ewandson"
+author: "Sahar Bagheri, Ewandson L. Lameu"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
