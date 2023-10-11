@@ -4,21 +4,20 @@
 %
 \documentclass[
 ]{book}
-\title{Introduction to R for Biologists}
-\author{Hena Ramay}
-\date{2022-04-29}
-
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -37,14 +36,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Introduction to R for Biologists},
-  pdfauthor={Hena Ramay},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -56,13 +47,13 @@
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
 \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
 \newcommand{\BuiltInTok}[1]{#1}
 \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
@@ -70,7 +61,7 @@
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
 \newcommand{\ExtensionTok}[1]{#1}
 \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\ImportTok}[1]{#1}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
@@ -79,7 +70,7 @@
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
 \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
@@ -118,6 +109,18 @@
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Introduction to R for Biologists},
+  pdfauthor={Sahar Bagheri, Ewandson L. Lameu},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Introduction to R for Biologists}
+\author{Sahar Bagheri, Ewandson L. Lameu}
+\date{2023-10-10}
 
 \begin{document}
 \maketitle
@@ -126,25 +129,24 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\hypertarget{welcome}{%
-\chapter{Welcome}\label{welcome}}
+\chapter{Welcome}\label{welcome}
 
 Workshop material will be added here as we go along. For each day of the workshop, the basic material will be uploaded and more details will be added based on your questions and problems we encounter. So please ask as many questions are you can to help us in making this workshop better!!
 
-\hypertarget{workshop-schedule}{%
-\section{Workshop Schedule}\label{workshop-schedule}}
+\section{Workshop Schedule}\label{workshop-schedule}
 
 *Subject to change, depending how things go.
 
-\hypertarget{day-1}{%
-\subsection*{Day 1}\label{day-1}}
+\subsection*{Day 1}\label{day-1}
 \addcontentsline{toc}{subsection}{Day 1}
 
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule\noalign{}
 Time & Topic \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 09:00 & Welcome, Housekeeping, and Introductions \\
 09:30 & Presentation \\
 09:45 & 1. Introducing R and RStudio \\
@@ -156,18 +158,18 @@ Time & Topic \\
 14:30 & Break \\
 14:45 & 5. Manipulating data in the Tidyverse \\
 16:00 & Finish \\
-\bottomrule
 \end{longtable}
 
-\hypertarget{day-2}{%
-\subsection*{Day 2}\label{day-2}}
+\subsection*{Day 2}\label{day-2}
 \addcontentsline{toc}{subsection}{Day 2}
 
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule\noalign{}
 Time & Topic \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 09:00 & 5. Tidyverse - cont \\
 10:30 & Break \\
 10:45 & 6. Data visualization with ggplot2 \\
@@ -180,11 +182,9 @@ Time & Topic \\
 15:30 & Review project and open discussion \\
 15:55 & Survey! \\
 16:00 & Finish \\
-\bottomrule
 \end{longtable}
 
-\hypertarget{important-links}{%
-\section{Important links}\label{important-links}}
+\section{Important links}\label{important-links}
 
 \begin{itemize}
 \tightlist
@@ -192,11 +192,9 @@ Time & Topic \\
   Datacamp: \href{https://www.datacamp.com/home}{link}
 \end{itemize}
 
-\hypertarget{pre-workshop}{%
-\chapter{Pre-workshop}\label{pre-workshop}}
+\chapter{Pre-workshop}\label{pre-workshop}
 
-\hypertarget{installation}{%
-\section{Installation}\label{installation}}
+\section{Installation}\label{installation}
 
 R and RStudio are separate downloads and installations. R is the underlying statistical computing environment and RStudio is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. You will need to install R before you install RStudio.
 
@@ -204,8 +202,7 @@ If you already have R and RStudio installed, open RStudio and click on ``Help'' 
 
 If you don't have R and RStudio installed, please follow the instructions for your operating system below.
 
-\hypertarget{windows}{%
-\subsection{Windows}\label{windows}}
+\subsection{Windows}\label{windows}
 
 \begin{itemize}
 \tightlist
@@ -225,8 +222,7 @@ If you don't have R and RStudio installed, please follow the instructions for yo
   error messages.
 \end{itemize}
 
-\hypertarget{macos}{%
-\subsection{MacOS}\label{macos}}
+\subsection{MacOS}\label{macos}
 
 \begin{itemize}
 \tightlist
@@ -251,8 +247,7 @@ If you don't have R and RStudio installed, please follow the instructions for yo
   error messages.
 \end{itemize}
 
-\hypertarget{linux}{%
-\subsection{Linux}\label{linux}}
+\subsection{Linux}\label{linux}
 
 \begin{itemize}
 \tightlist
@@ -275,8 +270,7 @@ If you don't have R and RStudio installed, please follow the instructions for yo
   error messages.
 \end{itemize}
 
-\hypertarget{datacamp-courses}{%
-\section{Datacamp Courses}\label{datacamp-courses}}
+\section{Datacamp Courses}\label{datacamp-courses}
 
 To help familiarize yourself with R, you have been assigned two Datacamp courses to be completed prior to the workshop:
 
@@ -290,19 +284,15 @@ To help familiarize yourself with R, you have been assigned two Datacamp courses
 
 Please do your best to have these courses completed by the start of the workshop.
 
-\hypertarget{introduction}{%
-\chapter{Introduction}\label{introduction}}
+\chapter{Introduction}\label{introduction}
 
-\hypertarget{r-and-the-rstudio-ide}{%
-\section{R and the RStudio IDE}\label{r-and-the-rstudio-ide}}
+\section{R and the RStudio IDE}\label{r-and-the-rstudio-ide}
 
 Short presentation introducing R and the RStudio IDE. Attempting to convince you how amazing R is. Slides will be uploaded \href{intro.pdf}{here}.
 
-\hypertarget{why-learn-r}{%
-\section{Why learn R}\label{why-learn-r}}
+\section{Why learn R}\label{why-learn-r}
 
-\hypertarget{r-does-not-involve-a-lot-of-pointing-and-clicking---thats-a-good-thing}{%
-\subsection*{R does not involve a lot of pointing and clicking - that's a good thing!}\label{r-does-not-involve-a-lot-of-pointing-and-clicking---thats-a-good-thing}}
+\subsection*{R does not involve a lot of pointing and clicking - that's a good thing!}\label{r-does-not-involve-a-lot-of-pointing-and-clicking---thats-a-good-thing}
 \addcontentsline{toc}{subsection}{R does not involve a lot of pointing and clicking - that's a good thing!}
 
 With R, the results of your analysis do not depend on remembering a succession of pointing and clicking, but instead on a series of written commands. That means that if (when!) you want to redo your analysis because you collected more data, or you want to run the same analyses on a different dataset, you don't have to remember which button your clicked to obtain your results, you just have to run the script again.
@@ -311,8 +301,7 @@ Working with scripts makes the steps you used in your analysis clear, and the co
 
 Working with scripts forces you to have a deeper understanding of what you are doing, and facilitates your learning and comprehension of the methods you use.
 
-\hypertarget{r-code-is-great-for-reproducibility}{%
-\subsection*{R code is great for reproducibility}\label{r-code-is-great-for-reproducibility}}
+\subsection*{R code is great for reproducibility}\label{r-code-is-great-for-reproducibility}
 \addcontentsline{toc}{subsection}{R code is great for reproducibility}
 
 Reproducibility is when someone else (including your future self) can obtain the same results from the same dataset when using the same analysis.
@@ -341,14 +330,12 @@ Reproducibility is when someone else (including your future self) can obtain the
 
 An increasing number of journals and funding agencies expect analyses to be reproducible, so knowing R will give you an edge with those requirements.
 
-\hypertarget{r-is-interdisciplinary-and-extensible}{%
-\subsection*{R is interdisciplinary and extensible}\label{r-is-interdisciplinary-and-extensible}}
+\subsection*{R is interdisciplinary and extensible}\label{r-is-interdisciplinary-and-extensible}
 \addcontentsline{toc}{subsection}{R is interdisciplinary and extensible}
 
 With 10,000+ packages that can be installed to extend its capabilities, R provides a framework that allows you to combine statistical approaches from many scientific disciplines to best suit the analytical framework you need to analyze your data. For instance, R has packages for image analysis, GIS, time series, population genetics, bioinformatics and a lot more.
 
-\hypertarget{r-works-on-data-of-all-shapes-and-sizes}{%
-\subsection*{R works on data of all shapes and sizes}\label{r-works-on-data-of-all-shapes-and-sizes}}
+\subsection*{R works on data of all shapes and sizes}\label{r-works-on-data-of-all-shapes-and-sizes}
 \addcontentsline{toc}{subsection}{R works on data of all shapes and sizes}
 
 The skills you learn with R scale easily with the size of your dataset. Whether your dataset has hundreds or millions of lines, it won't make much difference to you.
@@ -357,20 +344,17 @@ R is designed for data analysis. It comes with special data structures and data 
 
 R can connect to spreadsheets, databases, and many other data formats, on your computer or on the web.
 
-\hypertarget{r-produces-high-quality-graphics}{%
-\subsection*{R produces high-quality graphics}\label{r-produces-high-quality-graphics}}
+\subsection*{R produces high-quality graphics}\label{r-produces-high-quality-graphics}
 \addcontentsline{toc}{subsection}{R produces high-quality graphics}
 
 The plotting functionalities in R are endless, and allow you to adjust any aspect of your graph to convey most effectively the message from your data.
 
-\hypertarget{r-has-a-large-and-welcoming-community}{%
-\subsection*{R has a large and welcoming community}\label{r-has-a-large-and-welcoming-community}}
+\subsection*{R has a large and welcoming community}\label{r-has-a-large-and-welcoming-community}
 \addcontentsline{toc}{subsection}{R has a large and welcoming community}
 
 Thousands of people use R daily. Many of them are willing to help you through mailing lists and websites such as \href{https://stackoverflow.com}{Stack Overflow}, or on the \href{https://community.rstudio.com/}{RStudio community}.
 
-\hypertarget{interacting-with-r}{%
-\subsection*{Interacting with R}\label{interacting-with-r}}
+\subsection*{Interacting with R}\label{interacting-with-r}
 \addcontentsline{toc}{subsection}{Interacting with R}
 
 There are two main ways of interacting with R: using the console or by using
@@ -382,8 +366,7 @@ If R is ready to accept commands, the R console shows a \texttt{\textgreater{}} 
 
 If R is still waiting for you to enter more data because it isn't complete yet, the console will show a \texttt{+} prompt. It means that you haven't finished entering a complete command. This is because you have not `closed' a parenthesis or quotation. If you're in Rstudio and this happens, click inside the console window and press \texttt{Esc}; this should help you out of trouble.
 
-\hypertarget{creating-an-rstudio-project}{%
-\section{Creating an RStudio project}\label{creating-an-rstudio-project}}
+\section{Creating an RStudio project}\label{creating-an-rstudio-project}
 
 One of the benefits of RStudio is something called an RStudio Project. An RStudio project allows you to more easily:
 
@@ -397,8 +380,7 @@ One of the benefits of RStudio is something called an RStudio Project. An RStudi
   Collaborate, especially if you are using version control such as git.
 \end{itemize}
 
-\hypertarget{exercise-3.3.1}{%
-\subsubsection*{EXERCISE 3.3.1}\label{exercise-3.3.1}}
+\subsubsection*{EXERCISE 3.3.1}\label{exercise-3.3.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 3.3.1}
 
 To create a project:
@@ -418,13 +400,11 @@ To create a project:
   Under the \texttt{Files} tab on the right of the screen, you should see an RStudio project file, rworkshop.Rproj. All RStudio projects end with the ``.Rproj'' file extension.
 \end{itemize}
 
-\hypertarget{creating-your-first-r-script}{%
-\section{Creating your first R script}\label{creating-your-first-r-script}}
+\section{Creating your first R script}\label{creating-your-first-r-script}
 
 Now that we are ready to start exploring R, we will want to keep a record of the commands we are using. To do this we can create an R script:
 
-\hypertarget{exercise-3.4.1}{%
-\subsubsection*{EXERCISE 3.4.1}\label{exercise-3.4.1}}
+\subsubsection*{EXERCISE 3.4.1}\label{exercise-3.4.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 3.4.1}
 
 To create an R script:
@@ -455,8 +435,7 @@ Enter the following code in the script and hit run:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{organizing-your-working-directory}{%
-\subsection*{Organizing your working directory}\label{organizing-your-working-directory}}
+\subsection*{Organizing your working directory}\label{organizing-your-working-directory}
 \addcontentsline{toc}{subsection}{Organizing your working directory}
 
 Using a consistent folder structure across your projects will help keep things organized, and will also make it easy to find/file things in the future. This can be especially helpful when you have multiple projects. In general, you should separate the original data (raw data) from intermediate datasets that you may create for the need of a particular analysis. For instance, you may want to create a \texttt{data/} directory within your working directory that stores the raw data, and have a \texttt{data\_output/} directory for intermediate datasets and \texttt{figure\_output/} directory for the plots you will generate.
@@ -483,8 +462,7 @@ to reset your working directory.
 
 \includegraphics{filepath.jpg}
 
-\hypertarget{how-to-learn-more}{%
-\section{How to learn more?}\label{how-to-learn-more}}
+\section{How to learn more?}\label{how-to-learn-more}
 
 The material we cover during this workshop will give you an initial taste of how you can use R to analyze data for your own research. However, you will need to learn more to do advanced operations. The best way to become proficient and efficient at R, as with any other tool, is to use it to address your actual research questions. As a beginner, it can feel daunting to have to write a script from scratch, and given that many people make their code available online, modifying existing code to suit your purpose might make it easier for you to get started.
 
@@ -506,8 +484,7 @@ Here are a few useful tips to keep in mind as you learn to program:
   Practice is key: Just as the only method to improving your foreign language skills is through practice, practice, and practice; so also the only method to improving your coding is through practice, practice, and practice.
 \end{itemize}
 
-\hypertarget{seeking-help}{%
-\subsection*{Seeking help}\label{seeking-help}}
+\subsection*{Seeking help}\label{seeking-help}
 \addcontentsline{toc}{subsection}{Seeking help}
 
 One of the fastest ways to get help is to use the RStudio help interface. This panel by default can be found at the lower right hand panel of RStudio. As seen in the screenshot, by typing the word ``Mean'', RStudio tries to also give a number of suggestions that you might be interested in. The description is then shown in the display window.
@@ -545,16 +522,14 @@ If you are looking for a function to do a particular task, you can use the \text
 
 If you can't find what you are looking for, you can use the \href{https://www.rdocumentation.org}{rdocumentation.org} website that searches through the help files across all packages available.
 
-\hypertarget{i-am-stuck-i-get-an-error-message-that-i-dont-understand}{%
-\subsection*{I am stuck\ldots{} I get an error message that I don't understand}\label{i-am-stuck-i-get-an-error-message-that-i-dont-understand}}
+\subsection*{I am stuck\ldots{} I get an error message that I don't understand}\label{i-am-stuck-i-get-an-error-message-that-i-dont-understand}
 \addcontentsline{toc}{subsection}{I am stuck\ldots{} I get an error message that I don't understand}
 
 Start by googling the error message. However, this doesn't always work very well because often, package developers rely on the error catching provided by R. You end up with general error messages that might not be very helpful to diagnose a problem (e.g.~``subscript out of bounds''). If the message is very generic, you might also include the name of the function or package you're using in your query.
 
 However, you should check Stack Overflow. Search using the \texttt{{[}r{]}} tag. Most questions have already been answered, but the challenge is to use the right words in the search to find the answers: \href{http://stackoverflow.com/questions/tagged/r}{}
 
-\hypertarget{asking-for-help}{%
-\subsection*{Asking for help}\label{asking-for-help}}
+\subsection*{Asking for help}\label{asking-for-help}
 \addcontentsline{toc}{subsection}{Asking for help}
 
 The key to receiving help from someone is for them to rapidly grasp your problem. You should make it as easy as possible to pinpoint where the issue might be.
@@ -563,8 +538,7 @@ Try to use the correct words to describe your problem. For instance, a package i
 
 If possible, try to reduce what doesn't work to a simple \emph{reproducible example}. If you can reproduce the problem using a very small data frame instead of your 50,000 rows and 10,000 columns one, provide the small one with the description of your problem. When appropriate, try to generalize what you are doing so even people who are not in your field can understand the question. For instance instead of using a subset of your real dataset, create a small (3 columns, 5 rows) generic one. For more information on how to write a reproducible example see \href{\%22http://adv-r.had.co.nz/Reproducibility.html\%22}{this article by Hadley Wickham}.
 
-\hypertarget{where-to-ask-for-help}{%
-\subsection*{Where to ask for help?}\label{where-to-ask-for-help}}
+\subsection*{Where to ask for help?}\label{where-to-ask-for-help}
 \addcontentsline{toc}{subsection}{Where to ask for help?}
 
 \begin{itemize}
@@ -578,8 +552,7 @@ If possible, try to reduce what doesn't work to a simple \emph{reproducible exam
   If your question is about a specific package, see if there is a mailing list for it. Usually it's included in the DESCRIPTION file of the package that can be accessed using packageDescription(``name-of-package''). You may also want to try to email the author of the package directly, or open an issue on the code repository (e.g., GitHub).
 \end{itemize}
 
-\hypertarget{how-to-ask-for-r-help-useful-guidelines}{%
-\subsection*{How to ask for R help useful guidelines}\label{how-to-ask-for-r-help-useful-guidelines}}
+\subsection*{How to ask for R help useful guidelines}\label{how-to-ask-for-r-help-useful-guidelines}
 \addcontentsline{toc}{subsection}{How to ask for R help useful guidelines}
 
 \begin{itemize}
@@ -598,11 +571,9 @@ If possible, try to reduce what doesn't work to a simple \emph{reproducible exam
   \end{itemize}
 \end{itemize}
 
-\hypertarget{installing-r-packages}{%
-\chapter{Installing R Packages}\label{installing-r-packages}}
+\chapter{Installing R Packages}\label{installing-r-packages}
 
-\hypertarget{what-are-r-packages}{%
-\section{What are R packages?}\label{what-are-r-packages}}
+\section{What are R packages?}\label{what-are-r-packages}
 
 R packages extend the functionality of R by providing additional functions, data, and documentation for specific tasks. They are written by a world-wide community of R users and can be downloaded for free from the internet. A good analogy for R packages is they are like apps you can download onto a mobile phone.
 
@@ -629,13 +600,11 @@ Once Instagram is open on your phone, you can then proceed to share your photo w
   \emph{Load the package}: Packages are not loaded by default when you start RStudio on your computer; you need to load each package you want to use every time you start RStudio.
 \end{enumerate}
 
-\hypertarget{installing-r-packages-from-different-sources}{%
-\section{Installing R packages from different sources}\label{installing-r-packages-from-different-sources}}
+\section{Installing R packages from different sources}\label{installing-r-packages-from-different-sources}
 
 There are multiple sources of R packages.
 
-\hypertarget{cran}{%
-\subsection*{1. CRAN}\label{cran}}
+\subsection*{1. CRAN}\label{cran}
 \addcontentsline{toc}{subsection}{1. CRAN}
 
 CRAN is the ``Comprehensive R Archive Network'' - the main repository (or collection) of R packages.
@@ -679,8 +648,7 @@ There are three ways to install an R package from CRAN. For example, to install 
 
 If you want to update an already installed package to a newer version, you need to re-install it by repeating the above steps.
 
-\hypertarget{bioconductor}{%
-\subsection*{2. Bioconductor}\label{bioconductor}}
+\subsection*{2. Bioconductor}\label{bioconductor}
 \addcontentsline{toc}{subsection}{2. Bioconductor}
 
 Bioconductor is a repository for R packages that concern computational biology or bioinformatics. To install the \texttt{knitr} package from Bioconductor, type the following in the Console of RStudio:
@@ -693,8 +661,7 @@ Bioconductor is a repository for R packages that concern computational biology o
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{github}{%
-\subsection*{3. Github}\label{github}}
+\subsection*{3. Github}\label{github}
 \addcontentsline{toc}{subsection}{3. Github}
 
 Some packages are not hosted on CRAN or Bioconductor, but are instead stored in Github repositories. Sometimes this is because they are very new and have not yet been contributed. To install the \texttt{dplyr} package from Github, type the following in the Console of RStudio:
@@ -707,14 +674,12 @@ Some packages are not hosted on CRAN or Bioconductor, but are instead stored in 
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercise-4.2.1}{%
-\subsubsection*{EXERCISE 4.2.1}\label{exercise-4.2.1}}
+\subsubsection*{EXERCISE 4.2.1}\label{exercise-4.2.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 4.2.1}
 
 Practice what you have just learned and install the R package \texttt{ggplot2}.
 
-\hypertarget{loading-a-package}{%
-\section{Loading a package}\label{loading-a-package}}
+\section{Loading a package}\label{loading-a-package}
 
 Recall that after you've installed a package, you need to ``load'' it, in other words open it. We do this by using the \texttt{library()} command. For example, to load the \texttt{tidyverse} package, run the following code in the Console pane. What do we mean by ``run the following code''? Either type or copy \& paste the following code into the Console pane and then hit the enter key.
 
@@ -732,14 +697,12 @@ Error in library(tidyverse) : there is no package called ‘tidyverse’
 
 it means that you didn't successfully install it. In that case, go back to the previous subsection and trying install it again.
 
-\hypertarget{exercise-4.3.1}{%
-\subsubsection*{EXERCISE 4.3.1}\label{exercise-4.3.1}}
+\subsubsection*{EXERCISE 4.3.1}\label{exercise-4.3.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 4.3.1}
 
 Confirm that you successfully installed the packages \texttt{ggplot2}, \texttt{dplyr} and \texttt{knitr} by loading them.
 
-\hypertarget{package-use}{%
-\subsubsection*{Package use}\label{package-use}}
+\subsubsection*{Package use}\label{package-use}
 \addcontentsline{toc}{subsubsection}{Package use}
 
 One extremely common mistake new R users make when wanting to use particular packages is they forget to ``load'' them first by using the \texttt{library()} command we just saw. Remember: you have to load each package you want to use every time you start RStudio. If you don't first ``load'' a package, but attempt to use one of its features, you'll see an error message similar to:
@@ -750,11 +713,9 @@ Error: could not find function
 
 R is telling you that you are trying to use a function in a package that has not yet been ``loaded''. Almost all new users forget do this when starting out, and it is a little annoying to get used to. However, you'll remember with practice.
 
-\hypertarget{r-basics}{%
-\chapter{R Basics}\label{r-basics}}
+\chapter{R Basics}\label{r-basics}
 
-\hypertarget{creating-objects-in-r}{%
-\section{Creating objects in R}\label{creating-objects-in-r}}
+\section{Creating objects in R}\label{creating-objects-in-r}
 
 You can get output from R simply by typing math in the console:
 
@@ -797,8 +758,7 @@ There are some names that cannot be used because they are the names of fundament
 It's important to be consistent in the styling of your code (where you put spaces, how you name objects, etc.). Using a consistent coding style makes your code clearer to read for your future self and your collaborators. In R, three popular style guides are \href{https://google.github.io/styleguide/Rguide.xml}{Google's}, \href{\%22http://jef.works/R-style-guide/\%22}{Jean Fan's} and the \href{https://style.tidyverse.org/}{tidyverse's}.
 This may seem overwhelming at first. My suggestion is to focus on what makes sense to you, and that you are using naming conventions that will help you to remember what is stored in each object. Try and be consistent with spacing and capitalization (or not) --- your future self will thank you.
 
-\hypertarget{objects-vs.-variables}{%
-\section{Objects vs.~variables}\label{objects-vs.-variables}}
+\section{Objects vs.~variables}\label{objects-vs.-variables}
 
 What are known as \texttt{objects} in \texttt{R} are known as \texttt{variables} in many other programming languages. In this lesson, the two words are used synonymously. For more information see \url{https://cran.r-project.org/doc/manuals/r-release/R-lang.html\#Objects}
 
@@ -873,8 +833,7 @@ and then change weight\_kg to 100.
 
 What do you think is the current content of the object \texttt{weight\_lb}? 126.5 or 220?
 
-\hypertarget{functions-and-their-arguments}{%
-\section{Functions and their arguments}\label{functions-and-their-arguments}}
+\section{Functions and their arguments}\label{functions-and-their-arguments}
 
 Functions are ``canned scripts'' that automate more complicated sets of commands including operations assignments, etc. Many functions are predefined, or can be made available by importing R packages.
 
@@ -986,14 +945,12 @@ And if you do name the arguments, you can switch their order:
 
 It's good practice to put the non-optional arguments (like the number you're rounding) first in your function call, and to then specify the names of all optional arguments. If you don't, someone reading your code might have to look up the definition of a function with unfamiliar arguments to understand what you're doing.
 
-\hypertarget{exercise-5.3}{%
-\subsubsection*{EXERCISE 5.3}\label{exercise-5.3}}
+\subsubsection*{EXERCISE 5.3}\label{exercise-5.3}
 \addcontentsline{toc}{subsubsection}{EXERCISE 5.3}
 
 Compute the golden ratio in a single line of code. One approximation of the golden ratio can be found by taking the sum of 1 and the square root of 5, and dividing by 2. Compute the golden ratio to 3 digits of precision using the \texttt{sqrt()} and \texttt{round()} functions. Hint: you can place one function inside of another.
 
-\hypertarget{data-types-in-r}{%
-\section{Data types in R}\label{data-types-in-r}}
+\section{Data types in R}\label{data-types-in-r}
 
 So far we have been storing integer values in the above examples, now lets look at other data types present in R. There are several data types such as integer, string, etc. The operating system allocates memory based on the data type of the variable and decides what can be stored in the reserved memory.
 
@@ -1002,10 +959,10 @@ There are the following data types which are used in R programming:
 \includegraphics{datatypes.jpg}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.13}}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.23}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.63}}@{}}
-\toprule
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1333}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2333}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.6333}}@{}}
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Data type
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
@@ -1013,15 +970,16 @@ Example
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 Description
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \textbf{Logical} & True, False & It is a special data type for data with only two possible values which can be construed as true/false. \\
 \textbf{Numeric} & 12,32,112,5432 & Decimal value is called numeric in R, and it is the default computational data type. \\
 \textbf{Integer} & 3L, 66L, 2346L & Here, L tells R to store the value as an integer, \\
 \textbf{Complex} & Z=1+2i, t=7+3i & A complex value in R is defined as the pure imaginary value i. \\
 \textbf{Character} & `a', `\,``good''', ``TRUE'', '35.4' & In R programming, a character is used to represent string values. We convert objects into character values with the help ofas.character() function. \\
 \textbf{Raw} & & A raw data type is used to holds raw bytes. \\
-\bottomrule
 \end{longtable}
 
 \begin{Shaded}
@@ -1032,8 +990,7 @@ Description
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{data-structures-in-r}{%
-\section{Data structures in R}\label{data-structures-in-r}}
+\section{Data structures in R}\label{data-structures-in-r}
 
 R has six types of basic data structures. We can organize these data structures according to their dimensions(1d, 2d, nd). We can also classify them as homogeneous or heterogeneous (can their contents be of different datatypes or not).
 
@@ -1062,14 +1019,12 @@ R has the following basic data structures:
 
 \includegraphics{data_s.jpg}
 
-\hypertarget{exercise-5.5}{%
-\subsubsection*{EXERCISE 5.5}\label{exercise-5.5}}
+\subsubsection*{EXERCISE 5.5}\label{exercise-5.5}
 \addcontentsline{toc}{subsubsection}{EXERCISE 5.5}
 
 In which data sturctures can we put multiple data types?
 
-\hypertarget{vectors}{%
-\section{Vectors}\label{vectors}}
+\section{Vectors}\label{vectors}
 
 \includegraphics{vec1.jpg}
 
@@ -1185,8 +1140,7 @@ In the first line, we take the original vector \texttt{weight\_g}, add the value
 
 We can do this over and over again to grow a vector, or assemble a dataset. As we program, this may be useful to add results that we are collecting or calculating.
 
-\hypertarget{indexing-vectors}{%
-\section{Indexing vectors}\label{indexing-vectors}}
+\section{Indexing vectors}\label{indexing-vectors}
 
 If we want to extract one or several values from a vector, we must provide one or several indices in square brackets. For instance:
 
@@ -1226,8 +1180,7 @@ If we want to extract one or several values from a vector, we must provide one o
 
 R indices start at 1. Programming languages like Fortran, MATLAB, Julia, and R start counting at 1, because that's what human beings typically do. Languages in the C family (including C++, Java, Perl, and Python) count from 0 because \emph{reasons}.
 
-\hypertarget{adding-values-to-vectors}{%
-\subsection*{Adding values to vectors}\label{adding-values-to-vectors}}
+\subsection*{Adding values to vectors}\label{adding-values-to-vectors}
 \addcontentsline{toc}{subsection}{Adding values to vectors}
 
 We can add new items to a vector using the \texttt{c()} function.
@@ -1243,8 +1196,7 @@ We can add new items to a vector using the \texttt{c()} function.
 ## [1] "mouse"  "rat"    "dog"    "cat"    "horse"  "crab"   "monkey"
 \end{verbatim}
 
-\hypertarget{replacing-values-in-existing-vectors}{%
-\subsection*{Replacing values in existing vectors}\label{replacing-values-in-existing-vectors}}
+\subsection*{Replacing values in existing vectors}\label{replacing-values-in-existing-vectors}
 \addcontentsline{toc}{subsection}{Replacing values in existing vectors}
 
 We can replace a value by using the index of the item to be replaced:
@@ -1261,8 +1213,7 @@ We can replace a value by using the index of the item to be replaced:
 ## [1] "mouse" "rat"   "dog"   "cat"   "horse" "crab"  "bird"
 \end{verbatim}
 
-\hypertarget{conditional-subsetting}{%
-\section{Conditional subsetting}\label{conditional-subsetting}}
+\section{Conditional subsetting}\label{conditional-subsetting}
 
 Another common way of subsetting is by using a logical vector. \texttt{TRUE} will select the element with the same index, while \texttt{FALSE} will not:
 
@@ -1325,10 +1276,12 @@ You can combine multiple tests using \& (both conditions are true, AND) or \text
 Here, \texttt{\textless{}} stands for ``less than'', \texttt{\textgreater{}} for ``greater than'', \texttt{\textgreater{}=} for ``greater than or equal to'', and \texttt{==} for ``equal to''. The double equal sign \texttt{==} is a test for numerical equality between the left and right hand sides, and should not be confused with the single \texttt{=} sign, which performs variable assignment (similar to \texttt{\textless{}-}).
 
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule\noalign{}
 Operator & Description \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \texttt{\textless{}} & less than \\
 \texttt{\textless{}=} & less than or equal to \\
 \texttt{\textgreater{}} & greater than \\
@@ -1338,7 +1291,6 @@ Operator & Description \\
 \texttt{!x} & not x \\
 \texttt{a\textbar{}b} & a or b \\
 \texttt{a\&b} & a and b \\
-\bottomrule
 \end{longtable}
 
 A common task is to search for certain strings in a vector. One could use the ``or'' operator \textbar{} to test for equality to multiple values, but this can quickly become tedious. The function \texttt{\%in\%} allows you to test if any of the elements of a search vector are found:
@@ -1386,8 +1338,7 @@ The \texttt{which()} function returns the indices of any item that evaluates as 
 ## [1] 4
 \end{verbatim}
 
-\hypertarget{exercise-5.7.1}{%
-\subsubsection*{EXERCISE 5.7.1}\label{exercise-5.7.1}}
+\subsubsection*{EXERCISE 5.7.1}\label{exercise-5.7.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 5.7.1}
 
 \begin{itemize}
@@ -1396,8 +1347,7 @@ The \texttt{which()} function returns the indices of any item that evaluates as 
   Can you figure out why ``four'' \textgreater{} ``five'' returns TRUE?
 \end{itemize}
 
-\hypertarget{missing-data}{%
-\section{Missing data}\label{missing-data}}
+\section{Missing data}\label{missing-data}
 
 As R was designed to analyze datasets, it includes the concept of missing data (which is uncommon in other programming languages). Missing data are represented in vectors as \texttt{NA}.
 
@@ -1472,8 +1422,7 @@ If your data include missing values (and that's probably all of us!), you may wa
 ## [1] "omit"
 \end{verbatim}
 
-\hypertarget{exercise-5.8.1}{%
-\subsubsection*{EXERCISE 5.8.1}\label{exercise-5.8.1}}
+\subsubsection*{EXERCISE 5.8.1}\label{exercise-5.8.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 5.8.1}
 
 \begin{enumerate}
@@ -1499,18 +1448,15 @@ If your data include missing values (and that's probably all of us!), you may wa
   Use R to figure out how many people in the set are taller than 67 inches.
 \end{enumerate}
 
-\hypertarget{starting-with-data}{%
-\chapter{Starting with Data}\label{starting-with-data}}
+\chapter{Starting with Data}\label{starting-with-data}
 
-\hypertarget{download-the-data}{%
-\section{Download the data}\label{download-the-data}}
+\section{Download the data}\label{download-the-data}
 
 Make a new RStudio Project and create a \texttt{data} directory in your RStudio Project.
 
 You can download the file directly from dropbox using \href{https://www.dropbox.com/sh/pegir6j09mq7sia/AACQO9BnNAEl4EofAhmyqjmXa?dl=0}{this link}. Remember to put this file in a directory that makes sense (ex. in your RStudio Project directory in a \texttt{data} directory).
 
-\hypertarget{csv-files}{%
-\section{CSV files}\label{csv-files}}
+\section{CSV files}\label{csv-files}
 
 Spreadsheet data is often saved in one of the following formats:
 
@@ -1536,8 +1482,7 @@ Spreadsheet data is often saved in one of the following formats:
 
 There are several ways to import data into R. Here, we will use the tools every R installation comes with (ie. ``base R'') to import a comma-delimited file containing some data. We will need to load the file using a function called \texttt{read.csv()}.
 
-\hypertarget{exercise-6.2.1}{%
-\subsubsection*{EXERCISE 6.2.1}\label{exercise-6.2.1}}
+\subsubsection*{EXERCISE 6.2.1}\label{exercise-6.2.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 6.2.1}
 
 Before using the \texttt{read.csv()} function, use R's help feature to answer the following questions:
@@ -1555,23 +1500,23 @@ Before using the \texttt{read.csv()} function, use R's help feature to answer th
   What argument would you have to change to read in only the first 10,000 rows of a very large file?
 \end{enumerate}
 
-\hypertarget{sidenote-importing-data-from-excel}{%
-\section{Sidenote: Importing data from Excel}\label{sidenote-importing-data-from-excel}}
+\section{Sidenote: Importing data from Excel}\label{sidenote-importing-data-from-excel}
 
 Excel is one of the most common formats, so we need to discuss how to make these files play nicely with R. The simplest way to import data from Excel is to save your Excel file in .csv format. You can then import into R right away. Sometimes you may not be able to do this (imagine you have data in 300 Excel files, are you going to open and export all of them?).
 
 One common R package (a set of code with features you can download and add to your R installation) is the readxl package which can open and import Excel files.
 
-\hypertarget{import-data}{%
-\section{Import data}\label{import-data}}
+\section{Import data}\label{import-data}
 
 Now let's read in some data. We're going to study a population of \emph{Escherichia coli} (designated Ara-3), which were propagated for more than 40,000 generations in a glucose-limited minimal medium. This medium was supplemented with citrate, which the ancestral \emph{E. coli} cannot metabolize in the aerobic conditions of the experiment. Sequencing of the populations at regular time points revealed that spontaneous citrate-using mutants (Cit+) appeared at around 31,000 generations in one of twelve populations. The dataset is stored as a comma separated value (CSV) file. This metadata describes information on the Ara-3 clones and the columns represent:
 
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule\noalign{}
 Column & Description \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 sample & clone name \\
 generation & generation when sample frozen \\
 clade & based on a parsimony tree \\
@@ -1579,7 +1524,6 @@ strain & ancestral strain \\
 cit & citrate-using mutant status \\
 run & sequence read archive sample ID \\
 genome\_size & size in Mbp \\
-\bottomrule
 \end{longtable}
 
 Read in the metadata file:
@@ -1610,8 +1554,7 @@ This will output the entire dataset. If we only want to see the top 6 lines of t
 ## 6   ZDB458      20000 (C1,C2) REL606 unknown SRR098284        4.63
 \end{verbatim}
 
-\hypertarget{what-are-data-frames}{%
-\section{What are data frames?}\label{what-are-data-frames}}
+\section{What are data frames?}\label{what-are-data-frames}
 
 A data frame is the standard way in R to store tabular data. It can also be thought of as a collection of vectors, all of which have the same length. Each vector represents a column and each vector can be a different data type (ex. characters, integers).
 
@@ -1634,8 +1577,7 @@ The \texttt{str()} function is useful to insepct the data types of the columns.
 ##  $ genome_size: num  4.62 4.63 4.6 4.59 4.66 4.63 4.62 4.61 4.65 4.59 ...
 \end{verbatim}
 
-\hypertarget{exercise-6.5.1}{%
-\subsubsection*{EXERCISE 6.5.1}\label{exercise-6.5.1}}
+\subsubsection*{EXERCISE 6.5.1}\label{exercise-6.5.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 6.5.1}
 
 Create a data frame using the \texttt{data.frame()} function:
@@ -1676,8 +1618,7 @@ Try the following functions on the BMI data frame:
 
 What information does each of these functions tell you?
 
-\hypertarget{saving-or-writing-a-data-frame}{%
-\subsection*{Saving or ``writing'' a data frame}\label{saving-or-writing-a-data-frame}}
+\subsection*{Saving or ``writing'' a data frame}\label{saving-or-writing-a-data-frame}
 \addcontentsline{toc}{subsection}{Saving or ``writing'' a data frame}
 
 We can save a data frame to a csv file using the \texttt{write.csv()} function. For example, to save the BMI data to bmi.csv:
@@ -1690,8 +1631,7 @@ We can save a data frame to a csv file using the \texttt{write.csv()} function. 
 
 Ensure that you have successfully saved this csv file, then feel free to delete it.
 
-\hypertarget{what-are-factors}{%
-\section{What are factors?}\label{what-are-factors}}
+\section{What are factors?}\label{what-are-factors}
 
 Factors are the final major data structure we will introduce. Factors can be thought of as vectors which are specialized for categorical data. Given R's specialization for statistics, this make sense since categorial and continuous variables usually have different treatments. Sometimes you may want to have data treated as a factor, but in other cases, this may be undesirable.
 
@@ -1718,8 +1658,7 @@ Here we can see which columns/variables are factors. When we read in a file, any
 
 For instance, we see that \texttt{cit} is a Factor w/ 3 levels, \texttt{"minus"}, \texttt{"plus"} and \texttt{"unknown"}.
 
-\hypertarget{the-sign}{%
-\subsection*{The \$ sign}\label{the-sign}}
+\subsection*{The \$ sign}\label{the-sign}
 \addcontentsline{toc}{subsection}{The \$ sign}
 
 To isolate a column or variable of a data frame, we use the \textbf{\$} operator. This applies to any type of variable. For example:
@@ -1825,8 +1764,7 @@ Let's extract the \texttt{cit} column of the metadata to a new object, so we don
 
 For the sake of efficiency, R stores the content of a factor as a vector of integers, which an integer is assigned to each of the possible levels. Recall levels are assigned in alphabetical order. In this case, the first item in our \texttt{cit} object is \texttt{unknown}, which happens to be the 3rd level of our factor, ordered alphabeticaly.
 
-\hypertarget{plotting-and-ordering-factors}{%
-\section{Plotting and ordering factors}\label{plotting-and-ordering-factors}}
+\section{Plotting and ordering factors}\label{plotting-and-ordering-factors}
 
 One of the most common uses for factors will be when you plot categorical values. For example, suppose we want to know how many of our clones had citrate-using mutant status? We could generate a plot:
 
@@ -1865,13 +1803,11 @@ To reorder the levels of a factor:
 
 \includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-60-1.pdf}
 
-\hypertarget{subsetting-data-frames}{%
-\section{Subsetting data frames}\label{subsetting-data-frames}}
+\section{Subsetting data frames}\label{subsetting-data-frames}
 
 Subsetting data frames is similar to subsetting vectors with one major difference: date frames are two-dimensional. Therefore, to select a specific value we will use the \texttt{{[}{]}} notation again, but we will specify more than one value.
 
-\hypertarget{exercise-6.8.1}{%
-\subsubsection*{EXERCISE 6.8.1}\label{exercise-6.8.1}}
+\subsubsection*{EXERCISE 6.8.1}\label{exercise-6.8.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 6.8.1}
 
 Try the following indices on the metadata data frame:
@@ -1918,13 +1854,11 @@ You can assign a subset of your data frame to a new object. For example, to crea
 ## 29 REL10979      40000  Cit+ REL606 plus SRR098029        4.78
 \end{verbatim}
 
-\hypertarget{other-data-types}{%
-\section{Other data types}\label{other-data-types}}
+\section{Other data types}\label{other-data-types}
 
 So far, we have looked at three data types: vectors, data frames, and factors. Here we will briefly cover matrices and lists. These two are not as useful but you may come across them. Later on in the workshop we will discuss tibbles, the tidyverse equivalent of the data frame.
 
-\hypertarget{matrices}{%
-\subsection*{Matrices}\label{matrices}}
+\subsection*{Matrices}\label{matrices}
 \addcontentsline{toc}{subsection}{Matrices}
 
 A matrix is a two-dimensional rectangular dataset. It can be created by using a vector input to the matrix function.
@@ -1986,8 +1920,7 @@ R will list the number of rows first and the number of columns second. To list o
 ## [1] 6
 \end{verbatim}
 
-\hypertarget{lists}{%
-\subsection*{Lists}\label{lists}}
+\subsection*{Lists}\label{lists}
 \addcontentsline{toc}{subsection}{Lists}
 
 A list is an R-object which can contain many different types of elements inside it like vectors, functions, and even another list.
@@ -2014,11 +1947,9 @@ A list is an R-object which can contain many different types of elements inside 
 ## 3 female  165.0     78  26
 \end{verbatim}
 
-\hypertarget{manipulating-data-in-the-tidyverse}{%
-\chapter{Manipulating Data in the tidyverse}\label{manipulating-data-in-the-tidyverse}}
+\chapter{Manipulating Data in the tidyverse}\label{manipulating-data-in-the-tidyverse}
 
-\hypertarget{what-is-the-tidyverse}{%
-\section{What is the Tidyverse}\label{what-is-the-tidyverse}}
+\section{What is the Tidyverse}\label{what-is-the-tidyverse}
 
 \includegraphics{./figures/tidyverse.png}
 The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. These packages include:
@@ -2039,13 +1970,11 @@ The tidyverse is an opinionated collection of R packages designed for data scien
 
 When we installed the \texttt{tidyverse} package, we installed all of the above packages. This means that all of the specialized functions of these packages are available to use.
 
-\hypertarget{tibbles}{%
-\section{Tibbles}\label{tibbles}}
+\section{Tibbles}\label{tibbles}
 
 Tibbles are a modern take on data frames. They keep the features that have stood the test of time and drop the features that used to be convenient but are now frustrating (ie. converting character vectors to factors).
 
-\hypertarget{create-a-tibble}{%
-\subsection*{Create a tibble}\label{create-a-tibble}}
+\subsection*{Create a tibble}\label{create-a-tibble}
 \addcontentsline{toc}{subsection}{Create a tibble}
 
 You can create a tibble using the \texttt{tibble()} function:
@@ -2074,22 +2003,19 @@ You can create a tibble using the \texttt{tibble()} function:
 ## 4 Jerome     26    169 TRUE
 \end{verbatim}
 
-\hypertarget{reading-in-tibbles}{%
-\subsection*{Reading in tibbles}\label{reading-in-tibbles}}
+\subsection*{Reading in tibbles}\label{reading-in-tibbles}
 \addcontentsline{toc}{subsection}{Reading in tibbles}
 
 Tibbles can be read into R using the \texttt{read\_csv()} function. Note that the \texttt{read\_csv()} function is different than the \texttt{read.csv()} function. The major difference is that \texttt{read\_csv()} will store the data as a tibble and \texttt{read.csv()} will store the data as a data frame.
 
-\hypertarget{exercise-7.3.1}{%
-\subsubsection*{EXERCISE 7.3.1}\label{exercise-7.3.1}}
+\subsubsection*{EXERCISE 7.3.1}\label{exercise-7.3.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.3.1}
 
 Use the \texttt{read\_csv()} function to read in the \texttt{Ecoli\_metadata.csv} file. Assign the data to an object called \texttt{metadata2} to avoid writing over the object \texttt{metadata}.
 
 How is it different that the \texttt{metadata}object?
 
-\hypertarget{data-frames-versus-tibbles}{%
-\subsection*{Data frames versus tibbles}\label{data-frames-versus-tibbles}}
+\subsection*{Data frames versus tibbles}\label{data-frames-versus-tibbles}
 \addcontentsline{toc}{subsection}{Data frames versus tibbles}
 
 For some applications, you will need to use data frames and for others tibbles. You will find that some older functions don't work on tibbles. They can be easily converted using the functions \texttt{as.data.frame()} or \texttt{as\_tibble()}:
@@ -2131,7 +2057,7 @@ For some applications, you will need to use data frames and for others tibbles. 
 ##  8 ZDB467        20000 (C1,C2) REL606 unknown "SRR098286"        4.61
 ##  9 ZDB477        25000 C1      REL606 unknown "SRR098287"        4.65
 ## 10 ZDB483        25000 C3      REL606 unknown "SRR098288"        4.59
-## # ... with 20 more rows
+## # i 20 more rows
 \end{verbatim}
 
 \begin{Shaded}
@@ -2151,16 +2077,14 @@ For some applications, you will need to use data frames and for others tibbles. 
 ## 6   ZDB458      20000 (C1,C2) REL606 unknown SRR098284        4.63
 \end{verbatim}
 
-\hypertarget{brain-teaser}{%
-\subsubsection*{Brain Teaser}\label{brain-teaser}}
+\subsubsection*{Brain Teaser}\label{brain-teaser}
 \addcontentsline{toc}{subsubsection}{Brain Teaser}
 
 Can a tibble contain different data types in each column?
 
 As you will see in the following sections, many of the useful data frame functions are the same for tibbles.
 
-\hypertarget{exploring-tibbles}{%
-\section{Exploring tibbles}\label{exploring-tibbles}}
+\section{Exploring tibbles}\label{exploring-tibbles}
 
 We can explore the contents of a tibble in several ways. By typing the name of the tibble in the console, we can view the first ten rows of a tibble as above, which tells us lots of information about the column types and the number of rows. We can also use the \texttt{glimpse()} function:
 
@@ -2213,9 +2137,11 @@ Again, similar to data frames, we can use the subsetting operator {[}{]} directl
 
 Similarly, to return the values in rows 25 to 30, and columns 1 to 3:
 
-\begin{verbatim}
-metadata_tib[25:30, 1:3]
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{metadata\_tib[}\DecValTok{25}\SpecialCharTok{:}\DecValTok{30}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
 
 If we leave an index blank, this acts as a wildcard and matches all of the rows or columns:
 
@@ -2252,7 +2178,7 @@ If we leave an index blank, this acts as a wildcard and matches all of the rows 
 ##  8 ZDB467        20000 (C1,C2)
 ##  9 ZDB477        25000 C1     
 ## 10 ZDB483        25000 C3     
-## # ... with 20 more rows
+## # i 20 more rows
 \end{verbatim}
 
 You can also refer to columns by name with quotation marks:
@@ -2277,7 +2203,7 @@ You can also refer to columns by name with quotation marks:
 ##  8 ZDB467  
 ##  9 ZDB477  
 ## 10 ZDB483  
-## # ... with 20 more rows
+## # i 20 more rows
 \end{verbatim}
 
 Note that subsetting a tibble using the {[}{]} method returns another tibble. In contrast, using the \$ sign to extract a variable returns a vector:
@@ -2298,8 +2224,7 @@ Note that subsetting a tibble using the {[}{]} method returns another tibble. In
 
 For more information on tibbles see the \href{https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html}{tibbles vignette}.
 
-\hypertarget{tidy-data}{%
-\section{Tidy data}\label{tidy-data}}
+\section{Tidy data}\label{tidy-data}
 
 Tidy data is data that's easy to work with: it's easy to manage (with dplyr), visualize (with ggplot2) and model (with R's hundreds of modeling packages). Most importantly, tidy data is data where \textbf{each column is a variable} and \textbf{each row is an observation}.
 
@@ -2317,8 +2242,7 @@ To tidy messy data, you first identify the variables in your dataset, then use t
   \texttt{spread()}
 \end{itemize}
 
-\hypertarget{gather}{%
-\subsection*{\texorpdfstring{\texttt{gather()}}{gather()}}\label{gather}}
+\subsection*{\texorpdfstring{\texttt{gather()}}{gather()}}\label{gather}
 \addcontentsline{toc}{subsection}{\texttt{gather()}}
 
 \includegraphics{./figures/tidyr-gather.png}
@@ -2363,8 +2287,7 @@ We have three variables (name, drug and heartrate), but only name is currently i
 
 Now each column is a variable and each row is an observation - tidy! Note: more about the ``pipe'' operator later.
 
-\hypertarget{exercise-7.4.1}{%
-\subsubsection*{EXERCISE 7.4.1}\label{exercise-7.4.1}}
+\subsubsection*{EXERCISE 7.4.1}\label{exercise-7.4.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.4.1}
 
 \begin{enumerate}
@@ -2378,8 +2301,7 @@ Now each column is a variable and each row is an observation - tidy! Note: more 
   What is the difference between long and wide data?
 \end{enumerate}
 
-\hypertarget{separate}{%
-\subsection*{\texorpdfstring{\texttt{separate()}}{separate()}}\label{separate}}
+\subsection*{\texorpdfstring{\texttt{separate()}}{separate()}}\label{separate}
 \addcontentsline{toc}{subsection}{\texttt{separate()}}
 
 \includegraphics{./figures/tidyr-separate.png}
@@ -2474,29 +2396,25 @@ Next we use separate() to split the key into location and time, using a regular 
 
 You can also use integer position to split at.
 
-\hypertarget{brain-teaser-1}{%
-\subsubsection*{Brain Teaser}\label{brain-teaser-1}}
+\subsubsection*{Brain Teaser}\label{brain-teaser-1}
 \addcontentsline{toc}{subsubsection}{Brain Teaser}
 
 Why do we have ``\textbackslash{}'' before ``.'' in sep=''\textbackslash.''
 
-\hypertarget{spread}{%
-\subsection*{\texorpdfstring{\texttt{spread()}}{spread()}}\label{spread}}
+\subsection*{\texorpdfstring{\texttt{spread()}}{spread()}}\label{spread}
 \addcontentsline{toc}{subsection}{\texttt{spread()}}
 
 \includegraphics{./figures/tidyr-spread.png}
 
 The function \texttt{spread()} does the reverse of \texttt{gather()}. It takes two columns and spreads them into multiple columns. It produces ``wide'' data from ``long'' data. Typically you will want your data in a wide form so you likely won't use this much. See the documentation for more information.
 
-\hypertarget{what-is-dplyr}{%
-\section{What is dplyr?}\label{what-is-dplyr}}
+\section{What is dplyr?}\label{what-is-dplyr}
 
 The package \texttt{dplyr} is a package that tries to provide easy tools for the most common data manipulation tasks. It is built to work directly with tibbles. The thinking behind it was largely inspired by the package \texttt{plyr} which has been in use for some time but suffered from being slow in some cases. \texttt{dplyr} addresses this by porting much of the computation to C++. An additional feature is the ability to work with data stored directly in an external database. The benefits of doing this are that the data can be managed natively in a relational database, queries can be conducted on that database, and only the results of the query returned.
 
 This addresses a common problem with R in that all operations are conducted in memory and thus the amount of data you can work with is limited by available memory. The database connections essentially remove that limitation in that you can have a database of many 100s GB, conduct queries on it directly and pull back just what you need for analysis in R.
 
-\hypertarget{selecting-columns-and-filtering-rows}{%
-\section{Selecting columns and filtering rows}\label{selecting-columns-and-filtering-rows}}
+\section{Selecting columns and filtering rows}\label{selecting-columns-and-filtering-rows}
 
 We're going to learn some of the most common \texttt{dplyr} functions: \texttt{select()}, \texttt{filter()}, \texttt{mutate()}, \texttt{group\_by()}, and \texttt{summarize()}. To select columns of a data frame, use \texttt{select()}. The first argument to this function is the data frame (tibble), and the subsequent arguments are the columns to keep.
 
@@ -2540,8 +2458,7 @@ We're going to learn some of the most common \texttt{dplyr} functions: \texttt{s
 ## 30 REL10988      C2   minus        4.62
 \end{verbatim}
 
-\hypertarget{exercise-7.6.1}{%
-\subsubsection*{EXERCISE 7.6.1}\label{exercise-7.6.1}}
+\subsubsection*{EXERCISE 7.6.1}\label{exercise-7.6.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.6.1}
 
 Would the two calls to the select function below return the same tibble or not?
@@ -2571,8 +2488,7 @@ To choose rows, use filter():
 ## 9 REL10979      40000  Cit+ REL606 plus SRR098029        4.78
 \end{verbatim}
 
-\hypertarget{exercise-7.6.2}{%
-\subsubsection*{EXERCISE 7.6.2}\label{exercise-7.6.2}}
+\subsubsection*{EXERCISE 7.6.2}\label{exercise-7.6.2}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.6.2}
 
 \begin{enumerate}
@@ -2584,8 +2500,7 @@ To choose rows, use filter():
   Keep only the rows for samples taken in the first 30000 generations.
 \end{enumerate}
 
-\hypertarget{pipes}{%
-\section{Pipes}\label{pipes}}
+\section{Pipes}\label{pipes}
 
 But what if you wanted to \texttt{select} and \texttt{filter}? There are three ways to do this: use intermediate steps, nested functions, or pipes. With the intermediate steps, you essentially create a temporary data frame and use that as input to the next function. This can clutter up your workspace with lots of objects. You can also nest functions (i.e.~one function inside of another). This is handy, but can be difficult to read if too many functions are nested as the process from inside out. The last option, pipes, are a fairly recent addition to R. Pipes let you take the output of one function and send it directly to the next, which is useful when you need to many things to the same data set. Pipes in R look like \texttt{\%\textgreater{}\%} and are made available via the \texttt{magrittr} package installed as part of tidyverse. If you're familiar with the Unix shell, you may already have used pipes to pass the output from one command to the next. The concept is the same, except the shell uses the \texttt{\textbar{}} character rather than R's pipe operator \texttt{\%\textgreater{}\%}.
 
@@ -2614,8 +2529,7 @@ The pipe operator can be tedious to type. In Rstudio pressing \texttt{Ctrl\ +\ S
 
 In the above we use the pipe to send the data set first through \texttt{filter}, to keep rows where cit was equal to `plus', and then through \texttt{select} to keep the sample and generation and clade columns. When the data frame is being passed to the \texttt{filter()} and \texttt{select()} functions through a pipe, we don't need to include it as an argument to these functions anymore.
 
-\hypertarget{exercise-7.7.1}{%
-\subsubsection*{EXERCISE 7.7.1}\label{exercise-7.7.1}}
+\subsubsection*{EXERCISE 7.7.1}\label{exercise-7.7.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.7.1}
 
 Does the order of \texttt{filter()} and \texttt{select()} above matter? Why or why not?
@@ -2670,15 +2584,13 @@ If we wanted to create a new object with this smaller version of the data we cou
 
 We can think of the \texttt{filter()} and \texttt{select()} functions as verbs in the sentence; they do things to the data flowing through the pipeline.
 
-\hypertarget{exercise-7.7.2}{%
-\subsubsection*{EXERCISE 7.7.2}\label{exercise-7.7.2}}
+\subsubsection*{EXERCISE 7.7.2}\label{exercise-7.7.2}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.7.2}
 
 Using pipes, subset \texttt{metadata} to include rows where the clade is `Cit+' and keep only the columns \texttt{sample}, \texttt{cit}, and \texttt{genome\_size}.
 How many rows are in that tibble?
 
-\hypertarget{mutate}{%
-\section{Mutate}\label{mutate}}
+\section{Mutate}\label{mutate}
 
 Frequently you'll want to create new columns based on the values in existing columns, for example to do unit conversions or find the ratio of values in two columns. For this we'll use \texttt{mutate()}.
 
@@ -2725,8 +2637,7 @@ To create a new column of genome size in bp:
 ## 30 REL10988      40000      C2 REL606   minus SRR098030        4.62   4620000
 \end{verbatim}
 
-\hypertarget{exercise-7.8.1}{%
-\subsubsection*{EXERCISE 7.8.1}\label{exercise-7.8.1}}
+\subsubsection*{EXERCISE 7.8.1}\label{exercise-7.8.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.8.1}
 
 \begin{enumerate}
@@ -2737,8 +2648,7 @@ To create a new column of genome size in bp:
   What if you want to change a column instead of create a new column. Can you do that with \texttt{mutate}?
 \end{enumerate}
 
-\hypertarget{split-apply-combine-data-analysis-and-the-summarize-function}{%
-\section{Split-apply-combine data analysis and the summarize() function}\label{split-apply-combine-data-analysis-and-the-summarize-function}}
+\section{Split-apply-combine data analysis and the summarize() function}\label{split-apply-combine-data-analysis-and-the-summarize-function}
 
 Many data analysis tasks can be approached using the ``split-apply-combine'' paradigm: split the data into groups, apply some analysis to each group, and then combine the results. \texttt{dplyr} makes this very easy through the use of the \texttt{group\_by()} function, which splits the data into groups. When the data is grouped in this way \texttt{summarize()} can be used to collapse each group into a single-row summary. \texttt{summarize()} does this by applying an aggregation or summary function to each group. For example, if we wanted to group by citrate-using mutant status and find the number of rows of data for each status, we would do:
 
@@ -2761,8 +2671,7 @@ Many data analysis tasks can be approached using the ``split-apply-combine'' par
 
 Here the summary function used was \texttt{n()} to find the count for each group. We can also apply many other functions to individual columns to get other summary statistics. For example, in the R base package we can use built-in functions like \texttt{mean}, \texttt{median}, \texttt{min}, and \texttt{max}. By default, all R functions operating on vectors that contains missing data will return \texttt{NA}. It's a way to make sure that users know they have missing data, and make a conscious decision on how to deal with it. When dealing with simple statistics like the \texttt{mean}, the easiest way to ignore \texttt{NA} (the missing data) is to use \texttt{na.rm=TRUE} (rm stands for remove).
 
-\hypertarget{exercise-7.9.1}{%
-\subsubsection*{EXERCISE 7.9.1}\label{exercise-7.9.1}}
+\subsubsection*{EXERCISE 7.9.1}\label{exercise-7.9.1}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.9.1}
 
 Use the \texttt{group\_by()} and \texttt{summarize()} to view mean \texttt{genome\_size} by mutant status (ie. cit).
@@ -2876,16 +2785,14 @@ You can also summarize multiple variables at the same time:
 
 For a summary of the tidyr and dplyr functions, see this \href{http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf}{Handy dplyr cheatsheet}.
 
-\hypertarget{exercise-7.9.2}{%
-\subsubsection*{EXERCISE 7.9.2}\label{exercise-7.9.2}}
+\subsubsection*{EXERCISE 7.9.2}\label{exercise-7.9.2}
 \addcontentsline{toc}{subsubsection}{EXERCISE 7.9.2}
 
 Create a tibble containing each unique clade (removing the samples with unknown clades) and the rank of it's mean genome size. (note that ranking genome size will not sort the table; the row order will be unchanged. You can use the \texttt{arrange()} function to sort the table).
 
 There are several functions for ranking observations, which handle tied values differently. For this exercise it doesn't matter which function you choose. Use the help options to find a ranking function.
 
-\hypertarget{other-great-resources}{%
-\section{Other great resources}\label{other-great-resources}}
+\section{Other great resources}\label{other-great-resources}
 
 \begin{itemize}
 \tightlist
@@ -2897,18 +2804,15 @@ There are several functions for ranking observations, which handle tied values d
   \href{https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/}{Data wrangling with R and RStudio} - 55 minute webinar from RStudio
 \end{itemize}
 
-\hypertarget{data-visualization-with-ggplot2}{%
-\chapter{Data Visualization with ggplot2}\label{data-visualization-with-ggplot2}}
+\chapter{Data Visualization with ggplot2}\label{data-visualization-with-ggplot2}
 
-\hypertarget{data}{%
-\section{Data}\label{data}}
+\section{Data}\label{data}
 
 This section uses a different data set from the same experiment - the LTEE (long-term evolution experiment). This data was pulished in: Tempo and mode of genome evolution in a 50,000-generation experiment \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4988878/}{Tenaillon et al 2016}.
 
 Download the data onto your computer from \href{https://www.dropbox.com/sh/pegir6j09mq7sia/AACQO9BnNAEl4EofAhmyqjmXa?dl=0}{this} dropbox link and move it into the \texttt{data} directory of your RStudio project.
 
-\hypertarget{exercise}{%
-\subsubsection*{EXERCISE}\label{exercise}}
+\subsubsection*{EXERCISE}\label{exercise}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Read the data into R. Call this data \texttt{variants}. Ensure that you have read the data in by calling \texttt{head(variants)}.
@@ -2954,23 +2858,24 @@ You can further investigate the structure of the data frame using the \texttt{st
 ##  $ gt_GT_alleles: chr  "G" "T" "T" "CTTTTTTTT" ...
 \end{verbatim}
 
-\hypertarget{exercise-1}{%
-\subsubsection*{EXERCISE}\label{exercise-1}}
+\subsubsection*{EXERCISE}\label{exercise-1}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Take a few minutes to familiarize yourself with this dataset. There are a lot of variables (how many?), so only worry about the ones listed below.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.10}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.90}}@{}}
-\toprule
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0980}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.9020}}@{}}
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Column
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Description
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 sample\_id & sample ID \\
 CHROM & contig location where the variation occurs \\
 POS & position within the contig where the variation occurs \\
@@ -2983,11 +2888,9 @@ IMF & maximum fraction of reads supporting an indel \\
 DP & the depth per allele by sample and coverage \\
 MQ & mapping quality \\
 Indiv & name of file \\
-\bottomrule
 \end{longtable}
 
-\hypertarget{plotting-with-ggplot2}{%
-\section{Plotting with ggplot2}\label{plotting-with-ggplot2}}
+\section{Plotting with ggplot2}\label{plotting-with-ggplot2}
 
 We start by loading the \texttt{ggplot2} package:
 
@@ -3108,16 +3011,14 @@ Notes:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{brain-teaser-2}{%
-\subsubsection*{Brain Teaser}\label{brain-teaser-2}}
+\subsubsection*{Brain Teaser}\label{brain-teaser-2}
 \addcontentsline{toc}{subsubsection}{Brain Teaser}
 
 Can you add multiple geom\_ layers to the same plot?
 A Yes
 B No
 
-\hypertarget{principles-of-effective-display}{%
-\subsection*{Principles of effective display}\label{principles-of-effective-display}}
+\subsection*{Principles of effective display}\label{principles-of-effective-display}
 \addcontentsline{toc}{subsection}{Principles of effective display}
 
 SOURCE: (Whitlock \& Schluter, The Analysis of Biological Data){[}\url{http://whitlockschluter.zoology.ubc.ca/}{]}
@@ -3128,14 +3029,12 @@ We will follow these metrics to create and evaluate figures:
 3. Represent magnitudes honestly
 4. Draw graphical elements clearly, minimizing clutter
 
-\hypertarget{exercise-2}{%
-\subsubsection*{EXERCISE}\label{exercise-2}}
+\subsubsection*{EXERCISE}\label{exercise-2}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Create a scatter plot (using the \texttt{geom\_point()} function for quality (\texttt{QUAL}) versus coverage depth (\texttt{DP}).
 
-\hypertarget{building-plots-iteratively}{%
-\subsection*{Building plots iteratively}\label{building-plots-iteratively}}
+\subsection*{Building plots iteratively}\label{building-plots-iteratively}
 \addcontentsline{toc}{subsection}{Building plots iteratively}
 
 Building plots with \texttt{ggplot2} is typically an iterative process. We start by defining the dataset we'll use, lay out the axes, and choose a geom:
@@ -3206,14 +3105,12 @@ To make our plot more readable, we can add axis labels:
 
 \includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-105-1.pdf}
 
-\hypertarget{exercise-3}{%
-\subsubsection*{EXERCISE}\label{exercise-3}}
+\subsubsection*{EXERCISE}\label{exercise-3}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Create a scatter plot of mapping quality (\texttt{MQ}) over position (\texttt{POS}) with the samples showing in different colors. Make sure to give your plot relevant axis labels.
 
-\hypertarget{faceting}{%
-\section{Faceting}\label{faceting}}
+\section{Faceting}\label{faceting}
 
 \texttt{ggplot2} has a special technique called faceting that allows the user to split one plot into multiple plots based on a factor included in the dataset. We will use it to split our mapping quality plot into three panels, one for each sample.
 
@@ -3259,14 +3156,12 @@ Usually plots with white background look more readable when printed. We can set 
 
 \includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-108-1.pdf}
 
-\hypertarget{exercise-4}{%
-\subsubsection*{EXERCISE}\label{exercise-4}}
+\subsubsection*{EXERCISE}\label{exercise-4}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Use what you just learned to create a scatter plot of PHRED scaled quality (\texttt{QUAL}) over position (\texttt{POS}) with the samples showing in different colors. Make sure to give your plot relevant axis labels.
 
-\hypertarget{barplots}{%
-\section{Barplots}\label{barplots}}
+\section{Barplots}\label{barplots}
 
 We can create barplots using the \texttt{geom\_bar} geom. Let's make a barplot showing the number of variants for each sample that are indels.
 
@@ -3280,14 +3175,12 @@ We can create barplots using the \texttt{geom\_bar} geom. Let's make a barplot s
 
 \includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-109-1.pdf}
 
-\hypertarget{exercise-5}{%
-\subsubsection*{EXERCISE}\label{exercise-5}}
+\subsubsection*{EXERCISE}\label{exercise-5}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Since we already have the sample\_id labels on the individual plot facets, we don't need the legend. Use the help file for \texttt{geom\_bar} and any other online resources you want to use to remove the legend from the plot.
 
-\hypertarget{histograms}{%
-\section{Histograms}\label{histograms}}
+\section{Histograms}\label{histograms}
 
 Sometimes it can be useful to plot a single variable at a time. Usually this is for exploratory purposes - to get a feel for a variable. To do this, use the \texttt{geom\_histogram()} function. For example, to look at the distribution of Qualities:
 
@@ -3315,21 +3208,18 @@ R is giving us a warning. We can choose to ignore this if we are able to see wha
 
 \includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-111-1.pdf}
 
-\hypertarget{exercise-6}{%
-\subsubsection*{EXERCISE}\label{exercise-6}}
+\subsubsection*{EXERCISE}\label{exercise-6}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 Create a plot that shows the distribution of Read Depth (DP) for each sample separately.
 
 Bonus challenge. Create this plot for only two of the three samples IDs - the two with many fewer variants.
 
-\hypertarget{boxplots}{%
-\section{Boxplots}\label{boxplots}}
+\section{Boxplots}\label{boxplots}
 
 When there are a large number of values for a certain variable (like for one of the samples above), boxplots can be a useful way to display summary statistics like the median, and ``spread'' of a variable.
 
-\hypertarget{the-five-number-summary}{%
-\subsection*{The Five Number Summary}\label{the-five-number-summary}}
+\subsection*{The Five Number Summary}\label{the-five-number-summary}
 \addcontentsline{toc}{subsection}{The Five Number Summary}
 
 The five number summary gives a quick look at the features of numerical variables. It consists of the variables:
@@ -3373,8 +3263,7 @@ To create a boxplot, use the \texttt{geom\_boxplot()} function:
 
 \includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-112-1.pdf}
 
-\hypertarget{exercise-7}{%
-\subsubsection*{EXERCISE}\label{exercise-7}}
+\subsubsection*{EXERCISE}\label{exercise-7}
 \addcontentsline{toc}{subsubsection}{EXERCISE}
 
 \begin{enumerate}
@@ -3388,18 +3277,15 @@ To create a boxplot, use the \texttt{geom\_boxplot()} function:
 
 Bonus challenge: Change the name of the legend to ``Sample ID''.
 
-\hypertarget{themes}{%
-\section{Themes}\label{themes}}
+\section{Themes}\label{themes}
 
 In addition to \texttt{theme\_bw()}, which changes the plot background to white, \texttt{ggplot2} comes with several other themes which can be useful to quickly change the look of your visualization. The complete list of themes is available at \url{https://ggplot2.tidyverse.org/reference/ggtheme.html}. \texttt{theme\_minimal()} and \texttt{theme\_light()} are popular, and \texttt{theme\_void()} can be useful as a starting point to create a new hand-crafted theme.
 
 The \texttt{ggthemes} package provides a wide variety of options (including an Excel 2003 theme). The \texttt{ggplot2} \href{https://www.ggplot2-exts.org}{extensions website} provides a list of packages that extend the capabilities of \texttt{ggplot2}, including additional themes.
 
-\hypertarget{project}{%
-\chapter{Project}\label{project}}
+\chapter{Project}\label{project}
 
-\hypertarget{introduction-1}{%
-\section*{Introduction}\label{introduction-1}}
+\section*{Introduction}\label{introduction-1}
 \addcontentsline{toc}{section}{Introduction}
 
 The data we're going to work with comes from a yeast microarray experiment \href{http://www.molbiolcell.org/content/19/1/352.abstract}{(Brauer, 2008)} where the authors measured gene expression in 36 chemostat cultures where growth was limited by one of six nutrients (glucose, ammonium, sulfate, phosphate, uracil, or leucine) at 6 different growth rates.
@@ -3408,14 +3294,12 @@ The R world is full of niche tools designed for a specific problem or data type.
 
 For this project we're going to take some genomic data and analyze it with the tools that we've been learning. The take-away from this project to make the tools work for you instead of you working for them. Data, genomic or not, is still data and we can use the tools available to us in R to gain valuable insights.
 
-\hypertarget{task-0-download-the-data}{%
-\section*{Task 0: Download the data}\label{task-0-download-the-data}}
+\section*{Task 0: Download the data}\label{task-0-download-the-data}
 \addcontentsline{toc}{section}{Task 0: Download the data}
 
 You can find the data for download from dropbox \href{https://www.dropbox.com/sh/jqu2ixdug5el66f/AAB86klTjyR-JgW502KXwbj1a?dl=0}{here}.
 
-\hypertarget{task-1-data-import-and-examination}{%
-\section*{Task 1: Data import and examination}\label{task-1-data-import-and-examination}}
+\section*{Task 1: Data import and examination}\label{task-1-data-import-and-examination}
 \addcontentsline{toc}{section}{Task 1: Data import and examination}
 
 The first task of almost all analysis is to get the data into R and spend a little time understanding it's structure. Although you may be tempted to rush into an analysis it pays to take a bit of time to understand what you are working with and do some cleaning before you dive in too deep. This is important help you avoid costly mistakes and wasted time downstream.
@@ -3441,28 +3325,6 @@ Your goal is get the data loaded into R and answer the following questions:
 
 As you look through the data start thinking about what steps you'll need to get it into a workable state.
 
-\hypertarget{task-1-solution}{%
-\subsection*{Task 1 Solution}\label{task-1-solution}}
-\addcontentsline{toc}{subsection}{Task 1 Solution}
-
-1. How many rows and columns are there?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-
-\NormalTok{raw }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/Brauer2008\_DataSet1.csv"}\NormalTok{)}
-\CommentTok{\#head(raw)}
-\FunctionTok{dim}\NormalTok{(raw)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 5537   40
-\end{verbatim}
-
-There are 5537 rows and 40 columns.
-
 2. What do the rows and columns represent?
 
 Rows are genes and columns are a mix of different variables including gene names and expression values.
@@ -3479,8 +3341,7 @@ The columns that have the gene expression values don't look right. Something is 
 
 It's not. Each observation does not form a row and each variable does not form a column.
 
-\hypertarget{task-2-data-tidying}{%
-\section*{Task 2: Data Tidying}\label{task-2-data-tidying}}
+\section*{Task 2: Data Tidying}\label{task-2-data-tidying}
 \addcontentsline{toc}{section}{Task 2: Data Tidying}
 
 Never underestimate the amount of time and effort it will take to tame a wild dataset into something usable. Even if someone has already processed and ``cleaned'' the data before you (such as our current dataset) it is likely that you will need to spend some time fiddling with it for your particular needs (or for a particular function you want to use).
@@ -3516,8 +3377,7 @@ Try to code all the cleaning steps as a single pipeline. Remember the \texttt{se
 
 \textbf{Bonus:} Your cleaning steps may have left some variables with extra white space at the end. Hint: Using \texttt{mutate\_at()} with the \texttt{str\_trim} option, see if you can clean these up.
 
-\hypertarget{task-2-solution}{%
-\subsection*{Task 2 Solution}\label{task-2-solution}}
+\subsection*{Task 2 Solution}\label{task-2-solution}
 \addcontentsline{toc}{subsection}{Task 2 Solution}
 
 1. Which column contains multiple variables? Split it up so each column represents a single variable.
@@ -3613,8 +3473,7 @@ Why yes, it seems that our \texttt{variable} column is comprised of both nutrien
 ## 6  1083036        G        0.05      -0.69
 \end{verbatim}
 
-\hypertarget{task-3-plots}{%
-\section*{Task 3: Plots}\label{task-3-plots}}
+\section*{Task 3: Plots}\label{task-3-plots}
 \addcontentsline{toc}{section}{Task 3: Plots}
 
 Whew! Alright, that's done, but now you might asking why spend all that time cleaning up the data. Hopefully you should be able to answer that question by now but moving on to making some plots will help make it even more clear.
@@ -3644,8 +3503,7 @@ In a typical analysis you wouldn't necessarily know which gene(s) to start looki
 
 \textbf{Bonus:} To increase readability of the plot it can helpful to change those nutrients from letters to full words. Although there are ways to do this directly in ggplot the easiest is to change it in the original data.
 
-\hypertarget{task-3-solution}{%
-\subsection*{Task 3 Solution}\label{task-3-solution}}
+\subsection*{Task 3 Solution}\label{task-3-solution}
 \addcontentsline{toc}{subsection}{Task 3 Solution}
 
 1. Filter your now cleaned data to contain only the gene LEU1.
@@ -3769,8 +3627,7 @@ Bonus: Changing nutrient names
 
 \includegraphics{IntroRWorkshop_files/figure-latex/unnamed-chunk-126-1.pdf}
 
-\hypertarget{task-4-heatmap}{%
-\section*{Task 4: Heatmap}\label{task-4-heatmap}}
+\section*{Task 4: Heatmap}\label{task-4-heatmap}
 \addcontentsline{toc}{section}{Task 4: Heatmap}
 
 Heatmaps are quite popular but generally useless visualisations used frequently in the genomic sciences. They can show a large amount of information in a small space, however, this very feature often renders them useless in terms of interpretability. Yet, for some applications they can be useful and let's face it, your supervisor propbably wants one so it's a good skill to have.
@@ -3792,8 +3649,7 @@ Questions to answer:
   Once you've got data in the correct format start by making a simple heatmap with default parameters. Do you like it? Is there anything wrong with it? What would change from a data interpretation perspective? What about from aethetics perspective?
 \end{enumerate}
 
-\hypertarget{task-4-solution}{%
-\subsection*{Task 4 Solution}\label{task-4-solution}}
+\subsection*{Task 4 Solution}\label{task-4-solution}
 \addcontentsline{toc}{subsection}{Task 4 Solution}
 
 1. Start by installing the \texttt{pheatmap} package from CRAN. Have a look at the help page for the \texttt{pheatamp()} function. Which argument specifies the data? What format does it need?
